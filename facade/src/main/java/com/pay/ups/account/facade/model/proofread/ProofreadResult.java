@@ -12,22 +12,25 @@ public class ProofreadResult extends Model{
 	private Long proofreadResultId;
 	
 	//对账系统 参考 FromSystem
-	private String system;
+	private String fromSystem;
 	
-	//对账类型  1借款对账  2还款对账
+	//对账类型  参见ProofreadAccountType 01借款对账  02还款对账
 	private String proofreadType;
 	
-	//执行是否成功 true 成功 false 失败
+	//总体执行是否成功 true 成功 false 失败
 	private Boolean success;
 	
 	//失败原因
 	private String failReason;
 	
+	//下载解析是否 成功
+    private Boolean downloadSuccess;
+    	
 	//失败次数
 	private Integer failCount;
 	
-	//执行失败时间
-	private String failTime;
+	//执行时间
+	private String excuteTime;
 
 	public Long getProofreadResultId() {
 		return proofreadResultId;
@@ -37,12 +40,12 @@ public class ProofreadResult extends Model{
 		this.proofreadResultId = proofreadResultId;
 	}
 
-	public String getSystem() {
-		return system;
+	public String getFromSystem() {
+		return fromSystem;
 	}
 
-	public void setSystem(String system) {
-		this.system = system;
+	public void setFromSystem(String fromSystem) {
+		this.fromSystem = fromSystem;
 	}
 
 	public String getProofreadType() {
@@ -69,6 +72,14 @@ public class ProofreadResult extends Model{
 		this.failReason = failReason;
 	}
 
+	public Boolean getDownloadSuccess() {
+		return downloadSuccess;
+	}
+
+	public void setDownloadSuccess(Boolean downloadSuccess) {
+		this.downloadSuccess = downloadSuccess;
+	}
+
 	public Integer getFailCount() {
 		return failCount;
 	}
@@ -77,12 +88,13 @@ public class ProofreadResult extends Model{
 		this.failCount = failCount;
 	}
 
-	public String getFailTime() {
-		return failTime;
+	public String getExcuteTime() {
+		return excuteTime;
 	}
 
-	public void setFailTime(String failTime) {
-		this.failTime = failTime;
+	public void setExcuteTime(String excuteTime) {
+		this.excuteTime = excuteTime;
 	}
-      
+
+	
 }
