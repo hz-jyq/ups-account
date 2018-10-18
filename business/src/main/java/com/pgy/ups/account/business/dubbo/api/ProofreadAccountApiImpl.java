@@ -8,9 +8,8 @@ import com.pgy.ups.account.facade.model.proofread.BussinessProofreadModel;
 import com.pgy.ups.account.facade.model.proofread.ProofreadResult;
 
 @Service
-public class ProofreadAccountApiImpl implements ProofreadAccountApi{
-	
-	
+public class ProofreadAccountApiImpl implements ProofreadAccountApi {
+
 	/**
 	 * 对账方法 由外部系统调用
 	 * 
@@ -24,9 +23,10 @@ public class ProofreadAccountApiImpl implements ProofreadAccountApi{
 	@Override
 	public ProofreadResult ProofreadInStart(List<BussinessProofreadModel> list, String fromSystem,
 			String proofreadAccountType, Long proofreadResultId) {
-		// TODO Auto-generated method stub
+
+	
+		
 		return null;
 	}
 
-      
 }
