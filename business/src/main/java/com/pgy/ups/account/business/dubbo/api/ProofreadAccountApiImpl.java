@@ -1,4 +1,4 @@
-package com.pgy.ups.account.bussiness.dubbo.api;
+package com.pgy.ups.account.business.dubbo.api;
 
 import java.util.List;
 
