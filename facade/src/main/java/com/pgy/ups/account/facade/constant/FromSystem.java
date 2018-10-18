@@ -1,4 +1,4 @@
-package com.pay.ups.account.facade.constant;
+package com.pgy.ups.account.facade.constant;
 
 public class FromSystem {
 	

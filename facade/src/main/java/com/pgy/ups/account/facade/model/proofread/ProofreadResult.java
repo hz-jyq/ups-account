@@ -1,6 +1,6 @@
-package com.pay.ups.account.facade.model.proofread;
+package com.pgy.ups.account.facade.model.proofread;
 
-import com.pay.ups.account.facade.model.Model;
+import com.pgy.ups.account.facade.model.Model;
 
 /**
  * 校验账单结果实体

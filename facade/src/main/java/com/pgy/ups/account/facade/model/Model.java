@@ -1,4 +1,4 @@
-package com.pay.ups.account.facade.model;
+package com.pgy.ups.account.facade.model;
 
 import java.io.Serializable;
 

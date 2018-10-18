@@ -3,9 +3,9 @@ package com.pgy.ups.account.bussiness.dubbo.api;
 import java.util.List;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.pay.ups.account.facade.model.proofread.BussinessProofreadModel;
-import com.pay.ups.account.facade.model.proofread.ProofreadResult;
 import com.pgy.ups.account.facade.dubbo.api.ProofreadAccountApi;
+import com.pgy.ups.account.facade.model.proofread.BussinessProofreadModel;
+import com.pgy.ups.account.facade.model.proofread.ProofreadResult;
 
 @Service
 public class ProofreadAccountApiImpl implements ProofreadAccountApi{

@@ -1,9 +1,8 @@
 package com.pgy.ups.account.business.dao.mapper;
 
 
-import com.pay.ups.account.facade.from.Form;
-import com.pay.ups.account.facade.model.AuthSignConfig;
-
+import com.pgy.ups.account.facade.from.Form;
+import com.pgy.ups.account.facade.model.AuthSignConfig;
 
 import java.util.List;
 

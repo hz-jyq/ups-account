@@ -2,8 +2,8 @@ package com.pgy.ups.account.facade.dubbo.api;
 
 import java.util.List;
 
-import com.pay.ups.account.facade.model.proofread.BussinessProofreadModel;
-import com.pay.ups.account.facade.model.proofread.ProofreadResult;
+import com.pgy.ups.account.facade.model.proofread.BussinessProofreadModel;
+import com.pgy.ups.account.facade.model.proofread.ProofreadResult;
 
 public interface ProofreadAccountApi {
 
