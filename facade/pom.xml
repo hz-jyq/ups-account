@@ -33,6 +33,11 @@
             <artifactId>spring-boot-starter-dubbo</artifactId>
             <version>${dubbo-spring-boot}</version>
         </dependency>-->
+        <dependency>
+        	<groupId>com.pgy.upsAccount</groupId>
+        	<artifactId>ups-account-common</artifactId>
+        	<version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

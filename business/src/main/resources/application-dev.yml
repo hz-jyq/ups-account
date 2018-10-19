@@ -60,5 +60,23 @@ dubbo:
   logger: slf4j
   address: zookeeper://127.0.0.1:2181
   zkClient: curator   
-    
+
+#对账功能参数
+ups:
+  account:
+    proofread:
+      baofu:
+        params:
+          version: 4.0.0.1
+          #对账文件下载地址
+          requestUrl: https://vgw.baofoo.com/boas/api/fileLoadNewRequest
+          #借款
+          borrows: fo
+          #还款
+          returns: fi
+          #还款商户号
+          businessReturnNum: 100000178
+          #借款商户号
+          businessBorrowNum: 100000178
+             
     

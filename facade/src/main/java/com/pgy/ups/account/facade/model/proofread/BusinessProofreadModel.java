@@ -2,7 +2,7 @@ package com.pgy.ups.account.facade.model.proofread;
 
 import com.pgy.ups.account.facade.model.Model;
 
-public class BussinessProofreadModel extends Model{
+public class BusinessProofreadModel extends Model{
 
 	/**
 	 * 
@@ -12,13 +12,13 @@ public class BussinessProofreadModel extends Model{
 	private Long id;
 	
 	//商户订单号
-	private String bussinessOrderNum;
+	private String businessOrderNum;
 	
 	//交易金额
 	private String exchangeAmount;
 	
 	//业务订单状态
-	private String bussinessOrderStatuts;
+	private String businessOrderStatuts;
 	
 	//业务订单创建时间
 	private String orderCreateTime;
@@ -31,12 +31,12 @@ public class BussinessProofreadModel extends Model{
 		this.id = id;
 	}
 
-	public String getBussinessOrderNum() {
-		return bussinessOrderNum;
+	public String getBusinessOrderNum() {
+		return businessOrderNum;
 	}
 
-	public void setBussinessOrderNum(String bussinessOrderNum) {
-		this.bussinessOrderNum = bussinessOrderNum;
+	public void setBusinessOrderNum(String businessOrderNum) {
+		this.businessOrderNum = businessOrderNum;
 	}
 
 	public String getExchangeAmount() {
@@ -48,11 +48,11 @@ public class BussinessProofreadModel extends Model{
 	}
 
 	public String getBussinessOrderStatuts() {
-		return bussinessOrderStatuts;
+		return businessOrderStatuts;
 	}
 
-	public void setBussinessOrderStatuts(String bussinessOrderStatuts) {
-		this.bussinessOrderStatuts = bussinessOrderStatuts;
+	public void setBussinessOrderStatuts(String businessOrderStatuts) {
+		this.businessOrderStatuts = businessOrderStatuts;
 	}
 
 	public String getOrderCreateTime() {

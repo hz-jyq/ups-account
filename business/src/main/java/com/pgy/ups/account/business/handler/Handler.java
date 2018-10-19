@@ -13,6 +13,6 @@ public interface Handler<T, R> {
 	 * 
 	 * @return
 	 */
-	R handler(T t);
+	R handler(T t) throws Exception;
 
 }

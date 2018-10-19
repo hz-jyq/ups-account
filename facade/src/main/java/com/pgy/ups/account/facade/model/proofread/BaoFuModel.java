@@ -3,11 +3,11 @@ package com.pgy.ups.account.facade.model.proofread;
 import com.pgy.ups.account.facade.model.Model;
 
 /**
- * 宝付还款数据模型
+ * 宝付数据模型
  * @author 墨凉
  *
  */
-public class BaoFuReturnModel extends Model{
+public class BaoFuModel extends Model{
     /**
 	 * 
 	 */
@@ -17,7 +17,7 @@ public class BaoFuReturnModel extends Model{
 	private Long id;
 	
 	//商户号
-	private String bussinessNum;
+	private String businessNum;
 	
 	//系统编码：参考 FromSystem
 	private String systeFrom;
@@ -38,7 +38,7 @@ public class BaoFuReturnModel extends Model{
 	private String baofuOrderNum;
 	
 	//商户订单号
-	private String bussinessOrderNum;
+	private String businessOrderNum;
 	
 	//清算日期
 	private  String caculateTime;
@@ -59,7 +59,7 @@ public class BaoFuReturnModel extends Model{
 	private String orderCreateTime;
 	
 	//商户退款订单号
-	private String bussinessRefundOrderNum;
+	private String businessRefundOrderNum;
 	
 	//退款订单创建时间
 	private String refundOrderCreateTime;
@@ -72,12 +72,12 @@ public class BaoFuReturnModel extends Model{
 		this.id = id;
 	}
 
-	public String getBussinessNum() {
-		return bussinessNum;
+	public String getBusinessNum() {
+		return businessNum;
 	}
 
-	public void setBussinessNum(String bussinessNum) {
-		this.bussinessNum = bussinessNum;
+	public void setBusinessNum(String bussinessNum) {
+		this.businessNum = bussinessNum;
 	}
 
 	public String getSysteFrom() {
@@ -128,12 +128,12 @@ public class BaoFuReturnModel extends Model{
 		this.baofuOrderNum = baofuOrderNum;
 	}
 
-	public String getBussinessOrderNum() {
-		return bussinessOrderNum;
+	public String getBusinessOrderNum() {
+		return businessOrderNum;
 	}
 
-	public void setBussinessOrderNum(String bussinessOrderNum) {
-		this.bussinessOrderNum = bussinessOrderNum;
+	public void setBusinessOrderNum(String businessOrderNum) {
+		this.businessOrderNum = businessOrderNum;
 	}
 
 	public String getCaculateTime() {
@@ -184,12 +184,12 @@ public class BaoFuReturnModel extends Model{
 		this.orderCreateTime = orderCreateTime;
 	}
 
-	public String getBussinessRefundOrderNum() {
-		return bussinessRefundOrderNum;
+	public String getBusinessRefundOrderNum() {
+		return businessRefundOrderNum;
 	}
 
-	public void setBussinessRefundOrderNum(String bussinessRefundOrderNum) {
-		this.bussinessRefundOrderNum = bussinessRefundOrderNum;
+	public void setBussinessRefundOrderNum(String businessRefundOrderNum) {
+		this.businessRefundOrderNum = businessRefundOrderNum;
 	}
 
 	public String getRefundOrderCreateTime() {

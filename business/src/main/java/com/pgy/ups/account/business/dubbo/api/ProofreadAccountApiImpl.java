@@ -1,14 +1,24 @@
 package com.pgy.ups.account.business.dubbo.api;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import com.alibaba.dubbo.config.annotation.Service;
+import com.pgy.ups.account.business.factory.proofread.BaofuProofreadHandlerFactory;
+import com.pgy.ups.account.business.factory.proofread.ProofreadHandlerFactory;
+import com.pgy.ups.account.business.handler.proofread.ProofreadHandler;
 import com.pgy.ups.account.facade.dubbo.api.ProofreadAccountApi;
-import com.pgy.ups.account.facade.model.proofread.BussinessProofreadModel;
+import com.pgy.ups.account.facade.model.proofread.BaoFuModel;
+import com.pgy.ups.account.facade.model.proofread.BusinessProofreadModel;
 import com.pgy.ups.account.facade.model.proofread.ProofreadResult;
 
 @Service
 public class ProofreadAccountApiImpl implements ProofreadAccountApi {
+
+	@Resource(type = BaofuProofreadHandlerFactory.class)
+	private ProofreadHandlerFactory baofuProofreadHandlerFactory;
 
 	/**
 	 * 对账方法 由外部系统调用
@@ -21,12 +31,18 @@ public class ProofreadAccountApiImpl implements ProofreadAccountApi {
 	 */
 
 	@Override
-	public ProofreadResult ProofreadInStart(List<BussinessProofreadModel> list, String fromSystem,
-			String proofreadAccountType, Long proofreadResultId) {
-
-	
-		
-		return null;
+	public synchronized ProofreadResult ProofreadStart(List<BusinessProofreadModel> list, String fromSystem,
+			String proofreadAccountType, Date date,Long proofreadResultId) {
+		// 宝付对账处理工厂
+		ProofreadHandler<String, List<BaoFuModel>> proofreadHandler = baofuProofreadHandlerFactory
+				.getProofreadHandler(fromSystem, proofreadAccountType, date,proofreadResultId);
+		try {
+			return proofreadHandler.handler(list);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

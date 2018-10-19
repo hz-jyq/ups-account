@@ -6,16 +6,12 @@ import org.springframework.context.annotation.Configuration;
 import com.alibaba.dubbo.config.ApplicationConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.config.spring.context.annotation.DubboComponentScan;
+import com.pgy.ups.account.business.configurationproperties.DubboProperties;
 
 @Configuration
 @DubboComponentScan("com.pgy.ups.account.bussiness.dubbo.api")
 public class DubboConfiguration {
     
-	@Bean
-	public DubboProperties getDubboProperties() {
-		return new DubboProperties();
-	}
-	
 	@Bean
 	public ApplicationConfig applicationConfig(DubboProperties dubboProperties) {
 		ApplicationConfig applicationConfig = new ApplicationConfig();

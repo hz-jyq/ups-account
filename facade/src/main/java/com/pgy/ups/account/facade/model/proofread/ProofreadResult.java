@@ -95,6 +95,20 @@ public class ProofreadResult extends Model{
 	public void setExcuteTime(String excuteTime) {
 		this.excuteTime = excuteTime;
 	}
+	
+	public void appendFailReason(String newReason) {
+		StringBuilder sb=new StringBuilder(failReason);
+		sb.append(",").append(newReason);
+		failReason=sb.toString();
+	}
+	
+	public void increaseFailCount() {
+		if(failCount==null) {
+			failCount=1;
+		}else {
+			failCount++;
+		}
+	}
 
 	
 }

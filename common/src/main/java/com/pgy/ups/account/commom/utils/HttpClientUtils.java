@@ -25,7 +25,7 @@ public class HttpClientUtils {
 	 * @param params
 	 * @return
 	 */
-	public static String sentRequest(String url, Map<String, String> params) {
+	public static String sentRequest(String url, Map<String, Object> params) {
 		String paramStr = transferToRequestStr(params);
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		try {
@@ -53,7 +53,7 @@ public class HttpClientUtils {
 	 * @param paramMap
 	 * @return
 	 */
-	public static String transferToRequestStr(Map<String, String> paramMap) {
+	public static String transferToRequestStr(Map<String, Object> paramMap) {
 		if (MapUtils.isEmpty(paramMap)) {
 			return StringUtils.EMPTY;
 		}
