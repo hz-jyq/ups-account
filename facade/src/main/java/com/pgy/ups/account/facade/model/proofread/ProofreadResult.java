@@ -1,5 +1,8 @@
 package com.pgy.ups.account.facade.model.proofread;
 
+import java.util.Objects;
+
+import com.baomidou.mybatisplus.toolkit.StringUtils;
 import com.pgy.ups.account.facade.model.Model;
 
 /**
@@ -9,7 +12,7 @@ public class ProofreadResult extends Model{
 
 	private static final long serialVersionUID = 2421214951235198688L;
 	
-	private Long proofreadResultId;
+	private Long id;
 	
 	//对账系统 参考 FromSystem
 	private String fromSystem;
@@ -29,15 +32,18 @@ public class ProofreadResult extends Model{
 	//失败次数
 	private Integer failCount;
 	
+	//需要对账的日期
+	private String proofreadDate;
+	
 	//执行时间
 	private String excuteTime;
 
-	public Long getProofreadResultId() {
-		return proofreadResultId;
+	public Long getId() {
+		return id;
 	}
 
-	public void setProofreadResultId(Long proofreadResultId) {
-		this.proofreadResultId = proofreadResultId;
+	public void setProofreadResultId(Long id) {
+		this.id=id;
 	}
 
 	public String getFromSystem() {
@@ -98,7 +104,10 @@ public class ProofreadResult extends Model{
 	
 	public void appendFailReason(String newReason) {
 		StringBuilder sb=new StringBuilder(failReason);
-		sb.append(",").append(newReason);
+		if(!StringUtils.isEmpty(failReason)) {
+			sb.append(",");
+		}
+		sb.append(newReason);
 		failReason=sb.toString();
 	}
 	
@@ -110,5 +119,12 @@ public class ProofreadResult extends Model{
 		}
 	}
 
+	public String getProofreadDate() {
+		return proofreadDate;
+	}
+
+	public void setProofreadDate(String proofreadDate) {
+		this.proofreadDate = proofreadDate;
+	}
 	
 }

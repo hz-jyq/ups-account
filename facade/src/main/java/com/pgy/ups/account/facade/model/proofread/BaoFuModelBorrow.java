@@ -1,7 +1,7 @@
 package com.pgy.ups.account.facade.model.proofread;
 
 /**
- * 宝付还款数据模型
+ * 宝付借款下载数据模型
  * @author 墨凉
  *
  */
@@ -26,6 +26,11 @@ public class BaoFuModelBorrow extends BaoFuModel {
 	 * 收款人姓名
 	 */
 	private String recievePersonName;
+	
+	/**
+	 * 代付订单创建时间
+	 */
+	private String proxyOrderCreateTime;
 
 	public String getProxyBusinessOrderNum() {
 		return proxyBusinessOrderNum;
@@ -58,5 +63,17 @@ public class BaoFuModelBorrow extends BaoFuModel {
 	public void setRecievePersonName(String recievePersonName) {
 		this.recievePersonName = recievePersonName;
 	}
+
+	public String getProxyOrderCreateTime() {
+		return proxyOrderCreateTime;
+	}
+
+	public void setProxyOrderCreateTime(String proxyOrderCreateTime) {
+		this.proxyOrderCreateTime = proxyOrderCreateTime;
+	}
+	
+	
+
+	
 
 }

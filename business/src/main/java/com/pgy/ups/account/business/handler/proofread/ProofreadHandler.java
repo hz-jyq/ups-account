@@ -33,15 +33,11 @@ public interface ProofreadHandler<T, E> extends Handler<List<BusinessProofreadMo
 	 * 对账类型
 	 */
 	public void setProofreadAccountType(String proofreadAccountType);
-
-	/**
-	 * 对账结果Id
-	 */
-	public void setProofreadResultId(Long proofreadResultId);
 	
 	/**
 	 * 设置对账日期
 	 */
 	public void setDate(Date date) ;
+	
 		
 }

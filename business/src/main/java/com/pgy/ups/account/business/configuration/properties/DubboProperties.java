@@ -1,4 +1,4 @@
-package com.pgy.ups.account.business.configurationproperties;
+package com.pgy.ups.account.business.configuration.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

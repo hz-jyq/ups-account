@@ -31,11 +31,11 @@ public class ProofreadAccountApiImpl implements ProofreadAccountApi {
 	 */
 
 	@Override
-	public synchronized ProofreadResult ProofreadStart(List<BusinessProofreadModel> list, String fromSystem,
-			String proofreadAccountType, Date date,Long proofreadResultId) {
+	public ProofreadResult ProofreadStart(List<BusinessProofreadModel> list, String fromSystem,
+			String proofreadAccountType, Date date) {
 		// 宝付对账处理工厂
-		ProofreadHandler<String, List<BaoFuModel>> proofreadHandler = baofuProofreadHandlerFactory
-				.getProofreadHandler(fromSystem, proofreadAccountType, date,proofreadResultId);
+		ProofreadHandler<String, List<? extends BaoFuModel>> proofreadHandler = baofuProofreadHandlerFactory
+				.getProofreadHandler(fromSystem, proofreadAccountType, date);
 		try {
 			return proofreadHandler.handler(list);
 		} catch (Exception e) {

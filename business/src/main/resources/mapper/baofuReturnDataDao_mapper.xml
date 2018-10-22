@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.pgy.ups.account.business.dao.mapper.BaofuReturnDataDao">
+
+    
+	<sql id="baofuReturnColumn">
+		id,
+		systemFrom,
+		DATE_FORMAT(downLoadTime ,'%Y-%m-%d %H:%i:%s') as downLoadTime,		
+		DATE_FORMAT(proofreadDate ,'%Y-%m-%d') as proofreadDate,		
+		businessNum,
+		terminalNum,
+		exchangeType,
+		subExchangeType,
+		baofuOrderNum,
+		businessOrderNum,
+		DATE_FORMAT(caculateTime ,'%Y-%m-%d') as caculateTime,		
+		orderStatus,
+		exchangeAmount,
+		exchangeTip,
+		baofuExchangeNum,
+		DATE_FORMAT(orderCreateTime ,'%Y-%m-%d %H:%i:%s') as orderCreateTime,		
+		businessRefundOrderNum,
+		DATE_FORMAT(refundOrderCreateTime ,'%Y-%m-%d %H:%i:%s') as refundOrderCreateTime
+	</sql>
+
+	<insert id="batchInsert" parameterType="java.util.List">
+		INSERT INTO ua_t_account_baofu_fi VALUES
+		<foreach collection="list" item="item" separator=",">
+			(
+			null,
+			#{item.systemFrom},
+			#{item.downLoadTime},
+			#{item.proofreadDate},
+			#{item.businessNum},
+			#{item.terminalNum},
+			#{item.exchangeType},
+			#{item.subExchangeType},
+			#{item.baofuOrderNum},
+			#{item.businessOrderNum},
+			#{item.caculateTime},
+			#{item.orderStatus},
+			#{item.exchangeAmount},
+			#{item.exchangeTip},
+			#{item.baofuExchangeNum},
+			#{item.orderCreateTime},
+			#{item.businessRefundOrderNum},
+			#{item.refundOrderCreateTime}
+			)
+		</foreach>
+	</insert>
+
+	<select id="queryBaoFuReturnDataList"
+		resultType="BaoFuModelReturn">
+		SELECT
+		<include refid="baofuReturnColumn" />
+		FROM
+		ua_t_account_baofu_fi
+		WHERE
+		<choose>
+			<when test="proofreadDate!=null and proofreadDate!=''">
+				proofreadDate=#{proofreadDate}
+			</when>
+			<otherwise>
+				1=2
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="systemFrom!=null and systemFrom!=''">
+				AND systemFrom=#{systemFrom}
+			</when>
+			<otherwise>
+				AND 1=2
+			</otherwise>
+		</choose>
+	</select>
+
+</mapper>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.pgy.ups.account.business.dao.mapper.ProofreadResultDao">
+
+	<sql id="proofreadResultColumn">
+		id,
+		fromSystem,
+		proofreadType,
+		success,
+		failReason,
+		downloadSuccess,
+		failCount,
+		DATE_FORMAT(excuteTime ,'%Y-%m-%d %H:%i:%s')
+		as excuteTime,
+		DATE_FORMAT(proofreadDate ,'%Y-%m-%d') as proofreadDate
+	</sql>
+
+	<select id="queryProofreadResultById"
+		resultType="ProofreadResult">
+		SELECT
+		<include refid="proofreadResultColumn" />
+		FROM
+		ua_t_account_proofreadResult
+		WHERE
+		id=#{id}
+	</select>
+
+	<select id="queryProofreadResult" resultType="ProofreadResult"
+		parameterType="java.util.HashMap">
+		SELECT
+		<include refid="proofreadResultColumn" />
+		FROM
+		ua_t_account_proofreadResult
+		WHERE
+		<choose>
+			<when test="fromSystem !=null and fromSystem!=''">
+				fromSystem=#{fromSystem}
+			</when>
+			<otherwise>
+				1=2
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="proofreadType!=null and proofreadType!=''">
+				AND proofreadType=#{proofreadType}
+			</when>
+			<otherwise>
+				1=2
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="proofreadDate != null and proofreadDate!=''">
+				AND proofreadDate=#{proofreadDate}
+			</when>
+			<otherwise>
+				1=2
+			</otherwise>
+		</choose>
+	</select>
+
+	<insert id="createProofreadResult">
+
+		INSERT INTO ua_t_account_proofreadResult
+		(
+		<if test="fromSystem!=null">
+			fromSystem,
+		</if>
+		<if test="proofreadType!=null">
+			proofreadType,
+		</if>
+		<if test="success!=null">
+			success,
+		</if>
+		<if test="failReason!=null">
+			failReason,
+		</if>
+		<if test="downloadSuccess!=null">
+			downloadSuccess,
+		</if>
+		<if test="failCount!=null">
+			failCount,
+		</if>
+		<if test="proofreadDate!=null">
+			proofreadDate,
+		</if>
+		excuteTime
+		)VALUES(
+		<if test="fromSystem!=null">
+			#{fromSystem},
+		</if>
+		<if test="proofreadType!=null">
+			#{proofreadType},
+		</if>
+		<if test="success!=null">
+			#{success},
+		</if>
+		<if test="failReason!=null">
+			#{failReason},
+		</if>
+		<if test="downloadSuccess!=null">
+			#{downloadSuccess},
+		</if>
+		<if test="failCount!=null">
+			#{failCount},
+		</if>
+		<if test="proofreadDate!=null">
+			#{proofreadDate},
+		</if>
+		NOW()
+		)
+		<selectKey resultType="java.lang.Long" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID() as id
+		</selectKey>
+	</insert>
+
+	<update id="updateProofreadResult"
+		parameterType="ProofreadResult">
+		UPDATE ua_t_account_proofreadResult
+		SET
+		<if test="fromSystem!=null">
+			fromSystem=#{fromSystem},
+		</if>
+		<if test="proofreadType!=null">
+			proofreadType=#{proofreadType},
+		</if>
+		<if test="success!=null">
+			success=#{success},
+		</if>
+		<if test="failReason!=null">
+			failReason=#{failReason},
+		</if>
+		<if test="downloadSuccess!=null">
+			downloadSuccess=#{downloadSuccess},
+		</if>
+		<if test="failCount!=null">
+			failCount=#{failCount},
+		</if>
+		<if test="proofreadDate!=null">
+			proofreadDate=#{proofreadDate},
+		</if>
+		excuteTime=NOW()
+		WHERE
+		<choose>
+			<when test="id!=null">
+				id=#{id}
+			</when>
+			<otherwise>
+				1=2
+			</otherwise>
+		</choose>
+	</update>
+
+
+</mapper>

@@ -15,10 +15,9 @@ public interface ProofreadAccountApi {
 	 * @param fromSystem           系统编码,参考FromSystem类
 	 * @param proofreadAccountType 借款 或 还款,参考 ProofreadAccountType类
 	 * @param date                 需要对账的日期
-	 * @param proofreadResultId    非首次调用是，需传递上一次调用失败的proofreadResultId。首次调用则传null
 	 * @return
 	 */
 	ProofreadResult ProofreadStart(List<BusinessProofreadModel> list, String fromSystem, String proofreadAccountType,
-			Date date,Long proofreadResultId);
+			Date date);
 
 }

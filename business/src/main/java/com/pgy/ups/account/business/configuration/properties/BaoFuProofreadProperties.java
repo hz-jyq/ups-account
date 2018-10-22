@@ -1,4 +1,4 @@
-package com.pgy.ups.account.business.configurationproperties;
+package com.pgy.ups.account.business.configuration.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -20,9 +20,19 @@ public class BaoFuProofreadProperties {
 	private String businessReturnNum;
 
 	private String businessBorrowNum;
+	
+	private String localAddress;
 
 	public String getVersion() {
 		return version;
+	}
+    
+	public String getLocalAddress() {
+		return localAddress;
+	}
+
+	public void setLocalAddress(String localAddress) {
+		this.localAddress = localAddress;
 	}
 
 	public void setVersion(String version) {

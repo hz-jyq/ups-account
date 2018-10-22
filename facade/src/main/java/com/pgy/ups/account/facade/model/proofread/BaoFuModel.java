@@ -15,15 +15,26 @@ public class BaoFuModel extends Model{
 	
 	//id
 	private Long id;
-	
-	//商户号
-	private String businessNum;
-	
+		
 	//系统编码：参考 FromSystem
-	private String systeFrom;
+	private String systemFrom;
 	
 	//下载时间
 	private String downLoadTime;
+	
+	//对账时间
+	private String proofreadDate;
+	
+	public String getProofreadDate() {
+		return proofreadDate;
+	}
+
+	public void setProofreadDate(String proofreadDate) {
+		this.proofreadDate = proofreadDate;
+	}
+
+	//商户号
+	private String businessNum;
 	
 	//终端号
 	private String terminalNum;
@@ -37,8 +48,6 @@ public class BaoFuModel extends Model{
 	//宝付订单号
 	private String baofuOrderNum;
 	
-	//商户订单号
-	private String businessOrderNum;
 	
 	//清算日期
 	private  String caculateTime;
@@ -54,13 +63,7 @@ public class BaoFuModel extends Model{
 	
 	//宝付交易号
 	private String baofuExchangeNum;
-	
-	//支付订单创建时间
-	private String orderCreateTime;
-	
-	//商户退款订单号
-	private String businessRefundOrderNum;
-	
+		
 	//退款订单创建时间
 	private String refundOrderCreateTime;
 
@@ -72,20 +75,12 @@ public class BaoFuModel extends Model{
 		this.id = id;
 	}
 
-	public String getBusinessNum() {
-		return businessNum;
+	public String getSystemFrom() {
+		return systemFrom;
 	}
 
-	public void setBusinessNum(String bussinessNum) {
-		this.businessNum = bussinessNum;
-	}
-
-	public String getSysteFrom() {
-		return systeFrom;
-	}
-
-	public void setSysteFrom(String systeFrom) {
-		this.systeFrom = systeFrom;
+	public void setSystemFrom(String systemFrom) {
+		this.systemFrom = systemFrom;
 	}
 
 	public String getDownLoadTime() {
@@ -94,6 +89,14 @@ public class BaoFuModel extends Model{
 
 	public void setDownLoadTime(String downLoadTime) {
 		this.downLoadTime = downLoadTime;
+	}
+
+	public String getBusinessNum() {
+		return businessNum;
+	}
+
+	public void setBusinessNum(String businessNum) {
+		this.businessNum = businessNum;
 	}
 
 	public String getTerminalNum() {
@@ -126,14 +129,6 @@ public class BaoFuModel extends Model{
 
 	public void setBaofuOrderNum(String baofuOrderNum) {
 		this.baofuOrderNum = baofuOrderNum;
-	}
-
-	public String getBusinessOrderNum() {
-		return businessOrderNum;
-	}
-
-	public void setBusinessOrderNum(String businessOrderNum) {
-		this.businessOrderNum = businessOrderNum;
 	}
 
 	public String getCaculateTime() {
@@ -176,22 +171,6 @@ public class BaoFuModel extends Model{
 		this.baofuExchangeNum = baofuExchangeNum;
 	}
 
-	public String getOrderCreateTime() {
-		return orderCreateTime;
-	}
-
-	public void setOrderCreateTime(String orderCreateTime) {
-		this.orderCreateTime = orderCreateTime;
-	}
-
-	public String getBusinessRefundOrderNum() {
-		return businessRefundOrderNum;
-	}
-
-	public void setBussinessRefundOrderNum(String businessRefundOrderNum) {
-		this.businessRefundOrderNum = businessRefundOrderNum;
-	}
-
 	public String getRefundOrderCreateTime() {
 		return refundOrderCreateTime;
 	}
@@ -199,6 +178,5 @@ public class BaoFuModel extends Model{
 	public void setRefundOrderCreateTime(String refundOrderCreateTime) {
 		this.refundOrderCreateTime = refundOrderCreateTime;
 	}
-	
-		
+			
 }

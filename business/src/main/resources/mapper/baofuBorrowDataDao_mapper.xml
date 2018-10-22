@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.pgy.ups.account.business.dao.mapper.BaofuBorrowDataDao">
+
+	<sql id="baofuBorrowColumn">
+		id,
+		systemFrom,
+		DATE_FORMAT(downLoadTime ,'%Y-%m-%d %H:%i:%s') as downLoadTime,
+		DATE_FORMAT(proofreadDate ,'%Y-%m-%d') as proofreadDate,
+		businessNum,
+		terminalNum,
+		exchangeType,
+		subExchangeType,
+		baofuOrderNum,
+		proxyBusinessOrderNum,
+		batchNum,
+		DATE_FORMAT(caculateTime ,'%Y-%m-%d') as caculateTime,
+		orderStatus,
+		exchangeAmount,
+		exchangeTip,
+		recievePersonNum,
+		recievePersonName,
+		baofuExchangeNum,
+		DATE_FORMAT(proxyOrderCreateTime ,'%Y-%m-%d %H:%i:%s') as proxyOrderCreateTime,
+		DATE_FORMAT(refundOrderCreateTime ,'%Y-%m-%d %H:%i:%s') as refundOrderCreateTime
+		
+	</sql>
+
+	<select id="queryBaoFuBorrowDataList"
+		resultType="BaoFuModelBorrow">
+		SELECT
+		<include refid="baofuBorrowColumn" />
+		FROM
+		ua_t_account_baofu_fo
+		WHERE
+		<choose>
+			<when test="proofreadDate!=null and proofreadDate!=''">
+				proofreadDate=#{proofreadDate}
+			</when>
+			<otherwise>
+				1=2
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="systemFrom!=null and systemFrom!=''">
+				AND systemFrom=#{systemFrom}
+			</when>
+			<otherwise>
+				AND 1=2
+			</otherwise>
+		</choose>
+	</select>
+
+	<insert id="batchInsert" parameterType="java.util.List">
+		INSERT INTO ua_t_account_baofu_fo VALUES
+		<foreach collection="list" item="item" separator=",">
+			(
+			null,
+			#{item.systemFrom},
+			#{item.downLoadTime},
+			#{item.proofreadDate},
+			#{item.businessNum},
+			#{item.terminalNum},
+			#{item.exchangeType},
+			#{item.subExchangeType},
+			#{item.baofuOrderNum},
+			#{item.proxyBusinessOrderNum},
+			#{item.batchNum},
+			#{item.caculateTime},
+			#{item.orderStatus},
+			#{item.exchangeAmount},
+			#{item.exchangeTip},
+			#{item.recievePersonNum},
+			#{item.recievePersonName},
+			#{item.baofuExchangeNum},
+			#{item.proxyOrderCreateTime},
+			#{item.refundOrderCreateTime}
+			)
+		</foreach>
+	</insert>
+
+
+
+</mapper>
