@@ -1,7 +1,5 @@
 package com.pgy.ups.account.facade.model.proofread;
 
-import java.util.Objects;
-
 import com.baomidou.mybatisplus.toolkit.StringUtils;
 import com.pgy.ups.account.facade.model.Model;
 

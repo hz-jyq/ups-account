@@ -11,9 +11,7 @@ public class BaoFuModelReturn extends BaoFuModel{
 	 * 
 	 */
 	private static final long serialVersionUID = -7733957069485306047L;
-	
-	//商户订单号
-	private String businessOrderNum;
+
 	
 	//支付订单创建时间
 	private String orderCreateTime;
@@ -21,13 +19,6 @@ public class BaoFuModelReturn extends BaoFuModel{
 	//商户退款订单号
 	private String businessRefundOrderNum;
 
-	public String getBusinessOrderNum() {
-		return businessOrderNum;
-	}
-
-	public void setBusinessOrderNum(String businessOrderNum) {
-		this.businessOrderNum = businessOrderNum;
-	}
 
 	public String getOrderCreateTime() {
 		return orderCreateTime;

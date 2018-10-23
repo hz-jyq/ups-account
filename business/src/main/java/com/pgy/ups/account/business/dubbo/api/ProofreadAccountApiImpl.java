@@ -5,6 +5,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.alibaba.dubbo.config.annotation.Service;
 import com.pgy.ups.account.business.factory.proofread.BaofuProofreadHandlerFactory;
 import com.pgy.ups.account.business.factory.proofread.ProofreadHandlerFactory;
@@ -19,6 +23,8 @@ public class ProofreadAccountApiImpl implements ProofreadAccountApi {
 
 	@Resource(type = BaofuProofreadHandlerFactory.class)
 	private ProofreadHandlerFactory baofuProofreadHandlerFactory;
+	
+	private Logger logger=LoggerFactory.getLogger(ProofreadAccountApi.class);
 
 	/**
 	 * 对账方法 由外部系统调用
@@ -39,8 +45,7 @@ public class ProofreadAccountApiImpl implements ProofreadAccountApi {
 		try {
 			return proofreadHandler.handler(list);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("对账业务处理失败！{}",ExceptionUtils.getStackTrace(e));
 			return null;
 		}
 	}

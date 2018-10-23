@@ -11,10 +11,7 @@ public class BaoFuModelBorrow extends BaoFuModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 4066937147493379118L;
-	/**
-	 * 商户代付订单号
-	 */
-	private String proxyBusinessOrderNum;
+
 
 	/* 批次号 */
 	private String batchNum;
@@ -32,13 +29,6 @@ public class BaoFuModelBorrow extends BaoFuModel {
 	 */
 	private String proxyOrderCreateTime;
 
-	public String getProxyBusinessOrderNum() {
-		return proxyBusinessOrderNum;
-	}
-
-	public void setProxyBusinessOrderNum(String proxyBusinessOrderNum) {
-		this.proxyBusinessOrderNum = proxyBusinessOrderNum;
-	}
 
 	public String getBatchNum() {
 		return batchNum;

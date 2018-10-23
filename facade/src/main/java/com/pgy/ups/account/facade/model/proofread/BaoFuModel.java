@@ -25,13 +25,6 @@ public class BaoFuModel extends Model{
 	//对账时间
 	private String proofreadDate;
 	
-	public String getProofreadDate() {
-		return proofreadDate;
-	}
-
-	public void setProofreadDate(String proofreadDate) {
-		this.proofreadDate = proofreadDate;
-	}
 
 	//商户号
 	private String businessNum;
@@ -66,6 +59,17 @@ public class BaoFuModel extends Model{
 		
 	//退款订单创建时间
 	private String refundOrderCreateTime;
+	
+	//商户订单号（商户代付订单号）
+	private String businessOrderNum;
+
+	public String getBusinessOrderNum() {
+		return businessOrderNum;
+	}
+
+	public void setBusinessOrderNum(String businessOrderNum) {
+		this.businessOrderNum = businessOrderNum;
+	}
 
 	public Long getId() {
 		return id;
@@ -177,6 +181,15 @@ public class BaoFuModel extends Model{
 
 	public void setRefundOrderCreateTime(String refundOrderCreateTime) {
 		this.refundOrderCreateTime = refundOrderCreateTime;
+	}
+	
+
+	public String getProofreadDate() {
+		return proofreadDate;
+	}
+
+	public void setProofreadDate(String proofreadDate) {
+		this.proofreadDate = proofreadDate;
 	}
 			
 }
