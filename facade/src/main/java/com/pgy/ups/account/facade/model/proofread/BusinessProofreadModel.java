@@ -2,6 +2,9 @@ package com.pgy.ups.account.facade.model.proofread;
 
 import com.pgy.ups.account.facade.model.Model;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 public class BusinessProofreadModel extends Model{
 
 	/**
@@ -13,7 +16,8 @@ public class BusinessProofreadModel extends Model{
 	
 	//商户订单号
 	private String businessOrderNum;
-	
+
+
 	//系统编码 01：美期 02：米融  03：秒呗',
 	private String systemFrom;
 	
@@ -24,7 +28,7 @@ public class BusinessProofreadModel extends Model{
 	private String proofreadDate;
 	
 	//交易金额
-	private String exchangeAmount;
+	private BigDecimal exchangeAmount;
 	
 	//业务订单状态
 	private String businessOrderStatuts;
@@ -33,7 +37,7 @@ public class BusinessProofreadModel extends Model{
 	private String borrowNum;
 	
 	//业务订单创建时间
-	private String orderCreateTime;
+	private Date orderCreateTime;
 
 	public Long getId() {
 		return id;
@@ -51,13 +55,6 @@ public class BusinessProofreadModel extends Model{
 		this.businessOrderNum = businessOrderNum;
 	}
 
-	public String getExchangeAmount() {
-		return exchangeAmount;
-	}
-
-	public void setExchangeAmount(String exchangeAmount) {
-		this.exchangeAmount = exchangeAmount;
-	}
 
 	public String getBussinessOrderStatuts() {
 		return businessOrderStatuts;
@@ -67,13 +64,6 @@ public class BusinessProofreadModel extends Model{
 		this.businessOrderStatuts = businessOrderStatuts;
 	}
 
-	public String getOrderCreateTime() {
-		return orderCreateTime;
-	}
-
-	public void setOrderCreateTime(String orderCreateTime) {
-		this.orderCreateTime = orderCreateTime;
-	}
 
 	public String getBusinessOrderStatuts() {
 		return businessOrderStatuts;
@@ -114,5 +104,21 @@ public class BusinessProofreadModel extends Model{
 	public void setProofreadDate(String proofreadDate) {
 		this.proofreadDate = proofreadDate;
 	}
-	
+
+
+	public BigDecimal getExchangeAmount() {
+		return exchangeAmount;
+	}
+
+	public void setExchangeAmount(BigDecimal exchangeAmount) {
+		this.exchangeAmount = exchangeAmount;
+	}
+
+	public Date getOrderCreateTime() {
+		return orderCreateTime;
+	}
+
+	public void setOrderCreateTime(Date orderCreateTime) {
+		this.orderCreateTime = orderCreateTime;
+	}
 }
