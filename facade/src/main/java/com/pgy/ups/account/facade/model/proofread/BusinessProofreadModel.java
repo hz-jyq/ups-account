@@ -37,7 +37,7 @@ public class BusinessProofreadModel extends Model{
 	private String borrowNum;
 	
 	//业务订单创建时间
-	private Date orderCreateTime;
+	private String orderCreateTime;
 
 	public Long getId() {
 		return id;
@@ -114,11 +114,5 @@ public class BusinessProofreadModel extends Model{
 		this.exchangeAmount = exchangeAmount;
 	}
 
-	public Date getOrderCreateTime() {
-		return orderCreateTime;
-	}
-
-	public void setOrderCreateTime(Date orderCreateTime) {
-		this.orderCreateTime = orderCreateTime;
-	}
+	
 }
