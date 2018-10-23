@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.pgy.ups.account.business.dao.mapper.BusinessDataDao">
+
+	<sql id="businessDataColumn">
+		id,
+		systemFrom,
+		proofreadType,
+		DATE_FORMAT(proofreadDate ,'%Y-%m-%d') as proofreadDate,
+		businessOrderNum,
+		exchangeAmount,
+		businessOrderStatuts,
+		borrowNum,
+		orderCreateTime
+	</sql>
+
+
+	<insert id="batchInsert" parameterType="java.util.List">
+		INSERT INTO ua_t_account_bussiness_proofread VALUES
+		<foreach collection="list" item="item" separator=",">
+			(
+			null,
+			#{item.systemFrom},
+			#{item.proofreadDate},
+			#{item.proofreadType},
+			#{item.businessOrderNum},
+			#{item.exchangeAmount},
+			#{item.businessOrderStatuts},
+			#{item.borrowNum},
+			#{item.orderCreateTime}
+			)
+		</foreach>
+	</insert>
+
+
+
+</mapper>

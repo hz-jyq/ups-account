@@ -202,12 +202,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 		businessDataDao.batchInsert(businessList);
 		 //构建宝付对账汇总数据对象		
 		BaofuProofreadSum proofreadSum=new BaofuProofreadSum(proofreadResult,businessList,baofuList,baoFuProofreadProperties);
-		//设置商户号
-		if (Objects.equals(proofreadResult.getProofreadType(), ProofreadAccountType.BORROW)) {
-			proofreadSum.setBusinessNum(baoFuProofreadProperties.getBusinessBorrowNum());			
-		} else if (Objects.equals(proofreadResult.getProofreadType(), ProofreadAccountType.RETURN)) {
-			proofreadSum.setBusinessNum(baoFuProofreadProperties.getBusinessReturnNum());
-		}		
+			
 		// 对账成功总金额从0开始计算
 		BigDecimal successSum = new BigDecimal("0");
 		// 对账成功笔数从0开始计算
