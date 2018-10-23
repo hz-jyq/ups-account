@@ -114,5 +114,11 @@ public class BusinessProofreadModel extends Model{
 		this.exchangeAmount = exchangeAmount;
 	}
 
-	
+	public String getOrderCreateTime() {
+		return orderCreateTime;
+	}
+
+	public void setOrderCreateTime(String orderCreateTime) {
+		this.orderCreateTime = orderCreateTime;
+	}
 }
