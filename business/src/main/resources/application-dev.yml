@@ -13,7 +13,15 @@ logging:
           account:
             business:
               dao:
-                mapper: debug
+                mapper: info
+                
+#redis
+redis:
+  config:
+    host: 116.62.143.57
+    port: 6379
+    password: mqfq123456
+    timeout: 3000
 
 spring:
   jackson:

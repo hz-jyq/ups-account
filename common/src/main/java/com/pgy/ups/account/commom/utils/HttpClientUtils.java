@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -42,8 +43,14 @@ public class HttpClientUtils {
 			}			
 			return StringUtils.EMPTY;
 		} catch (URISyntaxException | IOException e) {
-			logger.error("httpClient发送请求失败{}", e);
+			logger.error("httpClient发送请求失败{}", ExceptionUtils.getStackTrace(e));
 			return StringUtils.EMPTY;
+		}finally {
+			try {
+				httpClient.close();
+			} catch (IOException e) {
+				logger.error("httpClient关闭失败{}", ExceptionUtils.getStackTrace(e));
+			}
 		}
 	}
 

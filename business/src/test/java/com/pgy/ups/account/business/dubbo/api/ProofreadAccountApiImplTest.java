@@ -28,6 +28,8 @@ public class ProofreadAccountApiImplTest{
 	 private BaofuReturnDataDao baofuReturnDataDao;
 	 
 	 
+	 
+	 
 	 @Test
 	 public void TestSuccess() {
 		 List<BusinessProofreadModel> list=baofuReturnDataDao.query();
@@ -35,7 +37,7 @@ public class ProofreadAccountApiImplTest{
 	 }
 	 
 	 @Test
-	 public void TestFail() {
+	 public void TestFail() throws InterruptedException {
 		 
 		 BusinessProofreadModel m1=new BusinessProofreadModel();
 		 m1.setBorrowNum("11111");
@@ -59,8 +61,17 @@ public class ProofreadAccountApiImplTest{
 		 m5.setBusinessOrderNum("abc");
 		 m5.setExchangeAmount(new BigDecimal("10000"));
 		 List<BusinessProofreadModel> list=new ArrayList<>();
-		 list.add(m1); list.add(m2); list.add(m3); list.add(m4);list.add(m5);
-		 ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.RETURN, DateUtils.stringToDate("2018-10-23"));
+		 list.add(m1); list.add(m2); list.add(m3); list.add(m4);list.add(m5);		
+		 new Thread(()->{ 
+			 ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.BORROW, DateUtils.stringToDate("2018-10-23"));
+		 }).start();
+		 
+		 new Thread(()->{ 
+			 ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.BORROW, DateUtils.stringToDate("2018-10-23"));
+		 }).start();
+		 Thread.sleep(1000000);
+		// ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.RETURN, DateUtils.stringToDate("2018-10-23"));
+		 //ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.BORROW, DateUtils.stringToDate("2018-10-23"));
 	 }
 	 
 }

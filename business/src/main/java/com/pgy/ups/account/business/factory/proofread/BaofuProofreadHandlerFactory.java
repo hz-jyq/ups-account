@@ -144,7 +144,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 		ProofreadResult proofreadResult = initProofreadResult();
 		// 如果对账成功 直接返回
 		if (proofreadResult.getSuccess()) {
-			logger.error("该日期的对账已经完成!{}", proofreadResult);
+			logger.error("该日期的对账已经完成！{}", proofreadResult);
 			proofreadResult.setFailReason("该日期的对账已经完成");
 			return proofreadResult;
 		}
@@ -175,7 +175,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 			String responseStr = HttpClientUtils.sentRequest(baoFuProofreadProperties.getRequestUrl(), param);
 			// 对下载结果进行判断
 			if (StringUtils.isEmpty(responseStr)) {
-				logger.error("对账任务执行失败，文件下载失败:");
+				logger.error("对账任务执行失败，文件下载失败！");
 				return recordProofreadFail(proofreadResult, "文件下载失败");
 			}
 			// 返回结果不为空时，对responseStr进行解析

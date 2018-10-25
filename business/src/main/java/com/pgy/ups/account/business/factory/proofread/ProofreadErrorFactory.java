@@ -51,16 +51,17 @@ public class ProofreadErrorFactory implements BusinessFactory<ProofreadError> {
 		pe.setFlowStatus(FLOW_STATUS_READY);
 		if (businessModel != null) {
 			pe.setBusinessOrderNum(businessModel.getBusinessOrderNum());
-			pe.setBorrowNum(businessModel.getBorrowNum());
+			pe.setBusinessOrderCreateTime(businessModel.getOrderCreateTime());
 			pe.setBusinessExchangeMoney(businessModel.getExchangeAmount());
 			pe.setBusinessOrderStatuts(businessModel.getBusinessOrderStatuts());
+			pe.setBorrowNum(businessModel.getBorrowNum());
 			pe.setErrorType(ERROR_TYPE_NO_CHANNEL);
 		}
 		if (baofuModel != null) {
+			pe.setBusinessOrderNum(baofuModel.getBusinessOrderNum());
 			pe.setBusinessOrderCreateTime(baofuModel.getOrderCreateTime());
 			pe.setChannelExchangeMoney(baofuModel.getExchangeAmount());
 			pe.setChannelOrderStatus(baofuModel.getOrderStatus());
-			pe.setChannelOrderCreateTime(baofuModel.getOrderCreateTime());
 			pe.setErrorType(ERROR_TYPE_NO_BUSINESS);
 		}
 		if (baofuModel != null && businessModel != null) {
