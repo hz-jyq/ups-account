@@ -1,9 +1,8 @@
 package com.pgy.ups.account.facade.model.proofread;
 
-import com.pgy.ups.account.facade.model.Model;
-
 import java.math.BigDecimal;
-import java.util.Date;
+
+import com.pgy.ups.account.facade.model.Model;
 
 public class BusinessProofreadModel extends Model{
 
@@ -55,32 +54,6 @@ public class BusinessProofreadModel extends Model{
 		this.businessOrderNum = businessOrderNum;
 	}
 
-
-	public String getBussinessOrderStatuts() {
-		return businessOrderStatuts;
-	}
-
-	public void setBussinessOrderStatuts(String businessOrderStatuts) {
-		this.businessOrderStatuts = businessOrderStatuts;
-	}
-
-
-	public String getBusinessOrderStatuts() {
-		return businessOrderStatuts;
-	}
-
-	public void setBusinessOrderStatuts(String businessOrderStatuts) {
-		this.businessOrderStatuts = businessOrderStatuts;
-	}
-
-	public String getBorrowNum() {
-		return borrowNum;
-	}
-
-	public void setBorrowNum(String borrowNum) {
-		this.borrowNum = borrowNum;
-	}
-
 	public String getSystemFrom() {
 		return systemFrom;
 	}
@@ -105,13 +78,28 @@ public class BusinessProofreadModel extends Model{
 		this.proofreadDate = proofreadDate;
 	}
 
-
 	public BigDecimal getExchangeAmount() {
 		return exchangeAmount;
 	}
 
 	public void setExchangeAmount(BigDecimal exchangeAmount) {
 		this.exchangeAmount = exchangeAmount;
+	}
+
+	public String getBusinessOrderStatuts() {
+		return businessOrderStatuts;
+	}
+
+	public void setBusinessOrderStatuts(String businessOrderStatuts) {
+		this.businessOrderStatuts = businessOrderStatuts;
+	}
+
+	public String getBorrowNum() {
+		return borrowNum;
+	}
+
+	public void setBorrowNum(String borrowNum) {
+		this.borrowNum = borrowNum;
 	}
 
 	public String getOrderCreateTime() {
@@ -121,4 +109,6 @@ public class BusinessProofreadModel extends Model{
 	public void setOrderCreateTime(String orderCreateTime) {
 		this.orderCreateTime = orderCreateTime;
 	}
+
+	
 }

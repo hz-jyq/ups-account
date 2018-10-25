@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.pgy.ups.account.business.dao.mapper.ProofreadSumDao">
+
+	<sql id="proofreadSumColumn">
+		id,
+		fromSystem,
+		proofreadType,
+		proofreadDate,
+		DATE_FORMAT(createTime,'%Y-%m-%d %H:%i:%s') as createTime,
+		proofreadWay,
+		businessNum,
+		businessTotalMoney,
+		businessTotal,
+		channelTotalMoney,
+		channelTotal,
+		successTotalMoney,
+		successTotal,
+		channelFailTotalMoney,
+		channelFailTotal,
+		businessFailTotalMoney,
+		businessFailTotal,
+		proofreadStatus,
+		DATE_FORMAT(updateTime,'%Y-%m-%d %H:%i:%s') as updateTime,
+		updateUser
+	</sql>
+
+	<select id="queryproofreadSum" resultType="ProofreadSum" parameterType="java.util.HashMap">
+		SELECT
+		<include refid="proofreadSumColumn" />
+		FROM
+		ua_t_account_proofreadSum
+		WHERE
+		<choose>
+			<when test="fromSystem !=null and fromSystem!=''">
+				fromSystem=#{fromSystem}
+			</when>
+			<otherwise>
+				1=2
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="proofreadType!=null and proofreadType!=''">
+				AND proofreadType=#{proofreadType}
+			</when>
+			<otherwise>
+				1=2
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="proofreadDate != null and proofreadDate!=''">
+				AND proofreadDate=#{proofreadDate}
+			</when>
+			<otherwise>
+				1=2
+			</otherwise>
+		</choose>
+	</select>
+
+	<update id="updateProofreadSum">
+		UPDATE ua_t_account_proofreadSum SET
+		
+		<if test="fromSystem!=null">
+			fromSystem=#{fromSystem},
+		</if>
+		<if test="proofreadType!=null">
+			proofreadType=#{proofreadType},
+		</if>
+		<if test="proofreadDate!=null">
+			proofreadDate=#{proofreadDate},
+		</if>
+		<if test="createTime!=null">
+			createTime=#{createTime},
+		</if>
+		<if test="proofreadWay!=null">
+			proofreadWay=#{proofreadWay},
+		</if>
+		<if test="businessNum!=null">
+			businessNum=#{businessNum},
+		</if>
+		<if test="businessTotalMoney!=null">
+			businessTotalMoney=#{businessTotalMoney},
+		</if>
+		<if test="businessTotal!=null">
+			businessTotal=#{businessTotal},
+		</if>
+		<if test="channelTotalMoney!=null">
+			channelTotalMoney=#{channelTotalMoney},
+		</if>
+		<if test="channelTotal!=null">
+			channelTotal=#{channelTotal},
+		</if>
+		<if test="successTotalMoney!=null">
+			successTotalMoney=#{successTotalMoney},
+		</if>
+		<if test="successTotal!=null">
+			successTotal=#{successTotal},
+		</if>
+		<if test="businessFailTotalMoney!=null">
+			businessFailTotalMoney=#{businessFailTotalMoney},
+		</if>
+		<if test="businessFailTotal!=null">
+			businessFailTotal=#{businessFailTotal},
+		</if>
+		<if test="channelFailTotalMoney!=null">
+			channelFailTotalMoney=#{channelFailTotalMoney},
+		</if>
+		<if test="channelFailTotal!=null">
+			channelFailTotal=#{channelFailTotal},
+		</if>
+		<if test="proofreadStatus!=null">
+			proofreadStatus=#{proofreadStatus},
+		</if>
+		updateTime=NOW()
+		WHERE
+		<choose>
+			<when test="id!=null and id!=''">
+				id=#{id}
+			</when>
+			<otherwise>
+				1=2
+			</otherwise>
+		</choose>
+	</update>
+
+
+
+	<!-- 创建对账汇总表记录 -->
+	<insert id="createProofreadSum">
+
+		INSERT INTO ua_t_account_proofreadSum
+		(
+		<if test="fromSystem!=null">
+			fromSystem,
+		</if>
+		<if test="proofreadType!=null">
+			proofreadType,
+		</if>
+		<if test="proofreadDate!=null">
+			proofreadDate,
+		</if>
+		<if test="createTime!=null">
+			createTime,
+		</if>
+		<if test="proofreadWay!=null">
+			proofreadWay,
+		</if>
+		<if test="businessNum!=null">
+			businessNum,
+		</if>
+		<if test="businessTotalMoney!=null">
+			businessTotalMoney,
+		</if>
+		<if test="businessTotal!=null">
+			businessTotal,
+		</if>
+		<if test="channelTotalMoney!=null">
+			channelTotalMoney,
+		</if>
+		<if test="channelTotal!=null">
+			channelTotal,
+		</if>
+		<if test="successTotalMoney!=null">
+			successTotalMoney,
+		</if>
+		<if test="successTotal!=null">
+			successTotal,
+		</if>
+		<if test="businessFailTotalMoney!=null">
+			businessFailTotalMoney,
+		</if>
+		<if test="businessFailTotal!=null">
+			businessFailTotal,
+		</if>
+		<if test="channelFailTotalMoney!=null">
+			channelFailTotalMoney,
+		</if>
+		<if test="channelFailTotal!=null">
+			channelFailTotal,
+		</if>
+		<if test="proofreadStatus!=null">
+			proofreadStatus,
+		</if>
+		updateTime,
+		updateUser
+
+		)VALUES(
+		<if test="fromSystem!=null">
+			#{fromSystem},
+		</if>
+		<if test="proofreadType!=null">
+			#{proofreadType},
+		</if>
+		<if test="proofreadDate!=null">
+			#{proofreadDate},
+		</if>
+		<if test="createTime!=null">
+			#{createTime},
+		</if>
+		<if test="proofreadWay!=null">
+			#{proofreadWay},
+		</if>
+		<if test="businessNum!=null">
+			#{businessNum},
+		</if>
+		<if test="businessTotalMoney!=null">
+			#{businessTotalMoney},
+		</if>
+		<if test="businessTotal!=null">
+			#{businessTotal},
+		</if>
+		<if test="channelTotalMoney!=null">
+			#{channelTotalMoney},
+		</if>
+		<if test="channelTotal!=null">
+			#{channelTotal},
+		</if>
+		<if test="successTotalMoney!=null">
+			#{successTotalMoney},
+		</if>
+		<if test="successTotal!=null">
+			#{successTotal},
+		</if>
+		<if test="businessFailTotalMoney!=null">
+			#{businessFailTotalMoney},
+		</if>
+		<if test="businessFailTotal!=null">
+			#{businessFailTotal},
+		</if>
+		<if test="channelFailTotalMoney!=null">
+			#{channelFailTotalMoney},
+		</if>
+		<if test="channelFailTotal!=null">
+			#{channelFailTotal},
+		</if>
+		<if test="proofreadStatus!=null">
+			#{proofreadStatus},
+		</if>
+		NOW(),
+		null
+		)
+		<selectKey resultType="java.lang.Long" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID() as id
+		</selectKey>
+	</insert>
+
+
+
+
+</mapper>

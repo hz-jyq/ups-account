@@ -20,17 +20,17 @@
 	<insert id="batchInsert" parameterType="java.util.List">
 		INSERT INTO ua_t_account_bussiness_proofread VALUES
 		<foreach collection="list" item="item" separator=",">
-			(
+		 (
 			null,
 			#{item.systemFrom},
-			#{item.proofreadDate},
 			#{item.proofreadType},
+			#{item.proofreadDate},			
 			#{item.businessOrderNum},
 			#{item.exchangeAmount},
 			#{item.businessOrderStatuts},
 			#{item.borrowNum},
 			#{item.orderCreateTime}
-			)
+	     )
 		</foreach>
 	</insert>
 

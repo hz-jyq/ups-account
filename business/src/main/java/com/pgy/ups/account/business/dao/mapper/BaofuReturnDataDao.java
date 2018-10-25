@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.pgy.ups.account.facade.model.proofread.BaoFuModel;
 import com.pgy.ups.account.facade.model.proofread.BaoFuModelReturn;
+import com.pgy.ups.account.facade.model.proofread.BusinessProofreadModel;
 
 /**
  * 宝付还款数据
@@ -25,5 +26,8 @@ public interface BaofuReturnDataDao {
 	 * @param sourceList
 	 */
 	void batchInsert(List<? extends BaoFuModel> sourceList);
+	
+    //临时的，生成需要删除
+	List<BusinessProofreadModel> query();
 
 }

@@ -31,4 +31,13 @@ public interface ProofreadResultDao {
 	 * @param proofreadResult
 	 */
 	void updateProofreadResult(ProofreadResult proofreadResult);
+    
+	/**
+	  * 删除对账结果记录
+	 * @param queryParam
+	 */
+	static void deleteProofreadResult(Map<String, Object> queryParam) {
+		// TODO Auto-generated method stub
+		
+	}
 }

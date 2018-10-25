@@ -25,6 +25,7 @@
 		businessRefundOrderNum,
 		DATE_FORMAT(refundOrderCreateTime ,'%Y-%m-%d %H:%i:%s') as refundOrderCreateTime
 	</sql>
+	
 
 	<insert id="batchInsert" parameterType="java.util.List">
 		INSERT INTO ua_t_account_baofu_fi VALUES
@@ -75,6 +76,14 @@
 				AND 1=2
 			</otherwise>
 		</choose>
+	</select>
+	
+	<select id="query" resultType="BusinessProofreadModel">
+	     SELECT
+	         exchangeAmount,
+	         businessOrderNum
+	     FROM 
+	         ua_t_account_baofu_fi	
 	</select>
 
 </mapper>

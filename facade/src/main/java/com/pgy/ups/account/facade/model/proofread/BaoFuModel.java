@@ -1,5 +1,7 @@
 package com.pgy.ups.account.facade.model.proofread;
 
+import java.math.BigDecimal;
+
 import com.pgy.ups.account.facade.model.Model;
 
 /**
@@ -49,10 +51,10 @@ public class BaoFuModel extends Model{
 	private String orderStatus;
 	
 	//交易金额
-	private String exchangeAmount;
+	private BigDecimal exchangeAmount;
 	
 	//手续费
-	private String exchangeTip;
+	private BigDecimal exchangeTip;
 	
 	//宝付交易号
 	private String baofuExchangeNum;
@@ -62,6 +64,10 @@ public class BaoFuModel extends Model{
 	
 	//商户订单号（商户代付订单号）
 	private String businessOrderNum;
+	
+	//订单创建时间
+	private String orderCreateTime;
+
 
 	public String getBusinessOrderNum() {
 		return businessOrderNum;
@@ -151,19 +157,19 @@ public class BaoFuModel extends Model{
 		this.orderStatus = orderStatus;
 	}
 
-	public String getExchangeAmount() {
+	public BigDecimal getExchangeAmount() {
 		return exchangeAmount;
 	}
 
-	public void setExchangeAmount(String exchangeAmount) {
+	public void setExchangeAmount(BigDecimal exchangeAmount) {
 		this.exchangeAmount = exchangeAmount;
 	}
 
-	public String getExchangeTip() {
+	public BigDecimal getExchangeTip() {
 		return exchangeTip;
 	}
 
-	public void setExchangeTip(String exchangeTip) {
+	public void setExchangeTip(BigDecimal exchangeTip) {
 		this.exchangeTip = exchangeTip;
 	}
 
@@ -191,5 +197,13 @@ public class BaoFuModel extends Model{
 	public void setProofreadDate(String proofreadDate) {
 		this.proofreadDate = proofreadDate;
 	}
-			
-}
+
+	public String getOrderCreateTime() {
+		return orderCreateTime;
+	}
+
+	public void setOrderCreateTime(String orderCreateTime) {
+		this.orderCreateTime = orderCreateTime;
+	}
+	
+}  

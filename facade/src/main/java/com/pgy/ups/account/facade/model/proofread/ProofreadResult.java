@@ -12,6 +12,10 @@ public class ProofreadResult extends Model{
 	
 	private Long id;
 	
+	
+	//对账用的商户号
+	private String businessNum;
+	
 	//对账系统 参考 FromSystem
 	private String fromSystem;
 	
@@ -124,5 +128,19 @@ public class ProofreadResult extends Model{
 	public void setProofreadDate(String proofreadDate) {
 		this.proofreadDate = proofreadDate;
 	}
+
+	public String getBusinessNum() {
+		return businessNum;
+	}
+
+	public void setBusinessNum(String businessNum) {
+		this.businessNum = businessNum;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	
 	
 }

@@ -24,11 +24,6 @@ public class BaoFuModelBorrow extends BaoFuModel {
 	 */
 	private String recievePersonName;
 	
-	/**
-	 * 代付订单创建时间
-	 */
-	private String proxyOrderCreateTime;
-
 
 	public String getBatchNum() {
 		return batchNum;
@@ -53,17 +48,6 @@ public class BaoFuModelBorrow extends BaoFuModel {
 	public void setRecievePersonName(String recievePersonName) {
 		this.recievePersonName = recievePersonName;
 	}
-
-	public String getProxyOrderCreateTime() {
-		return proxyOrderCreateTime;
-	}
-
-	public void setProxyOrderCreateTime(String proxyOrderCreateTime) {
-		this.proxyOrderCreateTime = proxyOrderCreateTime;
-	}
 	
 	
-
-	
-
 }
