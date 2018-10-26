@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 import com.pgy.ups.account.commom.utils.RedisUtils;
 
 /**
- * ParamsLog注解记录入参和出参
+ * redisLock
  * @author 墨凉
  *
  */
