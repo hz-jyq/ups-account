@@ -8,7 +8,7 @@
 		id,
 		fromSystem,
 		proofreadType,
-		proofreadDate,
+		DATE_FORMAT(proofreadDate,'%Y-%m-%d') as proofreadDate,
 		businessOrderNum,
 		borrowNum,
 		businessExchangeMoney,
@@ -17,7 +17,7 @@
 		channelExchangeMoney,
 		channelOrderStatus,
 		channelOrderCreateTime,
-		disposeTime,
+		DATE_FORMAT(disposeTime,'%Y-%m-%d %H:%i:%s') as disposeTime,
 		errorType,
 		flowStatus,
  		updateUser
@@ -79,6 +79,9 @@
 
 	<select id="getPage" resultType="proofreadError" parameterType="com.pgy.ups.account.facade.from.ProofreadErrorForm">
 		  select <include refid="proofreadErrorColumn"/> from ua_t_account_proofreadError
+		<where>
+			<if></if>
+		</where>
 	</select>
 
 </mapper>
