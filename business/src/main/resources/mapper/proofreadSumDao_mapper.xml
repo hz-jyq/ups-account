@@ -253,10 +253,10 @@
 		FROM
 		ua_t_account_proofreadSum
 		<where>
-		<if test="proofreadStatus!=null">
+		<if test="proofreadStatus!=null and proofreadStatus!=''">
 			proofreadStatus=#{proofreadStatus}
 		</if>
-		<if test="proofreadDate!=null">
+		<if test="proofreadDate!=null and proofreadDate!=''">
 			and DATE_FORMAT(proofreadDate,'%Y-%m-%d') = #{proofreadDate}
 		</if>
 		</where>
