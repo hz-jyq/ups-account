@@ -252,6 +252,14 @@
 		<include refid="proofreadSumColumn" />
 		FROM
 		ua_t_account_proofreadSum
+		<where>
+		<if test="proofreadStatus!=null">
+			proofreadStatus=#{proofreadStatus}
+		</if>
+		<if test="proofreadDate!=null">
+			and DATE_FORMAT(proofreadDate,'%Y-%m-%d') = #{proofreadDate}
+		</if>
+		</where>
 	</select>
 
 
