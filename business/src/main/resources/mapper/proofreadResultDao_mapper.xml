@@ -6,6 +6,7 @@
 
 	<sql id="proofreadResultColumn">
 		id,
+		channel,
 		fromSystem,
 		proofreadType,
 		success,
@@ -61,6 +62,14 @@
 				1=2
 			</otherwise>
 		</choose>
+		<choose>
+			<when test="channel != null and channel!=''">
+				AND channel=#{channel}
+			</when>
+			<otherwise>
+				1=2
+			</otherwise>
+		</choose>
 		FOR UPDATE
 	</select>
 
@@ -68,6 +77,9 @@
 
 		INSERT INTO ua_t_account_proofreadResult
 		(
+		<if test="channel!=null">
+			channel,
+		</if>
 		<if test="fromSystem!=null">
 			fromSystem,
 		</if>
@@ -94,6 +106,9 @@
 		</if>
 		excuteTime
 		)VALUES(
+		<if test="channel!=null">
+			#{channel},
+		</if>
 		<if test="fromSystem!=null">
 			#{fromSystem},
 		</if>
@@ -130,6 +145,9 @@
 		parameterType="ProofreadResult">
 		UPDATE ua_t_account_proofreadResult
 		SET
+		<if test="channel!=null">
+			channel=#{channel},
+		</if>
 		<if test="fromSystem!=null">
 			fromSystem=#{fromSystem},
 		</if>
@@ -188,6 +206,14 @@
 			<choose>
 				<when test="proofreadDate != null and proofreadDate!=''">
 					AND proofreadDate=#{proofreadDate}
+				</when>
+				<otherwise>
+					1=2
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="channel != null and channel!=''">
+					AND channel=#{channel}
 				</when>
 				<otherwise>
 					1=2

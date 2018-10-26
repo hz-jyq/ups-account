@@ -20,6 +20,8 @@ public class BusinessProofreadModel extends Model{
 	//系统编码 01：美期 02：米融  03：秒呗',
 	private String systemFrom;
 	
+	//支付渠道 宝付 01
+	private String channel;
 	//对账类型 01：借款对账  02：还款对账',
 	private String proofreadType;
 	
@@ -110,5 +112,13 @@ public class BusinessProofreadModel extends Model{
 		this.orderCreateTime = orderCreateTime;
 	}
 
+	public String getChannel() {
+		return channel;
+	}
+
+	public void setChannel(String channel) {
+		this.channel = channel;
+	}
+    
 	
 }

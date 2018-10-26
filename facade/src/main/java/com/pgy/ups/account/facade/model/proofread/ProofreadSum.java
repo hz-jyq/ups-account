@@ -36,8 +36,8 @@ public class ProofreadSum extends Model {
 	// 创建时间
 	protected String createTime;
 
-	// 对账渠道（宝付或其他第三方）
-	protected String proofreadWay;
+	//'对账渠道 01:宝付',
+	protected String channel;
 
 	// 商户订单号
 	protected String businessNum;
@@ -93,14 +93,13 @@ public class ProofreadSum extends Model {
 	public ProofreadSum() {
 	}
 
-
-
-
 	public ProofreadSum(ProofreadResult proofreadResult) {
 		this.setFromSystem(proofreadResult.getFromSystem());
 		this.setProofreadType(proofreadResult.getProofreadType());
-		this.setProofreadDate(proofreadResult.getProofreadDate());		
+		this.setProofreadDate(proofreadResult.getProofreadDate());	
+		this.setChannel(proofreadResult.getChannel());
 		this.setProofreadStatus(PROOFREAD_NON);
+		this.setBusinessNum(proofreadResult.getBusinessNum());
 		// 设置创建时间
 		this.setCreateTime(DateUtils.getCurrentDateTime());
 	}
@@ -148,7 +147,7 @@ public class ProofreadSum extends Model {
 	 */
 	public ProofreadSum buildAfterProofread(List<BusinessProofreadModel> businessList,
 			List<? extends BaoFuModel> baofuList) {
-		this.setProofreadWay("宝付");
+		
 		// 业务失败总笔数(包括差错账的和缺省账的总数)
 		this.setBusinessFailTotal(this.businessFailTotal + businessList.size());
 		// 渠道失败总笔数(包括差错账的和缺省账的总数)
@@ -230,13 +229,17 @@ public class ProofreadSum extends Model {
 		this.createTime = createTime;
 	}
 
-	public String getProofreadWay() {
-		return proofreadWay;
+	
+	public String getChannel() {
+		return channel;
 	}
 
-	public void setProofreadWay(String proofreadWay) {
-		this.proofreadWay = proofreadWay;
+	public void setChannel(String channel) {
+		this.channel = channel;
 	}
+
+
+
 
 	public String getBusinessNum() {
 		return businessNum;

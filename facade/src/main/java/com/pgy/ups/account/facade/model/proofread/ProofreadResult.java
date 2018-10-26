@@ -16,6 +16,9 @@ public class ProofreadResult extends Model{
 	//对账用的商户号
 	private String businessNum;
 	
+	//'对账渠道 01:宝付',
+	private String channel;
+	
 	//对账系统 参考 FromSystem
 	private String fromSystem;
 	
@@ -139,6 +142,14 @@ public class ProofreadResult extends Model{
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getChannel() {
+		return channel;
+	}
+
+	public void setChannel(String channel) {
+		this.channel = channel;
 	}
 	
 	
