@@ -263,12 +263,18 @@
 		FROM
 		ua_t_account_proofreadSum
 		<where>
-			<if test="proofreadStatus!=null and proofreadStatus!=''">
-				proofreadStatus=#{proofreadStatus}
-			</if>
-			<if test="proofreadDate!=null and proofreadDate!=''">
-				and DATE_FORMAT(proofreadDate,'%Y-%m-%d') = #{proofreadDate}
-			</if>
-		</where>
+		<if test="proofreadStatus!=null and proofreadStatus!=''">
+				and proofreadStatus=#{proofreadStatus}
+		</if>
+		<if test="createTimeStart!=null and createTimeStart!=''">
+			and createTime <![CDATA[>=]]>  #{createTimeStart}
+		</if>
+		<if test="createTimeEnd!=null and createTimeEnd!=''">
+			and createTime <![CDATA[<=]]> #{createTimeEnd}
+		</if>
+		<if test="channel!=null and channel!=''" >
+			and fromSystem = #{channel}
+		</if>
+	  </where>
 	</select>
 </mapper>
