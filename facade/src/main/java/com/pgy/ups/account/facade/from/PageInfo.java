@@ -2,6 +2,7 @@ package com.pgy.ups.account.facade.from;
 
 import com.baomidou.mybatisplus.plugins.pagination.PageHelper;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
+import com.pgy.ups.account.facade.model.Model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.List;
 
 
 
-public class PageInfo<T> implements Serializable {
+public class PageInfo<T> extends Model {
 
 
 
