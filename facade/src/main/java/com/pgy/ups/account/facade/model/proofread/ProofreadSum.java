@@ -7,6 +7,8 @@ import java.util.List;
 import com.pgy.ups.account.commom.utils.DateUtils;
 import com.pgy.ups.account.facade.model.Model;
 
+
+
 /**
  * 对账汇总结果数据
  * 
@@ -90,6 +92,9 @@ public class ProofreadSum extends Model {
 
 	public ProofreadSum() {
 	}
+
+
+
 
 	public ProofreadSum(ProofreadResult proofreadResult) {
 		this.setFromSystem(proofreadResult.getFromSystem());
@@ -317,6 +322,8 @@ public class ProofreadSum extends Model {
 		return businessFailTotal;
 	}
 
+
+
 	public void setBusinessFailTotal(Integer businessFailTotal) {
 		this.businessFailTotal = businessFailTotal;
 	}
@@ -344,5 +351,7 @@ public class ProofreadSum extends Model {
 	public void setUpdateUser(String updateUser) {
 		this.updateUser = updateUser;
 	}
+
+
 
 }

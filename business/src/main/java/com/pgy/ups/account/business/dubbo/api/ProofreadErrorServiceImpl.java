@@ -17,7 +17,6 @@ public class ProofreadErrorServiceImpl  implements ProofreadErrorService {
 
     @Override
     public PageInfo<ProofreadError> getPage(ProofreadErrorForm Form) {
-        proofreadErrorDao.getPage(Form);
-        return null;
+            return  proofreadErrorDao.getPage(Form);
     }
 }

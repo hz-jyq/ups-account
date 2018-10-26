@@ -8,7 +8,7 @@
 		id,
 		fromSystem,
 		proofreadType,
-		proofreadDate,
+		DATE_FORMAT(proofreadDate,'%Y-%m-%d') as proofreadDate,
 		DATE_FORMAT(createTime,'%Y-%m-%d %H:%i:%s') as createTime,
 		proofreadWay,
 		businessNum,
@@ -248,7 +248,10 @@
 	</insert>
 
 	<select id="getPage" resultType="ProofreadSum" parameterType="com.pgy.ups.account.facade.from.ProofreadSumForm" >
-		  select * from ua_t_account_proofreadSum
+		SELECT
+		<include refid="proofreadSumColumn" />
+		FROM
+		ua_t_account_proofreadSum
 	</select>
 
 
