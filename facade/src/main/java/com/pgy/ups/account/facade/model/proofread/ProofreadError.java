@@ -27,6 +27,9 @@ public class ProofreadError extends Model{
 	//'对账日期'
 	private String proofreadDate;
 	
+	//'对账渠道 01:宝付',
+	private String channel;
+	
 	//商户订单号
 	private String businessOrderNum;
 	
@@ -189,6 +192,14 @@ public class ProofreadError extends Model{
 
 	public void setUpdateUser(String updateUser) {
 		this.updateUser = updateUser;
+	}
+
+	public String getChannel() {
+		return channel;
+	}
+
+	public void setChannel(String channel) {
+		this.channel = channel;
 	}
 	
 }

@@ -6,6 +6,7 @@
 
 	<sql id="proofreadSumColumn">
 		id,
+		channel,
 		fromSystem,
 		proofreadType,
 		DATE_FORMAT(proofreadDate,'%Y-%m-%d') as proofreadDate,
@@ -23,11 +24,13 @@
 		businessFailTotalMoney,
 		businessFailTotal,
 		proofreadStatus,
-		DATE_FORMAT(updateTime,'%Y-%m-%d %H:%i:%s') as updateTime,
+		DATE_FORMAT(updateTime,'%Y-%m-%d
+		%H:%i:%s') as updateTime,
 		updateUser
 	</sql>
 
-	<select id="queryproofreadSum" resultType="ProofreadSum" parameterType="java.util.HashMap">
+	<select id="queryproofreadSum" resultType="ProofreadSum"
+		parameterType="java.util.HashMap">
 		SELECT
 		<include refid="proofreadSumColumn" />
 		FROM
@@ -57,11 +60,21 @@
 				1=2
 			</otherwise>
 		</choose>
+		<choose>
+			<when test="channel != null and channel!=''">
+				AND channel=#{channel}
+			</when>
+			<otherwise>
+				1=2
+			</otherwise>
+		</choose>
 	</select>
 
 	<update id="updateProofreadSum">
 		UPDATE ua_t_account_proofreadSum SET
-		
+        <if test="channel">
+			channel=#{channel},
+		</if
 		<if test="fromSystem!=null">
 			fromSystem=#{fromSystem},
 		</if>
@@ -132,6 +145,9 @@
 
 		INSERT INTO ua_t_account_proofreadSum
 		(
+		<if test="channel!=null">
+			channel,
+		</if>
 		<if test="fromSystem!=null">
 			fromSystem,
 		</if>
@@ -187,6 +203,9 @@
 		updateUser
 
 		)VALUES(
+		<if test="channel!=null">
+			#{channel},
+		</if>
 		<if test="fromSystem!=null">
 			#{fromSystem},
 		</if>
@@ -247,7 +266,8 @@
 		</selectKey>
 	</insert>
 
-	<select id="getPage" resultType="ProofreadSum" parameterType="com.pgy.ups.account.facade.from.ProofreadSumForm" >
+	<select id="getPage" resultType="ProofreadSum"
+		parameterType="com.pgy.ups.account.facade.from.ProofreadSumForm">
 		SELECT
 		<include refid="proofreadSumColumn" />
 		FROM
@@ -267,7 +287,4 @@
 		</if>
 	  </where>
 	</select>
-
-
-
 </mapper>

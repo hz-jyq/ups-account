@@ -59,6 +59,8 @@ import com.pgy.ups.account.facade.model.proofread.ProofreadSum;
  */
 @Component
 public class BaofuProofreadHandlerFactory implements ProofreadHandlerFactory {
+	
+	
 	/**
 	 * 宝付对账处理器
 	 */
@@ -99,6 +101,8 @@ public class BaofuProofreadHandlerFactory implements ProofreadHandlerFactory {
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends BaoFuModel>> {
+	
+	public static final String BAOFU_CHANNEL="01";
 
 	private Logger logger = LoggerFactory.getLogger(BaoFuProofreadHandler.class);
 
@@ -245,6 +249,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 			e.setSystemFrom(baofuProofreadSum.getFromSystem());
 			e.setProofreadType(baofuProofreadSum.getProofreadType());
 			e.setProofreadDate(baofuProofreadSum.getProofreadDate());
+			e.setChannel(baofuProofreadSum.getChannel());
 			return e;
 		}).collect(Collectors.toList());
 		// 先删除业务对账原始记录，后保存新的业务对账原始记录
@@ -415,6 +420,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 			proofreadResult.setDownloadSuccess(false);
 			proofreadResult.setFailCount(0);
 			proofreadResult.setSuccess(false);
+			proofreadResult.setChannel(BaoFuProofreadHandler.BAOFU_CHANNEL);
 			// 设置商户号
 			if (Objects.equals(proofreadResult.getProofreadType(), ProofreadAccountType.BORROW)) {
 				proofreadResult.setBusinessNum(baoFuProofreadProperties.getBusinessBorrowNum());

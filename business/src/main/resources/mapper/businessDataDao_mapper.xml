@@ -13,6 +13,7 @@
 		exchangeAmount,
 		businessOrderStatuts,
 		borrowNum,
+		channel,
 		orderCreateTime
 	</sql>
 
@@ -24,7 +25,8 @@
 			null,
 			#{item.systemFrom},
 			#{item.proofreadType},
-			#{item.proofreadDate},			
+			#{item.proofreadDate},
+			#{item.channel},							
 			#{item.businessOrderNum},
 			#{item.exchangeAmount},
 			#{item.businessOrderStatuts},

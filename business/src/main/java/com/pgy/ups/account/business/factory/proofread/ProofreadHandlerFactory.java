@@ -17,6 +17,7 @@ import com.pgy.ups.account.facade.model.proofread.BaoFuModel;
  */
 public interface ProofreadHandlerFactory extends BusinessFactory<ProofreadHandler<String,List<? extends 
 		BaoFuModel>>> {
+
     
 	/**
 	 * 根据 来源系统名称，借款还款类型，上一次对账结果id获取对账处理器
