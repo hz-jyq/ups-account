@@ -24,7 +24,7 @@ public class AbstractPageForm<T extends AbstractPageForm<T>> extends Model {
     }
 
     public void setPageNumber(int pageNumber) {
-        pageNumber = pageNumber;
+        this.pageNumber = pageNumber;
     }
 
     public final T enablePaging() {
