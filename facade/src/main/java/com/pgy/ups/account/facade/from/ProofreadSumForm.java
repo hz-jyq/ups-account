@@ -2,7 +2,12 @@ package com.pgy.ups.account.facade.from;
 
 public class ProofreadSumForm extends  AbstractPageForm<ProofreadSumForm>{
 
-    private String proofreadStatus;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6689617984145643483L;
+
+	private String proofreadStatus;
 
     private String  channel;
 

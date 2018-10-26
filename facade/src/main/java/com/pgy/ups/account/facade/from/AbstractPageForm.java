@@ -7,7 +7,12 @@ import com.pgy.ups.account.facade.model.Model;
 public class AbstractPageForm<T extends AbstractPageForm<T>> extends Model {
 
 
-    private int pageSize = 1;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3602263301503589062L;
+
+	private int pageSize = 1;
 
     private  int pageNumber = 10;
 
