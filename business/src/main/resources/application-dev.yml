@@ -13,7 +13,7 @@ logging:
           account:
             business:
               dao:
-                mapper: debug
+                mapper: info
                 
 #redis
 redis:

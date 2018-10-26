@@ -23,10 +23,10 @@
 		<foreach collection="list" item="item" separator=",">
 		 (
 			null,
+			#{item.channel},	
 			#{item.systemFrom},
 			#{item.proofreadType},
-			#{item.proofreadDate},
-			#{item.channel},							
+			#{item.proofreadDate},									
 			#{item.businessOrderNum},
 			#{item.exchangeAmount},
 			#{item.businessOrderStatuts},

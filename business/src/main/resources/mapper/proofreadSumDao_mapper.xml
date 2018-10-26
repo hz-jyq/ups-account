@@ -11,7 +11,6 @@
 		proofreadType,
 		DATE_FORMAT(proofreadDate,'%Y-%m-%d') as proofreadDate,
 		DATE_FORMAT(createTime,'%Y-%m-%d %H:%i:%s') as createTime,
-		proofreadWay,
 		businessNum,
 		businessTotalMoney,
 		businessTotal,
@@ -72,9 +71,9 @@
 
 	<update id="updateProofreadSum">
 		UPDATE ua_t_account_proofreadSum SET
-        <if test="channel">
+        <if test="channel!=null">
 			channel=#{channel},
-		</if
+		</if>
 		<if test="fromSystem!=null">
 			fromSystem=#{fromSystem},
 		</if>
@@ -86,9 +85,6 @@
 		</if>
 		<if test="createTime!=null">
 			createTime=#{createTime},
-		</if>
-		<if test="proofreadWay!=null">
-			proofreadWay=#{proofreadWay},
 		</if>
 		<if test="businessNum!=null">
 			businessNum=#{businessNum},
@@ -160,9 +156,6 @@
 		<if test="createTime!=null">
 			createTime,
 		</if>
-		<if test="proofreadWay!=null">
-			proofreadWay,
-		</if>
 		<if test="businessNum!=null">
 			businessNum,
 		</if>
@@ -217,9 +210,6 @@
 		</if>
 		<if test="createTime!=null">
 			#{createTime},
-		</if>
-		<if test="proofreadWay!=null">
-			#{proofreadWay},
 		</if>
 		<if test="businessNum!=null">
 			#{businessNum},

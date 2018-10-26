@@ -65,7 +65,7 @@
 					AND proofreadType=#{proofreadType}
 				</when>
 				<otherwise>
-					1=2
+					AND 1=2
 				</otherwise>
 			</choose>
 			<choose>
@@ -73,7 +73,7 @@
 					AND proofreadDate=#{proofreadDate}
 				</when>
 				<otherwise>
-					1=2
+					AND 1=2
 				</otherwise>
 			</choose>
 			<choose>
@@ -81,7 +81,7 @@
 					AND channel=#{channel}
 				</when>
 				<otherwise>
-					1=2
+					AND 1=2
 				</otherwise>
 			</choose>
 		</where>

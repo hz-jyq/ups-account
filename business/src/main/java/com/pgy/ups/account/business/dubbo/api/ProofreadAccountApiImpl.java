@@ -16,8 +16,8 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.pgy.ups.account.business.factory.proofread.BaofuProofreadHandlerFactory;
 import com.pgy.ups.account.business.factory.proofread.ProofreadHandlerFactory;
 import com.pgy.ups.account.business.handler.proofread.ProofreadHandler;
-import com.pgy.ups.account.business.utils.RedisUtils;
 import com.pgy.ups.account.commom.utils.DateUtils;
+import com.pgy.ups.account.commom.utils.RedisUtils;
 import com.pgy.ups.account.facade.dubbo.api.ProofreadAccountApi;
 import com.pgy.ups.account.facade.model.proofread.BaoFuModel;
 import com.pgy.ups.account.facade.model.proofread.BusinessProofreadModel;
@@ -62,11 +62,12 @@ public class ProofreadAccountApiImpl implements ProofreadAccountApi {
 			date = DateUtils.getYesterday();
 		}
 		ProofreadResult proofreadResult=null;		
-		String proofreadLockKey = "proofreadLock";
+		String proofreadLockKey = "proofreadLocks";
 		String requestId = UUID.randomUUID().toString();		
 		try {
-			while (!redisUtils.redisLock(proofreadLockKey, requestId, 200000)) {
+			while (!redisUtils.redisLock(proofreadLockKey, requestId, 20000)) {
 				logger.info("redis获取对账锁失败，lockKey:" + proofreadLockKey + ",lockValue:" + requestId);
+				return null;
 			}
 			logger.info("redis获取对账锁成功，lockKey:" + proofreadLockKey + ",lockValue:" + requestId);
 			// 宝付对账处理工厂

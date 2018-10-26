@@ -1,4 +1,4 @@
-package com.pgy.ups.account.business.utils;
+package com.pgy.ups.account.commom.utils;
 
 import java.util.Collections;
 
@@ -12,7 +12,6 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 @Component
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class RedisUtils {
 	
 	@Resource

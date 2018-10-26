@@ -230,6 +230,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 		queryParam.put("proofreadDate", proofreadDate);
 		queryParam.put("fromSystem", fromSystem);
 		queryParam.put("proofreadType", proofreadType);
+		queryParam.put("channel", BAOFU_CHANNEL);
 		return proofreadSumDao.queryproofreadSum(queryParam);
 	}
 
@@ -328,6 +329,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 		queryParam.put("proofreadDate", proofreadResult.getProofreadDate());
 		queryParam.put("fromSystem", proofreadResult.getFromSystem());
 		queryParam.put("proofreadType", proofreadResult.getProofreadType());
+		queryParam.put("channel", proofreadResult.getChannel());
 		ProofreadResultDao.deleteProofreadResult(queryParam);
 	}
     
@@ -340,6 +342,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 		queryParam.put("proofreadDate", proofreadResult.getProofreadDate());
 		queryParam.put("fromSystem", proofreadResult.getFromSystem());
 		queryParam.put("proofreadType", proofreadResult.getProofreadType());
+		queryParam.put("channel", BAOFU_CHANNEL);
 		proofreadErrorDao.deleteProofreadError(queryParam);
 	}
 
@@ -411,6 +414,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 		queryMap.put("fromSystem", this.fromSystem);
 		queryMap.put("proofreadType", this.proofreadAccountType);
 		queryMap.put("proofreadDate", DateUtils.dateToString(this.date));
+		queryMap.put("channel", BaoFuProofreadHandler.BAOFU_CHANNEL);
 		ProofreadResult proofreadResult = proofreadResultDao.queryProofreadResult(queryMap);
 		if (Objects.isNull(proofreadResult)) {
 			proofreadResult = new ProofreadResult();

@@ -6,9 +6,11 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.validator.constraints.Range;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Scope;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.pgy.ups.account.business.dao.mapper.BaofuReturnDataDao;
@@ -27,9 +29,7 @@ public class ProofreadAccountApiImplTest{
 	 @Resource
 	 private BaofuReturnDataDao baofuReturnDataDao;
 	 
-	 
-	 
-	 
+	 	 
 	 @Test
 	 public void TestSuccess() {
 		 List<BusinessProofreadModel> list=baofuReturnDataDao.query();
@@ -69,9 +69,9 @@ public class ProofreadAccountApiImplTest{
 		 new Thread(()->{ 
 			 ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.BORROW, DateUtils.stringToDate("2018-10-23"));
 		 }).start();
-		 Thread.sleep(1000000);
-		// ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.RETURN, DateUtils.stringToDate("2018-10-23"));
-		 //ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.BORROW, DateUtils.stringToDate("2018-10-23"));
+		 Thread.sleep(100000);
+		//ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.RETURN, DateUtils.stringToDate("2018-10-23"));
+		//ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.BORROW, DateUtils.stringToDate("2018-10-23"));
 	 }
 	 
 }
