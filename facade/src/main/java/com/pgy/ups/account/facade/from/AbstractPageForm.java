@@ -1,10 +1,10 @@
 package com.pgy.ups.account.facade.from;
 
 import com.baomidou.mybatisplus.plugins.pagination.PageHelper;
+import com.pgy.ups.account.facade.model.Model;
 
-import java.io.Serializable;
 
-public class AbstractPageForm<T extends AbstractPageForm<T>> implements Serializable {
+public class AbstractPageForm<T extends AbstractPageForm<T>> extends Model {
 
 
     private int pageSize = 1;
