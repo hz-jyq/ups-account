@@ -3,6 +3,8 @@ package com.pgy.ups.account.business.dao.mapper;
 import java.util.List;
 import java.util.Map;
 
+import com.pgy.ups.account.facade.from.PageInfo;
+import com.pgy.ups.account.facade.from.ProofreadErrorForm;
 import com.pgy.ups.account.facade.model.proofread.ProofreadError;
 
 /**
@@ -24,4 +26,5 @@ public interface ProofreadErrorDao {
 	 */
 	void deleteProofreadError(Map<String, Object> queryParam);
 
+    public PageInfo<ProofreadError> getPage(ProofreadErrorForm Form);
 }

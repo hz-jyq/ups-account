@@ -23,6 +23,7 @@
 		</mybatis.generator.outputDirectory>
 		<mysql-driver.version>5.1.30</mysql-driver.version>
 		<mybatis-generator-maven-plugin.version>1.3.2</mybatis-generator-maven-plugin.version>
+		<skipTests>true</skipTests>
 	</properties>
 
 	<dependencies>
@@ -181,7 +182,7 @@
 				<configuration>
 					<fork>true</fork>
 					<layout>ZIP</layout>
-					<mainClass>com.yylc.risk.gateway.business.RiskGatewayApplication</mainClass>
+					<mainClass>com.pgy.ups.account.business.UpsAccountApplication</mainClass>
 				</configuration>
 				<executions>
 					<execution>
@@ -192,7 +193,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
 	</build>
 </project>

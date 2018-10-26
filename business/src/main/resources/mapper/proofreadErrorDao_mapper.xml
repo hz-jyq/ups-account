@@ -61,5 +61,8 @@
 		</where>
 	</delete>
 
+	<select id="getPage" resultType="proofreadError">
+			  select * from ua_t_account_proofreadError
+	</select>
 
 </mapper>

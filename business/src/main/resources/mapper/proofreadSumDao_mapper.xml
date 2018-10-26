@@ -247,6 +247,9 @@
 		</selectKey>
 	</insert>
 
+	<select id="getPage" resultType="ProofreadSum" parameterType="com.pgy.ups.account.facade.from.ProofreadSumForm" >
+		  select * from ua_t_account_proofreadSum
+	</select>
 
 
 

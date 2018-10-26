@@ -2,12 +2,14 @@ package com.pgy.ups.account.facade.from;
 
 import com.baomidou.mybatisplus.plugins.pagination.PageHelper;
 
-public class AbstractPageForm<T extends AbstractPageForm<T>>{
+import java.io.Serializable;
+
+public class AbstractPageForm<T extends AbstractPageForm<T>> implements Serializable {
 
 
-    private int pageSize;
+    private int pageSize = 1;
 
-    private  int PageNumber;
+    private  int pageNumber = 10;
 
     public int getPageSize() {
         return pageSize;
@@ -18,15 +20,15 @@ public class AbstractPageForm<T extends AbstractPageForm<T>>{
     }
 
     public int getPageNumber() {
-        return PageNumber;
+        return pageNumber;
     }
 
     public void setPageNumber(int pageNumber) {
-        PageNumber = pageNumber;
+        pageNumber = pageNumber;
     }
 
     public final T enablePaging() {
-        PageHelper.startPage(1, 4);
+        PageHelper.startPage(pageSize, pageNumber);
         return (T) this;
     }
 }

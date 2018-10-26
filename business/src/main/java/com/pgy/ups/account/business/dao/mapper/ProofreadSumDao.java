@@ -1,7 +1,9 @@
 package com.pgy.ups.account.business.dao.mapper;
 
+import java.util.List;
 import java.util.Map;
 
+import com.pgy.ups.account.facade.from.ProofreadSumForm;
 import com.pgy.ups.account.facade.model.proofread.ProofreadSum;
 
 public interface ProofreadSumDao {
@@ -24,5 +26,7 @@ public interface ProofreadSumDao {
      * @return
      */
 	ProofreadSum queryproofreadSum(Map<String, Object> queryParam);
+
+	List<ProofreadSum> getPage(ProofreadSumForm from);
 
 }
