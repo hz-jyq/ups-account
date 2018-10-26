@@ -1,31 +1,25 @@
 package com.pgy.ups.account.facade.from;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.baomidou.mybatisplus.plugins.pagination.PageHelper;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 import com.pgy.ups.account.facade.model.Model;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 
 
 public class PageInfo<T> extends Model {
 
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-
-    private  Long  zero = new Long("0");
 	
 	private Long pageSize;
-	
-	private long currentPage;
-	
-	private Long total;
-	
-	private Long currentSize;
-	
-	private Long maxPage;
+		
+	private Long total=0L;
 	
 	private List<T> list;
 	
@@ -40,12 +34,8 @@ public class PageInfo<T> extends Model {
         Pagination pagination = PageHelper.getPagination();
         total = pagination.getTotal();
         this.pageSize = new Long(pagination.getSize());
-		this.maxPage = total == zero ? zero:total/pageSize +1 ;
-		this.currentSize= Long.valueOf(pagination.getCurrent());
         PageHelper.remove();
 	}
-
-
 
 	public String getHtml() {
 		return html;
@@ -59,21 +49,11 @@ public class PageInfo<T> extends Model {
 		return pageSize;
 	}
 
-	public long getCurrentPage() {
-		return currentPage;
-	}
 
 	public Long getTotal() {
 		return total;
 	}
 
-	public Long getCurrentSize() {
-		return currentSize;
-	}
-
-	public Long getMaxPage() {
-		return maxPage;
-	}
 
 	public List<T> getList() {
 		return list;
