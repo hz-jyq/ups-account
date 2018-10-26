@@ -26,5 +26,5 @@ public interface ProofreadErrorDao {
 	 */
 	void deleteProofreadError(Map<String, Object> queryParam);
 
-    public PageInfo<ProofreadError> getPage(ProofreadErrorForm Form);
+    public List<ProofreadError> getPage(ProofreadErrorForm Form);
 }

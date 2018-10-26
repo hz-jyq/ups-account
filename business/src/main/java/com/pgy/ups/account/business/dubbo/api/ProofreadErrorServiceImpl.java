@@ -6,6 +6,7 @@ import com.pgy.ups.account.facade.dubbo.api.ProofreadErrorService;
 import com.pgy.ups.account.facade.from.PageInfo;
 import com.pgy.ups.account.facade.from.ProofreadErrorForm;
 import com.pgy.ups.account.facade.model.proofread.ProofreadError;
+import com.pgy.ups.account.facade.model.proofread.ProofreadSum;
 
 import javax.annotation.Resource;
 
@@ -16,7 +17,8 @@ public class ProofreadErrorServiceImpl  implements ProofreadErrorService {
     private ProofreadErrorDao  proofreadErrorDao;
 
     @Override
-    public PageInfo<ProofreadError> getPage(ProofreadErrorForm Form) {
-            return  proofreadErrorDao.getPage(Form);
+    public PageInfo<ProofreadError> getPage(ProofreadErrorForm form) {
+        PageInfo<ProofreadError> page =  new PageInfo<ProofreadError>(proofreadErrorDao.getPage(form.enablePaging()));
+        return page;
     }
 }

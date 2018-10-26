@@ -5,6 +5,22 @@
 	namespace="com.pgy.ups.account.business.dao.mapper.ProofreadErrorDao">
 
 	<sql id="proofreadErrorColumn">
+		id,
+		fromSystem,
+		proofreadType,
+		proofreadDate,
+		businessOrderNum,
+		borrowNum,
+		businessExchangeMoney,
+		businessOrderStatuts,
+    	businessOrderCreateTime,
+		channelExchangeMoney,
+		channelOrderStatus,
+		channelOrderCreateTime,
+		disposeTime,
+		errorType,
+		flowStatus,
+ 		updateUser
 	</sql>
 
 	<insert id="batchInsert">
@@ -61,8 +77,8 @@
 		</where>
 	</delete>
 
-	<select id="getPage" resultType="proofreadError">
-			  select * from ua_t_account_proofreadError
+	<select id="getPage" resultType="proofreadError" parameterType="com.pgy.ups.account.facade.from.ProofreadErrorForm">
+		  select <include refid="proofreadErrorColumn"/> from ua_t_account_proofreadError
 	</select>
 
 </mapper>
