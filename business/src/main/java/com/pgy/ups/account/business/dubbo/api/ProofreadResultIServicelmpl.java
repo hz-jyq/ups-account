@@ -1,5 +1,6 @@
 package com.pgy.ups.account.business.dubbo.api;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.pgy.ups.account.business.dao.mapper.ProofreadResultDao;
 import com.pgy.ups.account.facade.dubbo.api.ProofreadResultIService;
 import com.pgy.ups.account.facade.from.PageInfo;
@@ -8,6 +9,7 @@ import com.pgy.ups.account.facade.model.proofread.ProofreadResult;
 
 import javax.annotation.Resource;
 
+@Service
 public class ProofreadResultIServicelmpl implements ProofreadResultIService {
 
     @Resource
