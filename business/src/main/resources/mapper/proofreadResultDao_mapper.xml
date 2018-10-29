@@ -227,7 +227,6 @@
 		<include refid="proofreadResultColumn" />
 		FROM
 		ua_t_account_proofreadResult
-		WHERE
 	</select>
 
 </mapper>
