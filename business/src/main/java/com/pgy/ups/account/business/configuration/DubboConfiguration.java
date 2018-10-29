@@ -1,5 +1,6 @@
 package com.pgy.ups.account.business.configuration;
 
+import com.alibaba.dubbo.config.ProtocolConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,6 +26,14 @@ public class DubboConfiguration {
 		RegistryConfig registryConfig = new RegistryConfig();
 		registryConfig.setAddress(dubboProperties.getAddress());
 		registryConfig.setClient(dubboProperties.getZkClient());
+		registryConfig.setPort(-1);
+		return registryConfig;
+	}
+
+	@Bean
+	public ProtocolConfig ProtocolConfig(DubboProperties dubboProperties) {
+		ProtocolConfig registryConfig = new ProtocolConfig();
+		registryConfig.setPort(-1);
 		return registryConfig;
 	}
 }
