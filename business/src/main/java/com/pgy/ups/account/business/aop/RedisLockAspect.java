@@ -22,7 +22,7 @@ import com.pgy.ups.account.commom.annotation.RedisLock;
 import com.pgy.ups.account.commom.utils.RedisUtils;
 
 /**
- * redisLock
+ * RedisLock
  * 
  * @author 墨凉
  *
@@ -44,7 +44,7 @@ public class RedisLockAspect implements Ordered {
 
 	// redis分布式锁
 	@Around(value = "redisLockPointcut()")
-	public Object lock(ProceedingJoinPoint joinPoint) throws Throwable {
+	public Object lockAndUnlock(ProceedingJoinPoint joinPoint) throws Throwable {
 		Signature sig = joinPoint.getSignature();
 		MethodSignature msig = null;
 		if (!(sig instanceof MethodSignature)) {
@@ -52,12 +52,13 @@ public class RedisLockAspect implements Ordered {
 		}
 		msig = (MethodSignature) sig;
 		Object target = joinPoint.getTarget();
+		Method currentMethod = target.getClass().getMethod(msig.getName(), msig.getParameterTypes());
+		Annotation annotation = currentMethod.getAnnotation(RedisLock.class);
+		//获取注解属性
 		String key = null;
 		String value = null;
 		String name = null;
-		try {
-			Method currentMethod = target.getClass().getMethod(msig.getName(), msig.getParameterTypes());
-			Annotation annotation = currentMethod.getAnnotation(RedisLock.class);
+		try {			
 			key = (String) AnnotationUtils.getValue(annotation, "key");
 			value = UUID.randomUUID().toString();
 			int expireTime = (int) AnnotationUtils.getValue(annotation, "expireTime");

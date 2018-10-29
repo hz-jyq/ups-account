@@ -4,7 +4,12 @@ import com.pgy.ups.account.facade.model.Model;
 
 public class ExcelForm extends Model {
 
-    private String channel;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6656608836585811554L;
+
+	private String channel;
 
     private String fromSystem;
 

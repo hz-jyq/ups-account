@@ -7,7 +7,6 @@ import com.pgy.ups.account.facade.from.ExcelForm;
 import com.pgy.ups.account.facade.model.proofread.BaoFuModel;
 import com.pgy.ups.account.facade.model.proofread.BaoFuModelReturn;
 import com.pgy.ups.account.facade.model.proofread.BusinessProofreadModel;
-import com.pgy.ups.account.facade.model.proofread.ProofreadSuccess;
 
 /**
  * 宝付还款数据

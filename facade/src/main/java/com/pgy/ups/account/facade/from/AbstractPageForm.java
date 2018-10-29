@@ -34,7 +34,8 @@ public class AbstractPageForm<T extends AbstractPageForm<T>> extends Model {
         this.pageNumber = pageNumber;
     }
 
-    public final T enablePaging() {
+    @SuppressWarnings("unchecked")
+	public final T enablePaging() {
         PageHelper.startPage(pageNumber,pageSize);
         return (T) this;
     }
