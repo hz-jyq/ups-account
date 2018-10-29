@@ -1,16 +1,16 @@
 package com.pgy.ups.account.business.dubbo.api;
 
+import javax.annotation.Resource;
+
 import com.alibaba.dubbo.config.annotation.Service;
 import com.pgy.ups.account.business.dao.mapper.ProofreadResultDao;
-import com.pgy.ups.account.facade.dubbo.api.ProofreadResultIService;
+import com.pgy.ups.account.facade.dubbo.api.ProofreadResultService;
 import com.pgy.ups.account.facade.from.PageInfo;
 import com.pgy.ups.account.facade.from.ProofreadResultForm;
 import com.pgy.ups.account.facade.model.proofread.ProofreadResult;
 
-import javax.annotation.Resource;
-
 @Service
-public class ProofreadResultServicelmpl implements ProofreadResultIService {
+public class ProofreadResultServicelmpl implements ProofreadResultService {
 
     @Resource
     private ProofreadResultDao  proofreadResultDao;

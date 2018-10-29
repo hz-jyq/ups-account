@@ -6,11 +6,9 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.hibernate.validator.constraints.Range;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Scope;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.pgy.ups.account.business.dao.mapper.BaofuReturnDataDao;
@@ -62,16 +60,16 @@ public class ProofreadAccountApiImplTest{
 		 m5.setExchangeAmount(new BigDecimal("10000"));
 		 List<BusinessProofreadModel> list=new ArrayList<>();
 		 list.add(m1); list.add(m2); list.add(m3); list.add(m4);list.add(m5);		
-		 new Thread(()->{ 
+		 /*new Thread(()->{ 
 			 ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.BORROW, DateUtils.stringToDate("2018-10-23"));
 		 }).start();
 		 
 		 new Thread(()->{ 
 			 ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.BORROW, DateUtils.stringToDate("2018-10-23"));
 		 }).start();
-		 Thread.sleep(100000);
-		//ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.RETURN, DateUtils.stringToDate("2018-10-23"));
-		//ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.BORROW, DateUtils.stringToDate("2018-10-23"));
+		 Thread.sleep(100000);*/
+		ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.RETURN, DateUtils.stringToDate("2018-10-23"));
+		ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.BORROW, DateUtils.stringToDate("2018-10-23"));
 	 }
 	 
 }

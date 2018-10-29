@@ -65,7 +65,7 @@ public class ProofreadAccountApiImpl implements ProofreadAccountApi {
 		String proofreadLockKey = "proofreadLocks";
 		String requestId = UUID.randomUUID().toString();		
 		try {
-			while (!redisUtils.redisLock(proofreadLockKey, requestId, 20000)) {
+			if (!redisUtils.redisLock(proofreadLockKey, requestId, 20000)) {
 				logger.info("redis获取对账锁失败，lockKey:" + proofreadLockKey + ",lockValue:" + requestId);
 				return null;
 			}
