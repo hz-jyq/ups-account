@@ -16,6 +16,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.pgy.ups.account.business.factory.proofread.BaofuProofreadHandlerFactory;
 import com.pgy.ups.account.business.factory.proofread.ProofreadHandlerFactory;
 import com.pgy.ups.account.business.handler.proofread.ProofreadHandler;
+import com.pgy.ups.account.commom.annotation.RedisLock;
 import com.pgy.ups.account.commom.utils.DateUtils;
 import com.pgy.ups.account.commom.utils.RedisUtils;
 import com.pgy.ups.account.facade.dubbo.api.ProofreadAccountApi;
@@ -61,30 +62,36 @@ public class ProofreadAccountApiImpl implements ProofreadAccountApi {
 		if (Objects.isNull(date)) {
 			date = DateUtils.getYesterday();
 		}
-		ProofreadResult proofreadResult=null;		
-		String proofreadLockKey = "proofreadLocks";
-		String requestId = UUID.randomUUID().toString();		
+		// 宝付对账处理工厂
+		ProofreadHandler<String, List<? extends BaoFuModel>> proofreadHandler = baofuProofreadHandlerFactory
+				.getProofreadHandler(fromSystem, proofreadAccountType, date);
 		try {
-			if (!redisUtils.redisLock(proofreadLockKey, requestId, 20000)) {
-				logger.info("redis获取对账锁失败，lockKey:" + proofreadLockKey + ",lockValue:" + requestId);
-				return null;
-			}
-			logger.info("redis获取对账锁成功，lockKey:" + proofreadLockKey + ",lockValue:" + requestId);
-			// 宝付对账处理工厂
-			ProofreadHandler<String, List<? extends BaoFuModel>> proofreadHandler = baofuProofreadHandlerFactory
-					.getProofreadHandler(fromSystem, proofreadAccountType, date);
-			proofreadResult= proofreadHandler.handler(list);			
+			ProofreadResult proofreadResult = proofreadHandler.handler(list);
+			logger.error("对账任务执行成功！{}",proofreadResult);
+			return proofreadResult;
 		} catch (Exception e) {
-			logger.error("对账业务处理失败！{}", ExceptionUtils.getStackTrace(e));
-		} finally {
-			if (redisUtils.redisUnLock(proofreadLockKey, requestId)) {
-				logger.info("redis解除对账锁成功，lockKey:" + proofreadLockKey + ",lockValue:" + requestId);
-			} else {
-				logger.info("redis解除对账锁失败，lockKey:" + proofreadLockKey + ",lockValue:" + requestId);
-			}
-			logger.info("对账任务结束");
+			logger.error("对账任务执行失败！{}", e);
+			return null;
 		}
-		return proofreadResult;
-	}
 
+		/*
+		 * ProofreadResult proofreadResult = null; String proofreadLockKey =
+		 * "proofreadLocks"; String requestId = UUID.randomUUID().toString(); try { if
+		 * (!redisUtils.redisLock(proofreadLockKey, requestId, 20000)) {
+		 * logger.info("redis获取对账锁失败，lockKey:" + proofreadLockKey + ",lockValue:" +
+		 * requestId); return null; } logger.info("redis获取对账锁成功，lockKey:" +
+		 * proofreadLockKey + ",lockValue:" + requestId); // 宝付对账处理工厂
+		 * ProofreadHandler<String, List<? extends BaoFuModel>> proofreadHandler =
+		 * baofuProofreadHandlerFactory .getProofreadHandler(fromSystem,
+		 * proofreadAccountType, date); proofreadResult =
+		 * proofreadHandler.handler(list); } catch (Exception e) {
+		 * logger.error("对账业务处理失败！{}", ExceptionUtils.getStackTrace(e)); } finally { if
+		 * (redisUtils.redisUnLock(proofreadLockKey, requestId)) {
+		 * logger.info("redis解除对账锁成功，lockKey:" + proofreadLockKey + ",lockValue:" +
+		 * requestId); } else { logger.info("redis解除对账锁失败，lockKey:" + proofreadLockKey +
+		 * ",lockValue:" + requestId); } logger.info("对账任务结束"); } return
+		 * proofreadResult;
+		 */
+	}
+	
 }

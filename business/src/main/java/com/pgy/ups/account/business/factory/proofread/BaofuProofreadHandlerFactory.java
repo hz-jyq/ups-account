@@ -39,6 +39,7 @@ import com.pgy.ups.account.business.dao.mapper.ProofreadResultDao;
 import com.pgy.ups.account.business.dao.mapper.ProofreadSumDao;
 import com.pgy.ups.account.business.handler.proofread.DocumentParserHandler;
 import com.pgy.ups.account.business.handler.proofread.ProofreadHandler;
+import com.pgy.ups.account.commom.annotation.RedisLock;
 import com.pgy.ups.account.commom.utils.DateUtils;
 import com.pgy.ups.account.commom.utils.HttpClientUtils;
 import com.pgy.ups.account.commom.utils.SecurityUtil;
@@ -142,6 +143,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 	 * 处理流程
 	 */
 	@Override
+	@RedisLock(name="对账锁",key="proofreadLock",expireTime=60000)
 	public ProofreadResult handler(List<BusinessProofreadModel> list) {
 		List<BusinessProofreadModel> businessList = new ArrayList<>(list);
 		// 初始化返回结果
