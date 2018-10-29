@@ -18,6 +18,10 @@ public class ProofreadSumForm extends  AbstractPageForm<ProofreadSumForm>{
     private String createTimeStart;
 
     private String createTimeEnd;
+    
+    private String fromSystem;
+    
+    private String proofreadType;
 
 
     public String getProofreadStatus() {
@@ -67,4 +71,22 @@ public class ProofreadSumForm extends  AbstractPageForm<ProofreadSumForm>{
     public void setCreateTimeEnd(String createTimeEnd) {
         this.createTimeEnd = createTimeEnd;
     }
+
+	public String getFromSystem() {
+		return fromSystem;
+	}
+
+	public void setFromSystem(String fromSystem) {
+		this.fromSystem = fromSystem;
+	}
+
+	public String getProofreadType() {
+		return proofreadType;
+	}
+
+	public void setProofreadType(String proofreadType) {
+		this.proofreadType = proofreadType;
+	}
+    
+    
 }

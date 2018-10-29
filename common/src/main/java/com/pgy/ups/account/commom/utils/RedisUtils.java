@@ -4,8 +4,6 @@ import java.util.Collections;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import redis.clients.jedis.Jedis;
@@ -16,9 +14,7 @@ public class RedisUtils {
 	
 	@Resource
 	private JedisPool jedisPool; 
-	
-	private Jedis jedis=null;
-	
+		
 	private static final String LOCK_SUCCESS = "OK";
     private static final String SET_IF_NOT_EXIST = "NX";
     private static final String SET_WITH_EXPIRE_TIME = "PX";
@@ -26,26 +22,30 @@ public class RedisUtils {
     private static final Long RELEASE_SUCCESS = 1L;
 	
     public Long setnx(String key,String value) {
-    	jedis=jedisPool.getResource(); 
+    	Jedis jedis=jedisPool.getResource(); 
     	Long result= jedis.setnx(key.getBytes(),value.getBytes()); 
+    	jedis.close();
     	return result;
     }	
-    
+     
     public String get(String key) {
-    	jedis=jedisPool.getResource(); 
+    	Jedis jedis=jedisPool.getResource(); 
     	String value=jedis.get(key);
+    	jedis.close();
     	return  value;
     }
     
     public boolean setex(String key ,String value,int expire) {
-    	jedis=jedisPool.getResource(); 
+    	Jedis jedis=jedisPool.getResource(); 
     	String result= jedis.setex(key.getBytes(),expire,value.getBytes()); 
+    	jedis.close();
     	return LOCK_SUCCESS.equals(result);
     }
     
     public boolean delete(String key) {
-    	jedis=jedisPool.getResource(); 
+    	Jedis jedis=jedisPool.getResource(); 
     	Long result=jedis.del(key);
+    	jedis.close();
     	return result>0;
     }
     
@@ -57,8 +57,9 @@ public class RedisUtils {
      * @return
      */
     public boolean redisLock(String lockKey, String requestId, int expireTime) {
-    	jedis=jedisPool.getResource(); 
+    	Jedis jedis=jedisPool.getResource(); 
     	String result = jedis.set(lockKey, requestId, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireTime);
+    	jedis.close();
         if (LOCK_SUCCESS.equals(result)) {       	
             return true;
         }
@@ -72,9 +73,10 @@ public class RedisUtils {
      * @return
      */
     public boolean redisUnLock(String lockKey, String requestId) {
-    	jedis=jedisPool.getResource(); 
+    	Jedis jedis=jedisPool.getResource(); 
         String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
         Object result = jedis.eval(script, Collections.singletonList(lockKey), Collections.singletonList(requestId));
+        jedis.close();
         if (RELEASE_SUCCESS.equals(result)) {
             return true;
         }
