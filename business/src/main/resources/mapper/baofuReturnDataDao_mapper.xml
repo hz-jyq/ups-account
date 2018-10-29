@@ -86,9 +86,39 @@
 	         ua_t_account_baofu_fi	
 	</select>
 
+	<sql id="baofuReturnExcelColumn">
+		id,
+		CASE systemFrom
+		WHEN '01' THEN '美期'
+		WHEN '02' THEN '米融'
+		WHEN '03' THEN '秒呗'
+		ELSE '其他' END  as systemFrom,
+		DATE_FORMAT(downLoadTime ,'%Y-%m-%d %H:%i:%s') as downLoadTime,
+		DATE_FORMAT(proofreadDate ,'%Y-%m-%d') as proofreadDate,
+		businessNum,
+		terminalNum,
+		exchangeType,
+		CASE subExchangeType
+		WHEN '00' THEN '成功'
+		WHEN '01' THEN '退款'
+		WHEN '02' THEN '撤销'
+		ELSE '其他' END  as subExchangeType,
+		baofuOrderNum,
+		businessOrderNum,
+		DATE_FORMAT(caculateTime ,'%Y-%m-%d') as caculateTime,
+		orderStatus,
+		exchangeAmount,
+		exchangeTip,
+		baofuExchangeNum,
+		DATE_FORMAT(orderCreateTime ,'%Y-%m-%d %H:%i:%s') as orderCreateTime,
+		businessRefundOrderNum,
+		DATE_FORMAT(refundOrderCreateTime ,'%Y-%m-%d %H:%i:%s') as refundOrderCreateTime
+	</sql>
+
+
 	<select id="getExcelList " resultType="BusinessProofreadModel" parameterType="com.pgy.ups.account.facade.from.ExcelForm">
 		SELECT
-		<include refid="baofuReturnColumn" />
+		<include refid="baofuReturnExcelColumn" />
 		FROM
 		ua_t_account_baofu_fi
 		where  systemFrom=#{systemFrom} and  proofreadDate = #{proofreadDate}
