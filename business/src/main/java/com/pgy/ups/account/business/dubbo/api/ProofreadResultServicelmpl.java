@@ -10,7 +10,7 @@ import com.pgy.ups.account.facade.model.proofread.ProofreadResult;
 import javax.annotation.Resource;
 
 @Service
-public class ProofreadResultIServicelmpl implements ProofreadResultIService {
+public class ProofreadResultServicelmpl implements ProofreadResultIService {
 
     @Resource
     private ProofreadResultDao  proofreadResultDao;
