@@ -47,7 +47,8 @@ public class RedisLockAspect implements Ordered{
         msig = (MethodSignature) sig;
         Object target = joinPoint.getTarget();
         Method currentMethod = target.getClass().getMethod(msig.getName(), msig.getParameterTypes());
-		try {			
+		try {
+			
 			Object obj=joinPoint.proceed();
 		} catch (Throwable e) {
 			throw e;

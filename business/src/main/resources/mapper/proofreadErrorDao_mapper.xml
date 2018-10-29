@@ -89,9 +89,6 @@
 
 	<select id="getPage" resultType="proofreadError" parameterType="com.pgy.ups.account.facade.from.ProofreadErrorForm">
 		  select <include refid="proofreadErrorColumn"/> from ua_t_account_proofreadError
-		<where>
-			<if></if>
-		</where>
 	</select>
 
 </mapper>

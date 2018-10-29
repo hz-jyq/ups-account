@@ -30,7 +30,7 @@ public class ProofreadAccountApiImplTest{
 	 private BaofuReturnDataDao baofuReturnDataDao;
 	 
 	 	 
-	 @Test
+	 //@Test
 	 public void TestSuccess() {
 		 List<BusinessProofreadModel> list=baofuReturnDataDao.query();
 		 ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.RETURN, DateUtils.stringToDate("2018-10-23"));
