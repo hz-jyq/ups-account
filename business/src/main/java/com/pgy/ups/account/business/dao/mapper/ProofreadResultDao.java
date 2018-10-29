@@ -1,7 +1,9 @@
 package com.pgy.ups.account.business.dao.mapper;
 
+import java.util.List;
 import java.util.Map;
 
+import com.pgy.ups.account.facade.from.ProofreadResultForm;
 import com.pgy.ups.account.facade.model.proofread.ProofreadResult;
 
 public interface ProofreadResultDao {
@@ -40,4 +42,6 @@ public interface ProofreadResultDao {
 		// TODO Auto-generated method stub
 		
 	}
+
+	List<ProofreadResult> getPage(ProofreadResultForm form);
 }

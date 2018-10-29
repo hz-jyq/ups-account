@@ -221,5 +221,13 @@
 			</choose>
 		</where>
 	</delete>
+	
+	<select id="getPage" resultType="proofreadResultColumn" parameterType="com.pgy.ups.account.facade.from.ProofreadResultForm">
+		SELECT
+		<include refid="proofreadResultColumn" />
+		FROM
+		ua_t_account_proofreadResult
+		WHERE
+	</select>
 
 </mapper>
