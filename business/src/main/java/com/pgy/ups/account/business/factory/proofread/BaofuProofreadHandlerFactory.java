@@ -152,7 +152,8 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 	public ProofreadResult handler(List<BusinessProofreadModel> list) {
 		List<BusinessProofreadModel> businessList = new ArrayList<>(list);
 		// 初始化返回结果
-		ProofreadResult proofreadResult = initProofreadResult();
+		ProofreadResult proofreadResult=((BaoFuProofreadHandler) AopContext.currentProxy()).initProofreadResult();
+		//ProofreadResult proofreadResult = initProofreadResult();
 		// 如果对账成功 直接返回
 		if (proofreadResult.getSuccess()) {
 			logger.error("该日期的对账已经完成！{}", proofreadResult);
