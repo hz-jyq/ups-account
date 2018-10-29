@@ -83,4 +83,13 @@
 		</where>
 	</delete>
 
+	<select id="getExcelList " resultType="ProofreadSuccess" parameterType="com.pgy.ups.account.facade.from.ExcelForm">
+		SELECT
+		<include refid="proofreadSuccessColumn" />
+		FROM
+		ua_t_account_proofreadSuccess
+		where  systemFrom=#{systemFrom} and  proofreadDate = #{proofreadDate} and channel = #{channel} and  proofreadType =#{proofreadType}
+	</select>
+
+
 </mapper>

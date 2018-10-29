@@ -81,6 +81,13 @@
 		</foreach>
 	</insert>
 
+	<select id="getExcelList " resultType="BusinessProofreadModel" parameterType="com.pgy.ups.account.facade.from.ExcelForm">
+		SELECT
+		<include refid="baofuBorrowColumn" />
+		FROM
+		ua_t_account_baofu_fo
+		where  systemFrom=#{systemFrom} and  proofreadDate = #{proofreadDate}
+	</select>
 
 
 </mapper>

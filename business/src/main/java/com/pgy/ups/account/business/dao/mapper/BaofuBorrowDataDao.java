@@ -3,6 +3,7 @@ package com.pgy.ups.account.business.dao.mapper;
 import java.util.List;
 import java.util.Map;
 
+import com.pgy.ups.account.facade.from.ExcelForm;
 import com.pgy.ups.account.facade.model.proofread.BaoFuModel;
 import com.pgy.ups.account.facade.model.proofread.BaoFuModelBorrow;
 
@@ -26,5 +27,7 @@ public interface BaofuBorrowDataDao {
 	 * @param sourceList
 	 */
 	void batchInsert(List<? extends BaoFuModel> sourceList);
+
+	List<BaoFuModelBorrow> getExcelList(ExcelForm form);
 
 }

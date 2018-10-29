@@ -86,4 +86,13 @@
 	         ua_t_account_baofu_fi	
 	</select>
 
+	<select id="getExcelList " resultType="BusinessProofreadModel" parameterType="com.pgy.ups.account.facade.from.ExcelForm">
+		SELECT
+		<include refid="baofuReturnColumn" />
+		FROM
+		ua_t_account_baofu_fi
+		where  systemFrom=#{systemFrom} and  proofreadDate = #{proofreadDate}
+	</select>
+	
+	
 </mapper>

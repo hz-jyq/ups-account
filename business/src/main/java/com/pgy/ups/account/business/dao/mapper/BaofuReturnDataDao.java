@@ -3,9 +3,11 @@ package com.pgy.ups.account.business.dao.mapper;
 import java.util.List;
 import java.util.Map;
 
+import com.pgy.ups.account.facade.from.ExcelForm;
 import com.pgy.ups.account.facade.model.proofread.BaoFuModel;
 import com.pgy.ups.account.facade.model.proofread.BaoFuModelReturn;
 import com.pgy.ups.account.facade.model.proofread.BusinessProofreadModel;
+import com.pgy.ups.account.facade.model.proofread.ProofreadSuccess;
 
 /**
  * 宝付还款数据
@@ -30,4 +32,5 @@ public interface BaofuReturnDataDao {
     //临时的，生成需要删除
 	List<BusinessProofreadModel> query();
 
+	List<BaoFuModelReturn> getExcelList(ExcelForm from);
 }

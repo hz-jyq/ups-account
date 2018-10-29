@@ -3,6 +3,7 @@ package com.pgy.ups.account.business.dao.mapper;
 import java.util.List;
 import java.util.Map;
 
+import com.pgy.ups.account.facade.from.ExcelForm;
 import com.pgy.ups.account.facade.model.proofread.ProofreadSuccess;
 
 /**
@@ -23,5 +24,7 @@ public interface ProofreadSuccessDao {
 	 * @param queryParam
 	 */
 	void deleteProofreadSuccess(Map<String, Object> queryParam);
+
+	List<ProofreadSuccess> getExcelList(ExcelForm from);
 
 }
