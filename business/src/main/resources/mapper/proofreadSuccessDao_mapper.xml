@@ -82,10 +82,39 @@
 			</choose>
 		</where>
 	</delete>
+	<sql id="proofreadSuccessExcelColumn">
+		  id,
+		  channel,
+		  CASE systemFrom
+		  WHEN '01' THEN '美期'
+		  WHEN '02' THEN '米融'
+		  WHEN '03' THEN '秒呗'
+		  ELSE '其他' END  as systemFrom,
+		  CASE proofreadType
+		  WHEN '01' THEN '借款对账'
+		  WHEN '02' THEN '还款对账'
+		  ELSE '其他' END  as proofreadType,
+		  DATE_FORMAT(proofreadDate,'%Y-%m-%d') as proofreadDate,
+		  businessNum,
+		  businessOrderNum,
+		  borrowNum,
+		  businessExchangeMoney,
+		  DATE_FORMAT(businessOrderCreateTime,'%Y-%m-%d %H:%i:%s') as businessOrderCreateTime,
+		  channelExchangeMoney,
+		  DATE_FORMAT(channelOrderCreateTime,'%Y-%m-%d %H:%i:%s') as channelOrderCreateTime,
+		  CASE proofreadStatus
+		  WHEN '01' THEN '已对账'
+		  WHEN '02' THEN '有异常'
+		  WHEN '03' THEN '待对账'
+		  ELSE '其他' END  as proofreadStatus,
+		  remark,
+		  updateUser
+	</sql>
+
 
 	<select id="getExcelList " resultType="ProofreadSuccess" parameterType="com.pgy.ups.account.facade.from.ExcelForm">
 		SELECT
-		<include refid="proofreadSuccessColumn" />
+		<include refid="proofreadSuccessExcelColumn" />
 		FROM
 		ua_t_account_proofreadSuccess
 		where  systemFrom=#{systemFrom} and  proofreadDate = #{proofreadDate} and channel = #{channel} and  proofreadType =#{proofreadType}
