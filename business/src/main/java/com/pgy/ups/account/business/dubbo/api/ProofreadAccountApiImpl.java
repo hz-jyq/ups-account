@@ -3,11 +3,9 @@ package com.pgy.ups.account.business.dubbo.api;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +14,6 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.pgy.ups.account.business.factory.proofread.BaofuProofreadHandlerFactory;
 import com.pgy.ups.account.business.factory.proofread.ProofreadHandlerFactory;
 import com.pgy.ups.account.business.handler.proofread.ProofreadHandler;
-import com.pgy.ups.account.commom.annotation.RedisLock;
 import com.pgy.ups.account.commom.utils.DateUtils;
 import com.pgy.ups.account.commom.utils.RedisUtils;
 import com.pgy.ups.account.facade.dubbo.api.ProofreadAccountApi;

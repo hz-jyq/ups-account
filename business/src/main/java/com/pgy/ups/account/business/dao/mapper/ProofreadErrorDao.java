@@ -3,7 +3,6 @@ package com.pgy.ups.account.business.dao.mapper;
 import java.util.List;
 import java.util.Map;
 
-import com.pgy.ups.account.facade.from.PageInfo;
 import com.pgy.ups.account.facade.from.ProofreadErrorForm;
 import com.pgy.ups.account.facade.model.proofread.ProofreadError;
 

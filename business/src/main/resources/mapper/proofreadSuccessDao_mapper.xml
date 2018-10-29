@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.pgy.ups.account.business.dao.mapper.ProofreadSuccessDao">
+
+	<sql id="proofreadSuccessColumn">
+		  id,
+		  channel,
+		  fromSystem,
+		  proofreadType,
+		  DATE_FORMAT(proofreadDate,'%Y-%m-%d') as proofreadDate,
+		  businessNum,
+		  businessOrderNum,
+		  borrowNum,
+		  businessExchangeMoney,
+		  DATE_FORMAT(businessOrderCreateTime,'%Y-%m-%d %H:%i:%s') as businessOrderCreateTime,
+		  channelExchangeMoney,
+		  DATE_FORMAT(channelOrderCreateTime,'%Y-%m-%d %H:%i:%s') as channelOrderCreateTime,
+		  proofreadStatus,
+		  remark,
+		  updateUser		 
+	</sql>
+
+	<insert id="batchInsert">
+		INSERT INTO ua_t_account_proofreadSuccess VALUES
+		<foreach collection="list" item="item" separator=",">
+		   (
+			null,
+			#{item.channel},
+			#{item.fromSystem},
+			#{item.proofreadType},
+			#{item.proofreadDate},
+			#{item.businessNum},
+			#{item.businessOrderNum},
+			#{item.borrowNum},
+			#{item.businessExchangeMoney},
+			#{item.businessOrderCreateTime},
+			#{item.channelExchangeMoney},
+			#{item.channelOrderCreateTime},
+			#{item.proofreadStatus},
+			#{item.remark},
+			#{item.updateUser}			
+		    )
+		</foreach>
+	</insert>
+
+	<delete id="deleteProofreadError">
+		DELETE FROM ua_t_account_proofreadSuccess
+		<where>
+			<choose>
+				<when test="fromSystem !=null and fromSystem!=''">
+					fromSystem=#{fromSystem}
+				</when>
+				<otherwise>
+					1=2
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="proofreadType!=null and proofreadType!=''">
+					AND proofreadType=#{proofreadType}
+				</when>
+				<otherwise>
+					AND 1=2
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="proofreadDate != null and proofreadDate!=''">
+					AND proofreadDate=#{proofreadDate}
+				</when>
+				<otherwise>
+					AND 1=2
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="channel != null and channel!=''">
+					AND channel=#{channel}
+				</when>
+				<otherwise>
+					AND 1=2
+				</otherwise>
+			</choose>
+		</where>
+	</delete>
+
+</mapper>

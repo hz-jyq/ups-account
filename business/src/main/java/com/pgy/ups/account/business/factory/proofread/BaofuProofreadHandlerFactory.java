@@ -36,6 +36,7 @@ import com.pgy.ups.account.business.dao.mapper.BaofuReturnDataDao;
 import com.pgy.ups.account.business.dao.mapper.BusinessDataDao;
 import com.pgy.ups.account.business.dao.mapper.ProofreadErrorDao;
 import com.pgy.ups.account.business.dao.mapper.ProofreadResultDao;
+import com.pgy.ups.account.business.dao.mapper.ProofreadSuccessDao;
 import com.pgy.ups.account.business.dao.mapper.ProofreadSumDao;
 import com.pgy.ups.account.business.handler.proofread.DocumentParserHandler;
 import com.pgy.ups.account.business.handler.proofread.ProofreadHandler;
@@ -50,6 +51,7 @@ import com.pgy.ups.account.facade.model.proofread.BaoFuModelReturn;
 import com.pgy.ups.account.facade.model.proofread.BusinessProofreadModel;
 import com.pgy.ups.account.facade.model.proofread.ProofreadError;
 import com.pgy.ups.account.facade.model.proofread.ProofreadResult;
+import com.pgy.ups.account.facade.model.proofread.ProofreadSuccess;
 import com.pgy.ups.account.facade.model.proofread.ProofreadSum;
 
 /**
@@ -127,6 +129,9 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 	
 	@Resource
 	private ProofreadErrorDao proofreadErrorDao;
+	
+	@Resource
+	private ProofreadSuccessDao proofreadSuccessDao;
 
 	private DocumentParserHandler<String, List<? extends BaoFuModel>> documentParserHandler;
 
@@ -262,12 +267,18 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 		}
 		// 初始化宝付对账前汇总结果对象
 		baofuProofreadSum.initBeforeProofread(businessList, baofuList);
-		// 对账异常工厂
+		// 对账异常明细工厂
 		ProofreadErrorFactory proofreadErrorFactory = new ProofreadErrorFactory(proofreadResult);
+		// 对账成功明细工厂
+		ProofreadSuccessFactory proofreadSuccessFactory=new ProofreadSuccessFactory(proofreadResult);
 		// 用于存放对账异常对象
 		List<ProofreadError> errorList = new ArrayList<>();
+		// 用于存放对账成功对象
+		List<ProofreadSuccess> successList = new ArrayList<>();
 		// 数据库删除当天差错账信息
 		deleletProofreadErrorList(proofreadResult);
+		// 数据库删除当天成功对账账信息
+		deleletProofreadSuccessList(proofreadResult);
 		// 开始对账
 		Iterator<? extends BaoFuModel> baofuListIterator = baofuList.iterator();
 		while (baofuListIterator.hasNext()) {
@@ -283,6 +294,10 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 					if (baofuExchangeAmount.compareTo(businessExchangeAmount) == 0) {
 						// 相等 则成功金额和成功笔数累加
 						baofuProofreadSum.increaseSuccess(baofuExchangeAmount);
+						// 构建成功明细对象
+						ProofreadSuccess proofreadSuccess=proofreadSuccessFactory.createProofreadSuccess(businessModel, baofuModel);
+						//存入成功列表
+						successList.add(proofreadSuccess);
 					} else {
 						// 若不相等，则业务和渠道失败均累加
 						baofuProofreadSum.increaseBusinessFail(businessExchangeAmount);
@@ -290,7 +305,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 						// 构建异常明细对象（错账）
 						ProofreadError proofreadError = proofreadErrorFactory.createProofreadError(businessModel,
 								baofuModel);
-						// 存入列表
+						// 存入异常列表
 						errorList.add(proofreadError);
 					}
 					// 校对后移除
@@ -311,17 +326,35 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 		//保存差账记录
 		if(CollectionUtils.isNotEmpty(errorList)) {
 			proofreadErrorDao.batchInsert(errorList);
+		}
+		//保存对账正确记录
+		if(CollectionUtils.isNotEmpty(errorList)) {
+			proofreadSuccessDao.batchInsert(successList);
 		}	
 		// 构建宝付对账后汇总结果对象
 		baofuProofreadSum.buildAfterProofread(businessList, baofuList);
 		// 保存最终对账成功结果
 		proofreadSumDao.updateProofreadSum(baofuProofreadSum);
+		//更新对账日志
 		proofreadResult.setFailReason(StringUtils.EMPTY);
-		proofreadResult.setSuccess(true);
+		proofreadResult.setSuccess(true);		
 		proofreadResultDao.updateProofreadResult(proofreadResult);
 		return proofreadResult;
 	}
     
+	/**
+	 *   删除对账成功结果列表
+	 * @param proofreadResult
+	 */
+	private void deleletProofreadSuccessList(ProofreadResult proofreadResult) {
+		Map<String, Object> queryParam = Maps.newHashMap();
+		queryParam.put("proofreadDate", proofreadResult.getProofreadDate());
+		queryParam.put("fromSystem", proofreadResult.getFromSystem());
+		queryParam.put("proofreadType", proofreadResult.getProofreadType());
+		queryParam.put("channel", proofreadResult.getChannel());
+		proofreadSuccessDao.deleteProofreadSuccess(queryParam);
+	}
+
 	/**
 	 *    删除业务对账数据列表
 	 * @param proofreadResult
