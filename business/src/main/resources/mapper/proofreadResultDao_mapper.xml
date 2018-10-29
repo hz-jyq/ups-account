@@ -222,7 +222,7 @@
 		</where>
 	</delete>
 	
-	<select id="getPage" resultType="proofreadResultColumn" parameterType="com.pgy.ups.account.facade.from.ProofreadResultForm">
+	<select id="getPage" resultType="ProofreadResult" parameterType="com.pgy.ups.account.facade.from.ProofreadResultForm">
 		SELECT
 		<include refid="proofreadResultColumn" />
 		FROM
