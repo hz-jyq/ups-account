@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,7 +31,7 @@ public class ProofreadAccountApiImplTest {
 	public void TestSuccess() {
 		List<BusinessProofreadModel> list = baofuReturnDataDao.query();
 		ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.RETURN,
-				DateUtils.stringToDate("2018-10-23"));
+				DateUtils.stringToDate("2018-10-24"));
 	}
 
 	@Test
@@ -40,13 +39,13 @@ public class ProofreadAccountApiImplTest {
 
 		BusinessProofreadModel m1 = new BusinessProofreadModel();
 		m1.setBorrowNum("11111");
-		m1.setBusinessOrderNum("baofoo2018102205335451599");
-		m1.setExchangeAmount(new BigDecimal("0"));
+		m1.setBusinessOrderNum("10188");
+		m1.setExchangeAmount(new BigDecimal("102"));
 		m1.setBusinessOrderStatuts("");
 		BusinessProofreadModel m2 = new BusinessProofreadModel();
 		m2.setBorrowNum("22222");
-		m2.setBusinessOrderNum("d3c8c02fd018417a97bce17c160c2888$");// 这个是错的
-		m2.setExchangeAmount(new BigDecimal("5000"));
+		m2.setBusinessOrderNum("10191");
+		m2.setExchangeAmount(new BigDecimal("1000"));
 		BusinessProofreadModel m3 = new BusinessProofreadModel();
 		m3.setBorrowNum("33333");
 		m3.setBusinessOrderNum("ac38a0a7f3c243b783d61f83127191eb");
@@ -75,9 +74,9 @@ public class ProofreadAccountApiImplTest {
 		 * DateUtils.stringToDate("2018-10-23")); }).start(); Thread.sleep(100000);
 		 */
 		ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.RETURN,
-				DateUtils.stringToDate("2018-10-23"));
+				DateUtils.stringToDate("2018-10-28"));
 		ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.BORROW,
-				DateUtils.stringToDate("2018-10-23"));
+				DateUtils.stringToDate("2018-10-28"));
 	}
 
 }

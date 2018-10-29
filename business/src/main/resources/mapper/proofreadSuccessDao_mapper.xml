@@ -40,12 +40,12 @@
 			#{item.channelOrderCreateTime},
 			#{item.proofreadStatus},
 			#{item.remark},
-			#{item.updateUser}			
+			''			
 		    )
 		</foreach>
 	</insert>
 
-	<delete id="deleteProofreadError">
+	<delete id="deleteProofreadSuccess">
 		DELETE FROM ua_t_account_proofreadSuccess
 		<where>
 			<choose>

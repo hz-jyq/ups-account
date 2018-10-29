@@ -328,7 +328,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 			proofreadErrorDao.batchInsert(errorList);
 		}
 		//保存对账正确记录
-		if(CollectionUtils.isNotEmpty(errorList)) {
+		if(CollectionUtils.isNotEmpty(successList)) {
 			proofreadSuccessDao.batchInsert(successList);
 		}	
 		// 构建宝付对账后汇总结果对象
