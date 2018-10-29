@@ -89,6 +89,32 @@
 
 	<select id="getPage" resultType="proofreadError" parameterType="com.pgy.ups.account.facade.from.ProofreadErrorForm">
 		  select <include refid="proofreadErrorColumn"/> from ua_t_account_proofreadError
+		<where>
+			<if test="errorType!=null and errorType!=''">
+				and errorType = #{errorType}
+			</if>
+			<if test="proofreadDateStart !=null and proofreadDateStart! =''">
+				and proofreadDate <![CDATA[>=]]> #{proofreadDateStart}
+			</if>
+			<if test="proofreadDateEnd !=null and proofreadDateEnd !=''">
+				and proofreadDate <![CDATA[<=]]>  #{proofreadDateEnd}
+			</if>
+			<if test="channel!=null and channel!=''" >
+				and channel = #{channel}
+			</if>
+			<if test="fromSystem!=null and fromSystem!=''" >
+				and   fromSystem = #{fromSystem}
+			</if>
+			<if test="proofreadType!=null and proofreadType!=''" >
+				and   proofreadType = #{proofreadType}
+			</if>
+			<if  test="flowStatus!=null and flowStatus!=''" >
+				and   flowStatus = #{flowStatus}
+			</if>
+			<if test="businessOrderNum!=null and businessOrderNum!=''" >
+				and   businessOrderNum = #{businessOrderNum}
+			</if>
+		</where>
 	</select>
 
 </mapper>

@@ -273,7 +273,16 @@
 			and createTime <![CDATA[<=]]> #{createTimeEnd}
 		</if>
 		<if test="channel!=null and channel!=''" >
-			and fromSystem = #{channel}
+			and channel = #{channel}
+		</if>
+       <if test="proofreadDate!=null and proofreadDate!=''" >
+            and   proofreadDate = #{proofreadDate}
+       </if>
+       <if test="fromSystem!=null and fromSystem!=''" >
+            and   fromSystem = #{fromSystem}
+       </if>
+		<if test="proofreadType!=null and proofreadType!=''" >
+			and   proofreadType = #{proofreadType}
 		</if>
 	  </where>
 	</select>

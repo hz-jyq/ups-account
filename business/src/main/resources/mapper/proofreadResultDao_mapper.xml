@@ -227,6 +227,20 @@
 		<include refid="proofreadResultColumn" />
 		FROM
 		ua_t_account_proofreadResult
+		 <where>
+			 <if test="channel!=null and channel !=''  ">
+				 and  channel = #{channel}
+			 </if>
+			 <if test="fromSystem!=null and fromSystem!='' ">
+				 and fromSystem = #{fromSystem}
+			 </if>
+			 <if test="proofreadType!=null and proofreadType!='' ">
+				and  proofreadType = #{proofreadType}
+			 </if>
+			 <if test = "proofreadDate and proofreadDate!='' " >
+				and proofreadDate = #{proofreadDate}
+		     </if>
+		 </where>
 	</select>
 
 </mapper>

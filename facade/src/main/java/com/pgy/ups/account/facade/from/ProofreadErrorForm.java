@@ -13,6 +13,15 @@ public class ProofreadErrorForm extends  AbstractPageForm<ProofreadErrorForm>{
 
     private String errorType;
 
+
+    private String proofreadDateStart;
+
+    private String proofreadDateEnd;
+
+    private String flowStatus;
+
+    private String businessOrderNum;
+
     public String getChannel() {
         return channel;
     }
@@ -43,5 +52,37 @@ public class ProofreadErrorForm extends  AbstractPageForm<ProofreadErrorForm>{
 
     public void setErrorType(String errorType) {
         this.errorType = errorType;
+    }
+
+    public String getProofreadDateStart() {
+        return proofreadDateStart;
+    }
+
+    public void setProofreadDateStart(String proofreadDateStart) {
+        this.proofreadDateStart = proofreadDateStart;
+    }
+
+    public String getProofreadDateEnd() {
+        return proofreadDateEnd;
+    }
+
+    public void setProofreadDateEnd(String proofreadDateEnd) {
+        this.proofreadDateEnd = proofreadDateEnd;
+    }
+
+    public String getFlowStatus() {
+        return flowStatus;
+    }
+
+    public void setFlowStatus(String flowStatus) {
+        this.flowStatus = flowStatus;
+    }
+
+    public String getBusinessOrderNum() {
+        return businessOrderNum;
+    }
+
+    public void setBusinessOrderNum(String businessOrderNum) {
+        this.businessOrderNum = businessOrderNum;
     }
 }
