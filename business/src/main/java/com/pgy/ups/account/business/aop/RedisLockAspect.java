@@ -84,7 +84,7 @@ public class RedisLockAspect implements Ordered {
 	}
 
 	/**
-	 * 定义烂机器顺序
+	 * 定义拦截器顺序
 	 */
 	@Override
 	public int getOrder() {

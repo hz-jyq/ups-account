@@ -60,7 +60,7 @@ public class ProofreadErrorFactory implements BusinessFactory<ProofreadError> {
 		}
 		if (baofuModel != null) {
 			pe.setBusinessOrderNum(baofuModel.getBusinessOrderNum());
-			pe.setBusinessOrderCreateTime(baofuModel.getOrderCreateTime());
+			pe.setChannelOrderCreateTime(baofuModel.getOrderCreateTime());
 			pe.setChannelExchangeMoney(baofuModel.getExchangeAmount());
 			pe.setChannelOrderStatus(baofuModel.getOrderStatus());
 			pe.setErrorType(ERROR_TYPE_NO_BUSINESS);
