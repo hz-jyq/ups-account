@@ -62,8 +62,7 @@ import com.pgy.ups.account.facade.model.proofread.ProofreadSum;
  */
 @Component
 public class BaofuProofreadHandlerFactory implements ProofreadHandlerFactory {
-	
-	
+
 	/**
 	 * 宝付对账处理器
 	 */
@@ -77,7 +76,7 @@ public class BaofuProofreadHandlerFactory implements ProofreadHandlerFactory {
 		// 设置借款或者还款解析方式
 		baoFuDocumentParserHandler.setProofreadAccountType(proofreadAccountType);
 		// 设置来源系统
-		baoFuDocumentParserHandler.setSystemFrom(fromSystem);
+		baoFuDocumentParserHandler.setFromSystem(fromSystem);
 		// 设置对账日期
 		baoFuDocumentParserHandler.setProofreadDate(DateUtils.dateToString(date));
 
@@ -104,8 +103,8 @@ public class BaofuProofreadHandlerFactory implements ProofreadHandlerFactory {
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends BaoFuModel>> {
-	
-	public static final String BAOFU_CHANNEL="01";
+
+	public static final String BAOFU_CHANNEL = "01";
 
 	private Logger logger = LoggerFactory.getLogger(BaoFuProofreadHandler.class);
 
@@ -126,10 +125,10 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 
 	@Resource
 	private BusinessDataDao businessDataDao;
-	
+
 	@Resource
 	private ProofreadErrorDao proofreadErrorDao;
-	
+
 	@Resource
 	private ProofreadSuccessDao proofreadSuccessDao;
 
@@ -148,40 +147,38 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 	 * 处理流程
 	 */
 	@Override
-	@RedisLock(name="对账锁",key="proofreadLock",expireTime=60000)
+	@RedisLock(name = "对账锁", key = "proofreadLock", expireTime = 60000)
 	public ProofreadResult handler(List<BusinessProofreadModel> list) {
 		List<BusinessProofreadModel> businessList = new ArrayList<>(list);
 		// 初始化返回结果
-		ProofreadResult proofreadResult=((BaoFuProofreadHandler) AopContext.currentProxy()).initProofreadResult();
-		//ProofreadResult proofreadResult = initProofreadResult();
+		ProofreadResult proofreadResult = ((BaoFuProofreadHandler) AopContext.currentProxy()).initProofreadResult();
 		// 如果对账成功 直接返回
 		if (proofreadResult.getSuccess()) {
 			logger.error("该日期的对账已经完成！{}", proofreadResult);
 			proofreadResult.setFailReason("该日期的对账已经完成");
 			return proofreadResult;
 		}
-		// baofuList用于存储解析文件后的数据
-		List<? extends BaoFuModel> baofuList = null;
 		// 宝付对账汇总记录
 		ProofreadSum baofuProofreadSum = null;
+		try {
+			baofuProofreadSum = ((BaoFuProofreadHandler) AopContext.currentProxy()).initProofreadSum(proofreadResult);
+		} catch (Exception e) {
+			logger.error("从数据库获取对账汇总数据失败！{}", ExceptionUtils.getStackTrace(e));
+			return recordProofreadFail(proofreadResult, "从数据库获取对账汇总数据失败");
+		}
+		// baofuList用于存储解析文件后的数据
+		List<? extends BaoFuModel> baofuList = null;
+
 		// 若之前已经下载成功，则无需再次下载，从数据库中根据日期、来源系统、对账类型取出数据即可
 		if (proofreadResult.getDownloadSuccess()) {
 			try {
-				baofuList = queryDownloadDate(proofreadResult.getProofreadDate(), proofreadResult.getFromSystem(),
-						proofreadResult.getProofreadType());
+				baofuList = queryDownloadDate(proofreadResult);
 			} catch (Exception e) {
 				logger.error("从数据库查询宝付下载数据失败！{}", ExceptionUtils.getStackTrace(e));
 				return recordProofreadFail(proofreadResult, "从数据库查询宝付下载数据失败");
 			}
-			try {
-				baofuProofreadSum = queryProofreadSum(proofreadResult.getProofreadDate(),
-						proofreadResult.getFromSystem(), proofreadResult.getProofreadType());
-			} catch (Exception e) {
-				logger.error("从数据库查询对账汇总数据失败！{}", ExceptionUtils.getStackTrace(e));
-				return recordProofreadFail(proofreadResult, "从数据库查询对账汇总数据失败");
-			}
-
 		} else {
+
 			// 下载文件
 			Map<String, Object> param = generateDownLoadParam(proofreadResult.getProofreadDate());
 			String responseStr = HttpClientUtils.sentRequest(baoFuProofreadProperties.getRequestUrl(), param);
@@ -200,8 +197,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 
 			try {
 				// 保存baofuList至数据库中并执行中间记录
-				baofuProofreadSum = ((BaoFuProofreadHandler) AopContext.currentProxy()).saveProcessStatus(baofuList,
-						proofreadResult);
+				((BaoFuProofreadHandler) AopContext.currentProxy()).saveProcessStatus(baofuList, proofreadResult);
 			} catch (Exception e) {
 				logger.error("保存宝付下载数据失败！{}", ExceptionUtils.getStackTrace(e));
 				return recordProofreadFail(proofreadResult, "保存宝付下载数据失败");
@@ -226,20 +222,26 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 	}
 
 	/**
-	 * 查询对账汇总结果记录
+	 * 初始化对账汇总结果记录
 	 * 
 	 * @param proofreadDate
 	 * @param fromSystem2
 	 * @param proofreadType
 	 * @return
 	 */
-	private ProofreadSum queryProofreadSum(String proofreadDate, String fromSystem, String proofreadType) {
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public ProofreadSum initProofreadSum(ProofreadResult proofreadResult) {
 		Map<String, Object> queryParam = Maps.newHashMap();
-		queryParam.put("proofreadDate", proofreadDate);
-		queryParam.put("fromSystem", fromSystem);
-		queryParam.put("proofreadType", proofreadType);
+		queryParam.put("proofreadDate", proofreadResult.getProofreadDate());
+		queryParam.put("fromSystem", proofreadResult.getFromSystem());
+		queryParam.put("proofreadType", proofreadResult.getProofreadType());
 		queryParam.put("channel", BAOFU_CHANNEL);
-		return proofreadSumDao.queryproofreadSum(queryParam);
+		ProofreadSum baofuProofreadSum = proofreadSumDao.queryproofreadSum(queryParam);
+		if (Objects.isNull(baofuProofreadSum)) {
+			baofuProofreadSum = new ProofreadSum(proofreadResult);
+			proofreadSumDao.createProofreadSum(baofuProofreadSum);
+		}
+		return baofuProofreadSum;
 	}
 
 	/**
@@ -255,7 +257,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 			List<BusinessProofreadModel> businessList, List<? extends BaoFuModel> baofuList) {
 		// 添加基础信息
 		businessList = businessList.stream().map((e) -> {
-			e.setSystemFrom(baofuProofreadSum.getFromSystem());
+			e.setFromSystem(baofuProofreadSum.getFromSystem());
 			e.setProofreadType(baofuProofreadSum.getProofreadType());
 			e.setProofreadDate(baofuProofreadSum.getProofreadDate());
 			e.setChannel(baofuProofreadSum.getChannel());
@@ -271,7 +273,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 		// 对账异常明细工厂
 		ProofreadErrorFactory proofreadErrorFactory = new ProofreadErrorFactory(proofreadResult);
 		// 对账成功明细工厂
-		ProofreadSuccessFactory proofreadSuccessFactory=new ProofreadSuccessFactory(proofreadResult);
+		ProofreadSuccessFactory proofreadSuccessFactory = new ProofreadSuccessFactory(proofreadResult);
 		// 用于存放对账异常对象
 		List<ProofreadError> errorList = new ArrayList<>();
 		// 用于存放对账成功对象
@@ -296,8 +298,9 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 						// 相等 则成功金额和成功笔数累加
 						baofuProofreadSum.increaseSuccess(baofuExchangeAmount);
 						// 构建成功明细对象
-						ProofreadSuccess proofreadSuccess=proofreadSuccessFactory.createProofreadSuccess(businessModel, baofuModel);
-						//存入成功列表
+						ProofreadSuccess proofreadSuccess = proofreadSuccessFactory
+								.createProofreadSuccess(businessModel, baofuModel);
+						// 存入成功列表
 						successList.add(proofreadSuccess);
 					} else {
 						// 若不相等，则业务和渠道失败均累加
@@ -324,27 +327,28 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 			// 构建异常明细对象（渠道差账）
 			errorList.add(proofreadErrorFactory.createProofreadError(e));
 		});
-		//保存差账记录
-		if(CollectionUtils.isNotEmpty(errorList)) {
+		// 保存差账记录
+		if (CollectionUtils.isNotEmpty(errorList)) {
 			proofreadErrorDao.batchInsert(errorList);
 		}
-		//保存对账正确记录
-		if(CollectionUtils.isNotEmpty(successList)) {
+		// 保存对账正确记录
+		if (CollectionUtils.isNotEmpty(successList)) {
 			proofreadSuccessDao.batchInsert(successList);
-		}	
+		}
 		// 构建宝付对账后汇总结果对象
 		baofuProofreadSum.buildAfterProofread(businessList, baofuList);
 		// 保存最终对账成功结果
 		proofreadSumDao.updateProofreadSum(baofuProofreadSum);
-		//更新对账日志
+		// 更新对账日志
 		proofreadResult.setFailReason(StringUtils.EMPTY);
-		proofreadResult.setSuccess(true);		
+		proofreadResult.setSuccess(true);
 		proofreadResultDao.updateProofreadResult(proofreadResult);
 		return proofreadResult;
 	}
-    
+
 	/**
-	 *   删除对账成功结果列表
+	 * 删除对账成功结果列表
+	 * 
 	 * @param proofreadResult
 	 */
 	private void deleletProofreadSuccessList(ProofreadResult proofreadResult) {
@@ -357,7 +361,8 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 	}
 
 	/**
-	 *    删除业务对账数据列表
+	 * 删除业务对账数据列表
+	 * 
 	 * @param proofreadResult
 	 */
 	private void deleteBusinessDataList(ProofreadResult proofreadResult) {
@@ -368,9 +373,10 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 		queryParam.put("channel", proofreadResult.getChannel());
 		ProofreadResultDao.deleteProofreadResult(queryParam);
 	}
-    
+
 	/**
-	 *   删除对账异常结果列表
+	 * 删除对账异常结果列表
+	 * 
 	 * @param proofreadResult
 	 */
 	private void deleletProofreadErrorList(ProofreadResult proofreadResult) {
@@ -396,9 +402,9 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 		return proofreadResult;
 	}
 
-	// 1.保存宝付下载数据，2.更新对账结果状态记录文件下载成功，3.生成初始化对账汇总记录
+	// 1.保存宝付下载数据，2.更新对账结果状态记录文件下载成功
 	@Transactional(rollbackFor = { Exception.class }, propagation = Propagation.REQUIRED)
-	public ProofreadSum saveProcessStatus(List<? extends BaoFuModel> baofuList, ProofreadResult proofreadResult)
+	public void saveProcessStatus(List<? extends BaoFuModel> baofuList, ProofreadResult proofreadResult)
 			throws Exception {
 		if (Objects.equals(this.proofreadAccountType, ProofreadAccountType.BORROW)) {
 			if (CollectionUtils.isNotEmpty(baofuList)) {
@@ -414,28 +420,22 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 		// 更新下载成功状态
 		proofreadResult.setDownloadSuccess(true);
 		proofreadResultDao.updateProofreadResult(proofreadResult);
-		// 初始化生成对账汇总记录
-		ProofreadSum baofuProofreadSum = new ProofreadSum(proofreadResult);
-		proofreadSumDao.createProofreadSum(baofuProofreadSum);
-		return baofuProofreadSum;
-
 	}
 
 	// 从数据库查询宝付下载数据
-	private List<? extends BaoFuModel> queryDownloadDate(String proofreadDate, String fromSystem, String proofreadType)
-			throws Exception {
+	private List<? extends BaoFuModel> queryDownloadDate(ProofreadResult proofreadResult) throws Exception {
 		Map<String, Object> queryParam = Maps.newHashMap();
-		queryParam.put("proofreadDate", proofreadDate);
-		queryParam.put("systemFrom", fromSystem);
-		queryParam.put("proofreadType", proofreadType);
-		if (Objects.equals(proofreadType, ProofreadAccountType.BORROW)) {
+		queryParam.put("proofreadDate", proofreadResult.getProofreadDate());
+		queryParam.put("fromSystem", proofreadResult.getFromSystem());
+		queryParam.put("proofreadType", proofreadResult.getProofreadType());
+		if (Objects.equals(proofreadResult.getProofreadType(), ProofreadAccountType.BORROW)) {
 			List<BaoFuModelBorrow> borrowList = baofuBorrowDataDao.queryBaoFuBorrowDataList(queryParam);
 			return borrowList == null ? Collections.emptyList() : borrowList;
-		} else if (Objects.equals(proofreadType, ProofreadAccountType.RETURN)) {
+		} else if (Objects.equals(proofreadResult.getProofreadType(), ProofreadAccountType.RETURN)) {
 			List<BaoFuModelReturn> returnList = baofuReturnDataDao.queryBaoFuReturnDataList(queryParam);
 			return returnList == null ? Collections.emptyList() : returnList;
 		} else {
-			throw new Exception("proofreadType类型不正确,proofreadType=" + proofreadType);
+			throw new Exception("proofreadType类型不正确,proofreadType=" + proofreadResult.getProofreadType());
 		}
 	}
 
@@ -528,7 +528,7 @@ class BaoFuDocumentParserHandler implements DocumentParserHandler<String, List<?
 
 	private String fileName;
 
-	private String systemFrom;
+	private String fromSystem;
 
 	private String proofreadDate;
 
@@ -542,8 +542,8 @@ class BaoFuDocumentParserHandler implements DocumentParserHandler<String, List<?
 		this.proofreadDate = proofreadDate;
 	}
 
-	public void setSystemFrom(String systemFrom) {
-		this.systemFrom = systemFrom;
+	public void setFromSystem(String fromSystem) {
+		this.fromSystem = fromSystem;
 	}
 
 	@Override
@@ -601,7 +601,7 @@ class BaoFuDocumentParserHandler implements DocumentParserHandler<String, List<?
 		while ((line = br.readLine()) != null) {
 			BaoFuModelReturn model = new BaoFuModelReturn();
 			String field[] = line.split("\\|", -1);
-			model.setSystemFrom(this.systemFrom);
+			model.setFromSystem(this.fromSystem);
 			model.setDownLoadTime(DateUtils.getCurrentDateTime());
 			model.setProofreadDate(this.proofreadDate);
 			model.setBusinessNum(field[0]);
@@ -636,7 +636,7 @@ class BaoFuDocumentParserHandler implements DocumentParserHandler<String, List<?
 		while ((line = br.readLine()) != null) {
 			BaoFuModelBorrow model = new BaoFuModelBorrow();
 			String field[] = line.split("\\|", -1);
-			model.setSystemFrom(this.systemFrom);
+			model.setFromSystem(this.fromSystem);
 			model.setDownLoadTime(DateUtils.getCurrentDateTime());
 			model.setProofreadDate(this.proofreadDate);
 			model.setBusinessNum(field[0]);

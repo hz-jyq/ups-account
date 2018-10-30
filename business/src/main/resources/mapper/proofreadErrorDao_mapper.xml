@@ -13,21 +13,21 @@
 		borrowNum,
 		businessExchangeMoney,
 		businessOrderStatuts,
-    	businessOrderCreateTime,
-    	channel,
+		businessOrderCreateTime,
+		channel,
 		channelExchangeMoney,
 		channelOrderStatus,
 		channelOrderCreateTime,
 		DATE_FORMAT(disposeTime,'%Y-%m-%d %H:%i:%s') as disposeTime,
 		errorType,
 		flowStatus,
- 		updateUser
+		updateUser
 	</sql>
 
 	<insert id="batchInsert">
 		INSERT INTO ua_t_account_proofreadError VALUES
 		<foreach collection="list" item="item" separator=",">
-		   (
+			(
 			null,
 			#{item.channel},
 			#{item.fromSystem},
@@ -44,8 +44,8 @@
 			#{item.disposeTime},
 			#{item.errorType},
 			#{item.flowStatus},
-		    ''
-		    )
+			''
+			)
 		</foreach>
 	</insert>
 
@@ -53,7 +53,7 @@
 		DELETE FROM ua_t_account_proofreadError
 		<where>
 			<choose>
-				<when test="fromSystem !=null and fromSystem!=''">
+				<when test="fromSystem!=null and fromSystem!=''">
 					fromSystem=#{fromSystem}
 				</when>
 				<otherwise>
@@ -69,7 +69,7 @@
 				</otherwise>
 			</choose>
 			<choose>
-				<when test="proofreadDate != null and proofreadDate!=''">
+				<when test="proofreadDate!= null and proofreadDate!=''">
 					AND proofreadDate=#{proofreadDate}
 				</when>
 				<otherwise>
@@ -77,7 +77,7 @@
 				</otherwise>
 			</choose>
 			<choose>
-				<when test="channel != null and channel!=''">
+				<when test="channel!= null and channel!=''">
 					AND channel=#{channel}
 				</when>
 				<otherwise>
@@ -87,32 +87,41 @@
 		</where>
 	</delete>
 
-	<select id="getPage" resultType="proofreadError" parameterType="com.pgy.ups.account.facade.from.ProofreadErrorForm">
-		  select <include refid="proofreadErrorColumn"/> from ua_t_account_proofreadError
+	<select id="getPage" resultType="proofreadError"
+		parameterType="com.pgy.ups.account.facade.from.ProofreadErrorForm">
+		select
+		<include refid="proofreadErrorColumn" />
+		from ua_t_account_proofreadError
 		<where>
 			<if test="errorType!=null and errorType!=''">
 				and errorType = #{errorType}
 			</if>
-			<if test="proofreadDateStart !=null and proofreadDateStart! =''">
-				and proofreadDate <![CDATA[>=]]> #{proofreadDateStart}
+			<if test="proofreadDateStart!=null and proofreadDateStart!=''">
+				and proofreadDate <![CDATA[>=]]>
+				#{proofreadDateStart}
 			</if>
-			<if test="proofreadDateEnd !=null and proofreadDateEnd !=''">
-				and proofreadDate <![CDATA[<=]]>  #{proofreadDateEnd}
+			<if test="proofreadDateEnd!=null and proofreadDateEnd!=''">
+				and proofreadDate <![CDATA[<=]]>
+				#{proofreadDateEnd}
 			</if>
-			<if test="channel!=null and channel!=''" >
+			<if test="channel!=null and channel!=''">
 				and channel = #{channel}
 			</if>
-			<if test="fromSystem!=null and fromSystem!=''" >
-				and   fromSystem = #{fromSystem}
+			<if test="fromSystem!=null and fromSystem!=''">
+				and fromSystem =
+				#{fromSystem}
 			</if>
-			<if test="proofreadType!=null and proofreadType!=''" >
-				and   proofreadType = #{proofreadType}
+			<if test="proofreadType!=null and proofreadType!=''">
+				and
+				proofreadType = #{proofreadType}
 			</if>
-			<if  test="flowStatus!=null and flowStatus!=''" >
-				and   flowStatus = #{flowStatus}
+			<if test="flowStatus!=null and flowStatus!=''">
+				and flowStatus =
+				#{flowStatus}
 			</if>
-			<if test="businessOrderNum!=null and businessOrderNum!=''" >
-				and   businessOrderNum = #{businessOrderNum}
+			<if test="businessOrderNum!=null and businessOrderNum!=''">
+				and
+				businessOrderNum = #{businessOrderNum}
 			</if>
 		</where>
 	</select>

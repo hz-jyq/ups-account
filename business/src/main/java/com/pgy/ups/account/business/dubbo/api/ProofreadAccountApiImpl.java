@@ -64,31 +64,12 @@ public class ProofreadAccountApiImpl implements ProofreadAccountApi {
 				.getProofreadHandler(fromSystem, proofreadAccountType, date);
 		try {
 			ProofreadResult proofreadResult = proofreadHandler.handler(list);
-			logger.error("对账任务执行成功！{}",proofreadResult);
+			logger.info("对账任务结束！{}",proofreadResult);
 			return proofreadResult;
 		} catch (Exception e) {
-			logger.error("对账任务执行失败！{}", e);
+			logger.error("对账任务结束！但出现异常{}", e);
 			return null;
 		}
-
-		/*
-		 * ProofreadResult proofreadResult = null; String proofreadLockKey =
-		 * "proofreadLocks"; String requestId = UUID.randomUUID().toString(); try { if
-		 * (!redisUtils.redisLock(proofreadLockKey, requestId, 20000)) {
-		 * logger.info("redis获取对账锁失败，lockKey:" + proofreadLockKey + ",lockValue:" +
-		 * requestId); return null; } logger.info("redis获取对账锁成功，lockKey:" +
-		 * proofreadLockKey + ",lockValue:" + requestId); // 宝付对账处理工厂
-		 * ProofreadHandler<String, List<? extends BaoFuModel>> proofreadHandler =
-		 * baofuProofreadHandlerFactory .getProofreadHandler(fromSystem,
-		 * proofreadAccountType, date); proofreadResult =
-		 * proofreadHandler.handler(list); } catch (Exception e) {
-		 * logger.error("对账业务处理失败！{}", ExceptionUtils.getStackTrace(e)); } finally { if
-		 * (redisUtils.redisUnLock(proofreadLockKey, requestId)) {
-		 * logger.info("redis解除对账锁成功，lockKey:" + proofreadLockKey + ",lockValue:" +
-		 * requestId); } else { logger.info("redis解除对账锁失败，lockKey:" + proofreadLockKey +
-		 * ",lockValue:" + requestId); } logger.info("对账任务结束"); } return
-		 * proofreadResult;
-		 */
 	}
 	
 }

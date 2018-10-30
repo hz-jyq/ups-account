@@ -237,7 +237,7 @@
 			 <if test="proofreadType!=null and proofreadType!='' ">
 				and  proofreadType = #{proofreadType}
 			 </if>
-			 <if test = "proofreadDate and proofreadDate!='' " >
+			 <if test = "proofreadDate!=null and proofreadDate!='' " >
 				and proofreadDate = #{proofreadDate}
 		     </if>
 		 </where>

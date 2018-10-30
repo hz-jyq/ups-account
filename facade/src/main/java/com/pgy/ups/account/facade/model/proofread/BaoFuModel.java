@@ -19,7 +19,7 @@ public class BaoFuModel extends Model{
 	private Long id;
 		
 	//系统编码：参考 FromSystem
-	private String systemFrom;
+	private String fromSystem;
 	
 	//下载时间
 	private String downLoadTime;
@@ -85,12 +85,12 @@ public class BaoFuModel extends Model{
 		this.id = id;
 	}
 
-	public String getSystemFrom() {
-		return systemFrom;
+	public String getFromSystem() {
+		return fromSystem;
 	}
 
-	public void setSystemFrom(String systemFrom) {
-		this.systemFrom = systemFrom;
+	public void setFromSystem(String fromSystem) {
+		this.fromSystem = fromSystem;
 	}
 
 	public String getDownLoadTime() {

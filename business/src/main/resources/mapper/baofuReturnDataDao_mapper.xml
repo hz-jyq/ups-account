@@ -7,7 +7,7 @@
     
 	<sql id="baofuReturnColumn">
 		id,
-		systemFrom,
+		fromSystem,
 		DATE_FORMAT(downLoadTime ,'%Y-%m-%d %H:%i:%s') as downLoadTime,		
 		DATE_FORMAT(proofreadDate ,'%Y-%m-%d') as proofreadDate,		
 		businessNum,
@@ -32,7 +32,7 @@
 		<foreach collection="list" item="item" separator=",">
 			(
 			null,
-			#{item.systemFrom},
+			#{item.fromSystem},
 			#{item.downLoadTime},
 			#{item.proofreadDate},
 			#{item.businessNum},
@@ -69,8 +69,8 @@
 			</otherwise>
 		</choose>
 		<choose>
-			<when test="systemFrom!=null and systemFrom!=''">
-				AND systemFrom=#{systemFrom}
+			<when test="fromSystem!=null and fromSystem!=''">
+				AND fromSystem=#{fromSystem}
 			</when>
 			<otherwise>
 				AND 1=2
@@ -88,11 +88,11 @@
 
 	<sql id="baofuReturnExcelColumn">
 		id,
-		CASE systemFrom
+		CASE fromSystem
 		WHEN '01' THEN '美期'
 		WHEN '02' THEN '米融'
 		WHEN '03' THEN '秒呗'
-		ELSE '其他' END  as systemFrom,
+		ELSE '其他' END  as fromSystem,
 		DATE_FORMAT(downLoadTime ,'%Y-%m-%d %H:%i:%s') as downLoadTime,
 		DATE_FORMAT(proofreadDate ,'%Y-%m-%d') as proofreadDate,
 		businessNum,
@@ -121,7 +121,7 @@
 		<include refid="baofuReturnExcelColumn" />
 		FROM
 		ua_t_account_baofu_fi
-		where  systemFrom=#{systemFrom} and  proofreadDate = #{proofreadDate}
+		where  fromSystem=#{fromSystem} and  proofreadDate = #{proofreadDate}
 	</select>
 	
 	

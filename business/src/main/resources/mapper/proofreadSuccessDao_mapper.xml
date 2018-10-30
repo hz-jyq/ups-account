@@ -85,11 +85,11 @@
 	<sql id="proofreadSuccessExcelColumn">
 		  id,
 		  channel,
-		  CASE systemFrom
+		  CASE fromSystem
 		  WHEN '01' THEN '美期'
 		  WHEN '02' THEN '米融'
 		  WHEN '03' THEN '秒呗'
-		  ELSE '其他' END  as systemFrom,
+		  ELSE '其他' END  as fromSystem,
 		  CASE proofreadType
 		  WHEN '01' THEN '借款对账'
 		  WHEN '02' THEN '还款对账'
@@ -112,12 +112,12 @@
 	</sql>
 
 
-	<select id="getExcelList " resultType="ProofreadSuccess" parameterType="com.pgy.ups.account.facade.from.ExcelForm">
+	<select id="getExcelList" resultType="ProofreadSuccess">
 		SELECT
 		<include refid="proofreadSuccessExcelColumn" />
 		FROM
 		ua_t_account_proofreadSuccess
-		where  systemFrom=#{systemFrom} and  proofreadDate = #{proofreadDate} and channel = #{channel} and  proofreadType =#{proofreadType}
+		where  fromSystem=#{fromSystem} and  proofreadDate = #{proofreadDate} and channel = #{channel} and  proofreadType =#{proofreadType}
 	</select>
 
 

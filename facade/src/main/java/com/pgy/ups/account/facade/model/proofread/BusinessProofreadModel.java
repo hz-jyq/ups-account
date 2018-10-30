@@ -18,7 +18,7 @@ public class BusinessProofreadModel extends Model{
 
 
 	//系统编码 01：美期 02：米融  03：秒呗',
-	private String systemFrom;
+	private String fromSystem;
 	
 	//支付渠道 宝付 01
 	private String channel;
@@ -56,12 +56,12 @@ public class BusinessProofreadModel extends Model{
 		this.businessOrderNum = businessOrderNum;
 	}
 
-	public String getSystemFrom() {
-		return systemFrom;
+	public String getFromSystem() {
+		return fromSystem;
 	}
 
-	public void setSystemFrom(String systemFrom) {
-		this.systemFrom = systemFrom;
+	public void setFromSystem(String fromSystem) {
+		this.fromSystem = fromSystem;
 	}
 
 	public String getProofreadType() {

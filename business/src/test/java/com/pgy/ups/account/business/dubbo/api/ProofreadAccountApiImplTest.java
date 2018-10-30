@@ -27,11 +27,11 @@ public class ProofreadAccountApiImplTest {
 	@Resource
 	private BaofuReturnDataDao baofuReturnDataDao;
 
-	// @Test
+    @Test
 	public void TestSuccess() {
 		List<BusinessProofreadModel> list = baofuReturnDataDao.query();
 		ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.RETURN,
-				DateUtils.stringToDate("2018-10-24"));
+				DateUtils.stringToDate("2018-10-29"));
 	}
 
 	@Test
@@ -74,9 +74,9 @@ public class ProofreadAccountApiImplTest {
 		 * DateUtils.stringToDate("2018-10-23")); }).start(); Thread.sleep(100000);
 		 */
 		ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.RETURN,
-				DateUtils.stringToDate("2018-10-28"));
+				DateUtils.stringToDate("2018-10-29"));
 		ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.BORROW,
-				DateUtils.stringToDate("2018-10-28"));
+				DateUtils.stringToDate("2018-10-29"));
 	}
 
 }

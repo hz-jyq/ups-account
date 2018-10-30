@@ -6,7 +6,7 @@
 
 	<sql id="businessDataColumn">
 		id,
-		systemFrom,
+		fromSystem,
 		proofreadType,
 		DATE_FORMAT(proofreadDate ,'%Y-%m-%d') as proofreadDate,
 		businessOrderNum,
@@ -24,7 +24,7 @@
 		 (
 			null,
 			#{item.channel},	
-			#{item.systemFrom},
+			#{item.fromSystem},
 			#{item.proofreadType},
 			#{item.proofreadDate},									
 			#{item.businessOrderNum},
