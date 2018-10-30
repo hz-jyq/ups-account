@@ -14,6 +14,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.pgy.ups.account.business.factory.proofread.BaofuProofreadHandlerFactory;
 import com.pgy.ups.account.business.factory.proofread.ProofreadHandlerFactory;
 import com.pgy.ups.account.business.handler.proofread.ProofreadHandler;
+import com.pgy.ups.account.commom.annotation.RedisLock;
 import com.pgy.ups.account.commom.utils.DateUtils;
 import com.pgy.ups.account.commom.utils.RedisUtils;
 import com.pgy.ups.account.facade.dubbo.api.ProofreadAccountApi;
@@ -43,6 +44,7 @@ public class ProofreadAccountApiImpl implements ProofreadAccountApi {
 	 */
 
 	@Override
+	@RedisLock(name = "对账锁", key = "proofreadLock", expireTime = 60000)
 	public ProofreadResult ProofreadStart(List<BusinessProofreadModel> list, String fromSystem,
 			String proofreadAccountType, Date date) {
 		logger.info(
