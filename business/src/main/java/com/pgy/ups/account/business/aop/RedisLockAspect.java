@@ -77,10 +77,10 @@ public class RedisLockAspect implements Ordered {
 			throw e;
 		} finally {
 			if (redisUtils.redisUnLock(key, value)) {
-				logger.info("线程：" + Thread.currentThread().getId() + "获取redis锁成功，lockKey:" + key + ",lockValue:" + value
+				logger.info("线程：" + Thread.currentThread().getId() + "解除redis锁成功，lockKey:" + key + ",lockValue:" + value
 						+ ",lockName:" + name);
 			} else {
-				logger.info("线程：" + Thread.currentThread().getId() + "获取redis锁成功，lockKey:" + key + ",lockValue:" + value
+				logger.info("线程：" + Thread.currentThread().getId() + "解除redis锁成功，lockKey:" + key + ",lockValue:" + value
 						+ ",lockName:" + name);
 			}
 		}
