@@ -68,7 +68,7 @@ public class RedisLockAspect implements Ordered {
 						+ ",lockName：" + name);
 				return joinPoint.proceed();
 			} else {
-				logger.info("线程：" + Thread.currentThread().getId() + "获取redis锁成功，lockKey:" + key + ",lockValue:" + value
+				logger.info("线程：" + Thread.currentThread().getId() + "获取redis锁失败，lockKey:" + key + ",lockValue:" + value
 						+ ",lockName:" + name);
 				return null;
 			}
