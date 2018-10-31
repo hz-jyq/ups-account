@@ -37,7 +37,7 @@ public class RedisLockAspect implements Ordered {
 	@Resource
 	private RedisUtils redisUtils;
 
-	// @ParamLog在方法上或类上 注解拦截
+	// @RedisLock在方法上或类上 注解拦截
 	@Pointcut("@annotation(com.pgy.ups.account.commom.annotation.RedisLock)")
 	public void redisLockPointcut() {
 	}
