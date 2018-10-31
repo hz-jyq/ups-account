@@ -4,9 +4,9 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -40,9 +40,9 @@ public class SingleTreadPoolQueueAspect implements Ordered {
 	/**
 	 * 创建单线程池
 	 */
-	private ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+	private ExecutorService executorService = Executors.newFixedThreadPool(1);
 
-	// @SingleThreadQueue在方法上 注解拦截
+	// @SingleThreadQueue在方法上注解拦截
 	@Pointcut("@annotation(com.pgy.ups.account.commom.annotation.SingleThreadQueue)")
 	public void SingleTreadPoolQueuePointcut() {
 	}
@@ -77,7 +77,7 @@ public class SingleTreadPoolQueueAspect implements Ordered {
 			}
 		};
 
-		Future<Object> future = scheduler.submit(callable);
+		Future<Object> future = executorService.submit(callable);
 		try {
 			Object result =future.get(timeout, TimeUnit.MILLISECONDS);
 			return result;
