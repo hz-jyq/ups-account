@@ -33,9 +33,9 @@ import com.pgy.ups.account.commom.annotation.SingleThreadQueue;
 
 @Aspect
 @Component
-public class SingleTreadPoolQueueAspect implements Ordered {
+public class SingleThreadPoolQueueAspect implements Ordered {
 
-	private Logger logger = LoggerFactory.getLogger(SingleTreadPoolQueueAspect.class);
+	private Logger logger = LoggerFactory.getLogger(SingleThreadPoolQueueAspect.class);
 
 	/**
 	 * 创建单线程池
