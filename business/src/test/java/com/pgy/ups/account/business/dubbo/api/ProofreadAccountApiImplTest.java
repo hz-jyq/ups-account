@@ -67,12 +67,12 @@ public class ProofreadAccountApiImplTest {
 
 		new Thread(() -> {
 			System.out.println(ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.BORROW,
-					DateUtils.stringToDate("2018-10-27")));
+					DateUtils.stringToDate("2018-10-26")));
 		}).start();
 
 		new Thread(() -> {
 			System.out.println(ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.RETURN,
-					DateUtils.stringToDate("2018-10-27")));
+					DateUtils.stringToDate("2018-10-26")));
 		}).start();
 		Thread.sleep(100000);
 

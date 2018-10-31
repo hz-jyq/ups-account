@@ -63,32 +63,33 @@ public class SingleTreadPoolQueueAspect implements Ordered {
 		// 获取注解属性
 		String name = (String) AnnotationUtils.getValue(annotation, "name");
 		int timeout = (int) AnnotationUtils.getValue(annotation, "timeout");
-		logger.info("SingleThreadQueue任务执行开始，name:"+name+"，设置超时时间为" + timeout + "毫秒！");
+
 		Callable<Object> callable = new Callable<Object>() {
 			@Override
 			public Object call() throws Exception {
 				try {
+					logger.info("SingleThreadQueue任务执行开始，name:" + name + "，设置超时时间为" + timeout + "毫秒！");
 					return joinPoint.proceed();
 				} catch (Throwable e) {
 					throw new Exception(e);
 				} finally {
-					logger.info("SingleThreadQueue任务执行结束！name:"+name);
+					logger.info("SingleThreadQueue任务执行结束！name:" + name);
 				}
 			}
 		};
 
-		Future<Object> future = executorService.submit(callable);
+		Future<Object> future = executorService.submit(callable);		
 		try {
-			Object result =future.get(timeout, TimeUnit.MILLISECONDS);
+			Object result = future.get(timeout, TimeUnit.MILLISECONDS);
 			return result;
 		} catch (InterruptedException e) {
-			logger.error("SingleThreadQueue任务发生中断异常{}，name："+name+",异常", e);
+			logger.error("SingleThreadQueue任务发生中断异常{}，name：" + name + ",异常", e);
 			return null;
 		} catch (ExecutionException e) {
-			logger.error("SingleThreadQueue任务发生异常{}，name："+name+",异常", e);
-			throw  e.getCause();
+			logger.error("SingleThreadQueue任务发生异常{}，name：" + name + ",异常", e);
+			throw e.getCause();
 		} catch (TimeoutException e) {
-			logger.error("SingleThreadQueue任务发生超时异常，name："+name);
+			logger.error("SingleThreadQueue任务发生超时异常，name：" + name);
 			return null;
 		} finally {
 			future.cancel(false);
