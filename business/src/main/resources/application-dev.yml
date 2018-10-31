@@ -89,15 +89,15 @@ ups:
         params:
           version: 4.0.0.1
           #对账文件下载地址
-          requestUrl: https://vgw.baofoo.com/boas/api/fileLoadNewRequest
+          requestUrl: https://public.baofoo.com/boas/api/fileLoadNewRequest
           #借款
           borrows: fo
           #还款
           returns: fi
           #还款商户号
-          businessReturnNum: 100000178
+          businessReturnNum: 1214742
           #借款商户号
-          businessBorrowNum: 100000178
+          businessBorrowNum: 1222722
           #本机地址
           localAddress: 183.129.149.194
              

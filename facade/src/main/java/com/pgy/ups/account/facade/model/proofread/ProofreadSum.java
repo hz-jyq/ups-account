@@ -7,8 +7,6 @@ import java.util.List;
 import com.pgy.ups.account.commom.utils.DateUtils;
 import com.pgy.ups.account.facade.model.Model;
 
-
-
 /**
  * 对账汇总结果数据
  * 
@@ -36,7 +34,7 @@ public class ProofreadSum extends Model {
 	// 创建时间
 	protected String createTime;
 
-	//'对账渠道 01:宝付',
+	// '对账渠道 01:宝付',
 	protected String channel;
 
 	// 商户订单号
@@ -96,7 +94,7 @@ public class ProofreadSum extends Model {
 	public ProofreadSum(ProofreadResult proofreadResult) {
 		this.setFromSystem(proofreadResult.getFromSystem());
 		this.setProofreadType(proofreadResult.getProofreadType());
-		this.setProofreadDate(proofreadResult.getProofreadDate());	
+		this.setProofreadDate(proofreadResult.getProofreadDate());
 		this.setChannel(proofreadResult.getChannel());
 		this.setProofreadStatus(PROOFREAD_NON);
 		this.setBusinessNum(proofreadResult.getBusinessNum());
@@ -121,11 +119,11 @@ public class ProofreadSum extends Model {
 		this.setChannelTotal(cl.size());
 		// 业务总金额
 		this.setBusinessTotalMoney(bl.stream().map(e -> {
-			return e.getExchangeAmount();
+			return e.getExchangeAmount() == null ? BigDecimal.ZERO : e.getExchangeAmount();
 		}).reduce(BigDecimal.ZERO, BigDecimal::add));
 		// 宝付总金额
 		this.setChannelTotalMoney(cl.stream().map(e -> {
-			return e.getExchangeAmount();
+			return e.getExchangeAmount() == null ? BigDecimal.ZERO : e.getExchangeAmount();
 		}).reduce(BigDecimal.ZERO, BigDecimal::add));
 		// 设置对账成功金额初始值为0
 		this.successTotalMoney = BigDecimal.ZERO;
@@ -147,18 +145,18 @@ public class ProofreadSum extends Model {
 	 */
 	public ProofreadSum buildAfterProofread(List<BusinessProofreadModel> businessList,
 			List<? extends BaoFuModel> baofuList) {
-		
+
 		// 业务失败总笔数(包括差错账的和缺省账的总数)
 		this.setBusinessFailTotal(this.businessFailTotal + businessList.size());
 		// 渠道失败总笔数(包括差错账的和缺省账的总数)
 		this.setChannelFailTotal(this.channelFailTotal + baofuList.size());
 		// 业务失败总额(包括差错账的和缺省账的总额)
 		this.setChannelFailTotalMoney(this.channelFailTotalMoney.add(baofuList.stream().map((e) -> {
-			return e.getExchangeAmount();
+			return e.getExchangeAmount() == null ? BigDecimal.ZERO : e.getExchangeAmount();
 		}).reduce(BigDecimal.ZERO, BigDecimal::add)));
 		// 渠道失败总额(包括差错账的和缺省账的总额)
 		this.setBusinessFailTotalMoney(this.businessFailTotalMoney.add(businessList.stream().map((e) -> {
-			return e.getExchangeAmount();
+			return e.getExchangeAmount() == null ? BigDecimal.ZERO : e.getExchangeAmount();
 		}).reduce(BigDecimal.ZERO, BigDecimal::add)));
 
 		// 如果有一条失败，则对账失
@@ -174,19 +172,19 @@ public class ProofreadSum extends Model {
 	// 成功对账数加1
 	public BigDecimal increaseSuccess(BigDecimal money) {
 		this.successTotal++;
-		return this.successTotalMoney = this.successTotalMoney.add(money);
+		return this.successTotalMoney = this.successTotalMoney.add(money == null ? BigDecimal.ZERO : money);
 	}
 
 	// 渠道对账失败
 	public BigDecimal increaseChannelFail(BigDecimal money) {
 		this.channelFailTotal++;
-		return this.channelFailTotalMoney = this.channelFailTotalMoney.add(money);
+		return this.channelFailTotalMoney = this.channelFailTotalMoney.add(money == null ? BigDecimal.ZERO : money);
 	}
 
 	// 业务对账失败
 	public BigDecimal increaseBusinessFail(BigDecimal money) {
 		this.businessFailTotal++;
-		return this.businessFailTotalMoney = this.businessFailTotalMoney.add(money);
+		return this.businessFailTotalMoney = this.businessFailTotalMoney.add(money == null ? BigDecimal.ZERO : money);
 	}
 
 	public Long getId() {
@@ -229,7 +227,6 @@ public class ProofreadSum extends Model {
 		this.createTime = createTime;
 	}
 
-	
 	public String getChannel() {
 		return channel;
 	}
@@ -237,9 +234,6 @@ public class ProofreadSum extends Model {
 	public void setChannel(String channel) {
 		this.channel = channel;
 	}
-
-
-
 
 	public String getBusinessNum() {
 		return businessNum;
@@ -325,8 +319,6 @@ public class ProofreadSum extends Model {
 		return businessFailTotal;
 	}
 
-
-
 	public void setBusinessFailTotal(Integer businessFailTotal) {
 		this.businessFailTotal = businessFailTotal;
 	}
@@ -354,7 +346,5 @@ public class ProofreadSum extends Model {
 	public void setUpdateUser(String updateUser) {
 		this.updateUser = updateUser;
 	}
-
-
 
 }
