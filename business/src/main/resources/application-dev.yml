@@ -22,6 +22,7 @@ redis:
     port: 6379
     password: mqfq123456
     timeout: 3000
+    maxWaitMillis: 5000
 
 spring:
   jackson:
