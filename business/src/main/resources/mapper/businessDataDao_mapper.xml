@@ -8,7 +8,8 @@
 		id,
 		fromSystem,
 		proofreadType,
-		DATE_FORMAT(proofreadDate ,'%Y-%m-%d') as proofreadDate,
+		DATE_FORMAT(proofreadDate
+		,'%Y-%m-%d') as proofreadDate,
 		businessOrderNum,
 		exchangeAmount,
 		businessOrderStatuts,
@@ -21,20 +22,58 @@
 	<insert id="batchInsert" parameterType="java.util.List">
 		INSERT INTO ua_t_account_bussiness_proofread VALUES
 		<foreach collection="list" item="item" separator=",">
-		 (
+			(
 			null,
-			#{item.channel},	
+			#{item.channel},
 			#{item.fromSystem},
 			#{item.proofreadType},
-			#{item.proofreadDate},									
+			#{item.proofreadDate},
 			#{item.businessOrderNum},
 			#{item.exchangeAmount},
 			#{item.businessOrderStatuts},
 			#{item.borrowNum},
 			#{item.orderCreateTime}
-	     )
+			)
 		</foreach>
 	</insert>
+
+	<delete id="deleteBusinessDate">
+		DELETE FROM ua_t_account_bussiness_proofread
+		<where>
+			<choose>
+				<when test="fromSystem !=null and fromSystem!=''">
+					fromSystem=#{fromSystem}
+				</when>
+				<otherwise>
+					1=2
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="proofreadType!=null and proofreadType!=''">
+					AND proofreadType=#{proofreadType}
+				</when>
+				<otherwise>
+					AND 1=2
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="proofreadDate != null and proofreadDate!=''">
+					AND proofreadDate=#{proofreadDate}
+				</when>
+				<otherwise>
+					AND 1=2
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="channel != null and channel!=''">
+					AND channel=#{channel}
+				</when>
+				<otherwise>
+					AND 1=2
+				</otherwise>
+			</choose>
+		</where>
+	</delete>
 
 
 

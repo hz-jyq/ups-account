@@ -369,7 +369,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 		queryParam.put("fromSystem", proofreadResult.getFromSystem());
 		queryParam.put("proofreadType", proofreadResult.getProofreadType());
 		queryParam.put("channel", proofreadResult.getChannel());
-		ProofreadResultDao.deleteProofreadResult(queryParam);
+		businessDataDao.deleteBusinessDate(queryParam);
 	}
 
 	/**

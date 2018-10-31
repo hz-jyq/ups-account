@@ -38,10 +38,9 @@ public interface ProofreadResultDao {
 	  * 删除对账结果记录
 	 * @param queryParam
 	 */
-	static void deleteProofreadResult(Map<String, Object> queryParam) {
-		// TODO Auto-generated method stub
-		
-	}
+	void deleteProofreadResult(Map<String, Object> queryParam);
+	
+	
 
 	List<ProofreadResult> getPage(ProofreadResultForm form);
 }

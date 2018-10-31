@@ -63,7 +63,8 @@ public class SingleThreadQueueAspect implements Ordered {
 		// 获取注解属性
 		String name = (String) AnnotationUtils.getValue(annotation, "name");
 		int timeout = (int) AnnotationUtils.getValue(annotation, "timeout");
-
+        
+		//创建任务对象
 		Callable<Object> callable = new Callable<Object>() {
 			@Override
 			public Object call() throws Exception {
@@ -77,9 +78,10 @@ public class SingleThreadQueueAspect implements Ordered {
 				}
 			}
 		};
-
+		//任务放入线程池中
 		Future<Object> future = executorService.submit(callable);		
 		try {
+			//执行任务获取结果
 			Object result = future.get(timeout, TimeUnit.MILLISECONDS);
 			return result;
 		} catch (InterruptedException e) {

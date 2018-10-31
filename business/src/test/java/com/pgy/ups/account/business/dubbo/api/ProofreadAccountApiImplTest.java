@@ -31,7 +31,7 @@ public class ProofreadAccountApiImplTest {
 	public void TestSuccess() {
 		List<BusinessProofreadModel> list = baofuReturnDataDao.query();
 		ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.RETURN,
-				DateUtils.stringToDate("2018-10-29"));
+				DateUtils.stringToDate("2018-10-30"));
 	}
 
 	@Test
@@ -67,12 +67,12 @@ public class ProofreadAccountApiImplTest {
 
 		new Thread(() -> {
 			System.out.println(ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.BORROW,
-					DateUtils.stringToDate("2018-10-26")));
+					DateUtils.stringToDate("2018-10-30")));
 		}).start();
 
 		new Thread(() -> {
 			System.out.println(ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.RETURN,
-					DateUtils.stringToDate("2018-10-26")));
+					DateUtils.stringToDate("2018-10-30")));
 		}).start();
 		Thread.sleep(100000);
 
