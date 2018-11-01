@@ -22,7 +22,7 @@ public class ParamLogAspect implements Ordered{
 	private Logger logger=LoggerFactory.getLogger(ParamLogAspect.class);
     
 	//@ParamLog在方法上或类上 注解拦截
-	@Pointcut("@annotation(com.pgy.account.web.utils.annotation.ParamsLog)||@within(com.pgy.account.web.utils.annotation.ParamsLog)")
+	@Pointcut("@annotation(com.pgy.ups.account.commom.annotation.ParamsLog)||@within(com.pgy.ups.account.commom.annotation.ParamsLog)")
 	public void ParamLogPointcut() {}
 	
 	//记录入参回参日志
