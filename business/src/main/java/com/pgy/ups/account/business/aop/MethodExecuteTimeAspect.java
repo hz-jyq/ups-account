@@ -43,10 +43,16 @@ public class MethodExecuteTimeAspect implements Ordered {
 		Object target = joinPoint.getTarget();
 		Method currentMethod = target.getClass().getMethod(msig.getName(), msig.getParameterTypes());
 		Long start = System.currentTimeMillis();
-		Object obj = joinPoint.proceed();
-		logger.info(target.getClass().getName() + "类" + currentMethod.getName() + "方法执行时间为："
-				+ (System.currentTimeMillis() - start) + "毫秒！");
-		return obj;
+		Object obj = null;
+		try {
+			obj = joinPoint.proceed();
+			return obj;
+		} catch (Throwable e) {
+			throw e;
+		} finally {
+			logger.info(target.getClass().getName() + "类" + currentMethod.getName() + "方法执行时间为："
+					+ (System.currentTimeMillis() - start) + "毫秒！");
+		}
 	}
 
 	/**

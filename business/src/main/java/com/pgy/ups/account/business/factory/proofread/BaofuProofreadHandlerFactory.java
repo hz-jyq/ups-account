@@ -203,11 +203,11 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 		}
 		// 解析文件获取为空集合时
 		if (CollectionUtils.isEmpty(baofuList)) {
-			logger.warn("未能从数据库或文件中获取到账单数据！baofuList:{}", baofuList);
+			logger.warn("未能从数据库或文件中获取到渠道数据！baofuList:{}", baofuList);
 		}
 		// 接受原系统的数据list为null时
 		if (CollectionUtils.isEmpty(businessList)) {
-			logger.warn("没有接受到系统来源数据:{}", businessList);
+			logger.warn("没有接受到业务来源数据！businessList:{}", businessList);
 		}
 		try {
 			// 开始对账这样才能开启事务!fuck!!!
