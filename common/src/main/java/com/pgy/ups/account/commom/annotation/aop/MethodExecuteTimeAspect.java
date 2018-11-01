@@ -1,4 +1,4 @@
-package com.pgy.ups.account.business.aop;
+package com.pgy.ups.account.commom.annotation.aop;
 
 import java.lang.reflect.Method;
 
@@ -60,7 +60,7 @@ public class MethodExecuteTimeAspect implements Ordered {
 	 */
 	@Override
 	public int getOrder() {
-		return 3;
+		return 100;
 	}
 
 }

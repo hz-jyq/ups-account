@@ -20,6 +20,10 @@ public class RedisUtils {
     private static final String SET_WITH_EXPIRE_TIME = "PX";
     
     private static final Long RELEASE_SUCCESS = 1L;
+    
+    public static RedisUtils getInstance() {
+    	return SpringUtils.getBean(RedisUtils.class);
+    }
 	
     public Long setnx(String key,String value) {
     	Jedis jedis=jedisPool.getResource(); 

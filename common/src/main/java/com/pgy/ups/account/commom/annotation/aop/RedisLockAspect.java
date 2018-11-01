@@ -1,10 +1,8 @@
-package com.pgy.ups.account.business.aop;
+package com.pgy.ups.account.commom.annotation.aop;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.UUID;
-
-import javax.annotation.Resource;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -34,9 +32,6 @@ public class RedisLockAspect implements Ordered {
 
 	private Logger logger = LoggerFactory.getLogger(RedisLockAspect.class);
 
-	@Resource
-	private RedisUtils redisUtils;
-
 	// @RedisLock在方法上或类上 注解拦截
 	@Pointcut("@annotation(com.pgy.ups.account.commom.annotation.RedisLock)")
 	public void redisLockPointcut() {
@@ -58,11 +53,14 @@ public class RedisLockAspect implements Ordered {
 		String key = null;
 		String value = null;
 		String name = null;
+		//获取redis实录
+		RedisUtils redisUtils=RedisUtils.getInstance();
 		try {
 			key = (String) AnnotationUtils.getValue(annotation, "key");
 			value = UUID.randomUUID().toString();
 			int expireTime = (int) AnnotationUtils.getValue(annotation, "expireTime");
 			name = (String) AnnotationUtils.getValue(annotation, "name");
+			
 			if (redisUtils.redisLock(key, value, expireTime)) {
 				logger.info("线程：" + Thread.currentThread().getId() + "获取redis锁成功，lockKey：" + key + ",lockValue：" + value
 						+ ",lockName：" + name);
