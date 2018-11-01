@@ -13,8 +13,7 @@ import com.pgy.ups.account.facade.model.proofread.ProofreadError;
 import java.util.List;
 
 @Service
-public class ProofreadErrorServiceImpl
-        implements ProofreadErrorService {
+public class ProofreadErrorServiceImpl  implements ProofreadErrorService {
 
     @Resource
     private ProofreadErrorDao  proofreadErrorDao;
