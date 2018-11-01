@@ -1,35 +1,39 @@
 server:
-  port: 9050
+  port: 9020
 
+#log
 logging:
-  path: /usr/local/spring-boot
+  path: /var/logs
+  file: ups-account-master.log
+  level:
+    root: info
+    com:
+      pgy:
+        ups:
+          account:
+            business:
+              dao:
+                mapper: info
+
+#redis
+redis:
+  config:
+    host: r-bp15919689845244.redis.rds.aliyuncs.com
+    port: 6379
+    password: Meiqi2018letto
+    timeout: 3000
+    maxWaitMillis: 5000
 
 spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
-  redis:
-    host: r-bp1046505e193344.redis.rds.aliyuncs.com
-    port: 6379
-    timeout: 5000
-    password: kKET9Bv4st5O7OYi
-    database: 2
-    pool:
-      maxTotal: 1000
-      maxIdle: 100
-      minIdle: 2
-      maxWaitMillis: 5000
-      testOnBorrow: true
-  rabbitmq:
-    host: daddress.mq3.360fengdai.com
-    port: 5672
-    username: test
-    password: test
+  scan: store.bymin.user
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://116.62.143.57:3306/upsrd?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
-    username: root
-    password: Hjn184736351
+    url: jdbc:mysql:/rm-bp1929ksz2x1492y3.mysql.rds.aliyuncs.com:3306/ups_account?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    username: mqfq_api2018
+    password: Mqfq2018Api
     druid:
       maxActive: 500
       initialSize: 5
@@ -48,11 +52,10 @@ spring:
       logAbandoned: true
       filters: mergeStat
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=6000
-
-#mybatis
+  #mybatis
 mybatis-plus:
-  mapper-locations: classpath:/mapper/*Dao.xml
-  typeAliasesPackage: com.tairanchina.fd.user.entity
+  mapper-locations: classpath:/mapper/*_mapper.xml
+  typeAliasesPackage: com.pgy.ups.account.business.entity,com.pgy.ups.account.facade.model.proofread
   global-config:
     #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
     id-type: 1
@@ -71,3 +74,30 @@ mybatis-plus:
     #使用驼峰法映射属性
     map-underscore-to-camel-case: true
     cache-enabled: false
+
+dubbo:
+  name: ups-account-provider
+  logger: slf4j
+  address: zookeeper://127.0.0.1:2181
+  zkClient: curator
+
+#对账功能参数
+ups:
+  account:
+    proofread:
+      baofu:
+        params:
+          version: 4.0.0.1
+          #对账文件下载地址
+          requestUrl: https://public.baofoo.com/boas/api/fileLoadNewRequest
+          #借款
+          borrows: fo
+          #还款
+          returns: fi
+          #还款商户号
+          businessReturnNum: 1214742
+          #借款商户号
+          businessBorrowNum: 1222722
+          #本机地址
+          localAddress: 183.129.149.194
+
