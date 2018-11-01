@@ -116,7 +116,7 @@
 	</sql>
 
 
-	<select id="getExcelList " resultType="BusinessProofreadModel" parameterType="com.pgy.ups.account.facade.from.ExcelForm">
+	<select id="getExcelList" resultType="BaoFuModelReturn" parameterType="com.pgy.ups.account.facade.from.ExcelForm">
 		SELECT
 		<include refid="baofuReturnExcelColumn" />
 		FROM

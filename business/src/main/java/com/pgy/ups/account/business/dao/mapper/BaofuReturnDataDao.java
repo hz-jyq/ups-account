@@ -28,8 +28,13 @@ public interface BaofuReturnDataDao {
 	 */
 	void batchInsert(List<? extends BaoFuModel> sourceList);
 	
-    //临时的，生成需要删除
+    //临时的，生产需要删除 
 	List<BusinessProofreadModel> query();
-
+    
+	/**
+	 * 获取excel数据
+	 * @param from
+	 * @return
+	 */
 	List<BaoFuModelReturn> getExcelList(ExcelForm from);
 }
