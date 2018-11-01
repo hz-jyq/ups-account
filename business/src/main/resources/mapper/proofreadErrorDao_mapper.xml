@@ -25,16 +25,16 @@
 	</sql>
 
 	<sql id="proofreadErrorExcelColumn">
-			select id,
+		id,
 		CASE fromSystem
-		  WHEN '01' THEN '美期'
-		  WHEN '02' THEN '米融'
-		  WHEN '03' THEN '秒呗'
-		  ELSE '其他' END  as fromSystem,
+		WHEN '01' THEN '美期'
+		WHEN '02' THEN '米融'
+		WHEN '03' THEN '秒呗'
+		ELSE '其他' END as fromSystem,
 		CASE proofreadType
-		  WHEN '01' THEN '借款'
-		  WHEN '02' THEN '还款'
-		ELSE '其他' END  as proofreadType,
+		WHEN '01' THEN '借款'
+		WHEN '02' THEN '还款'
+		ELSE '其他' END as proofreadType,
 		DATE_FORMAT(proofreadDate,'%Y-%m-%d') as proofreadDate,
 		businessOrderNum,
 		borrowNum,
@@ -44,34 +44,34 @@
 		channelExchangeMoney,
 		channelOrderStatus,
 		CASE proofreadType
-		  WHEN '01'  THEN  (case  businessOrderStatuts when '0' 	then '申请/未审核'
-			WHEN  '1' then "已结清"
-		  WHEN  '2' then "打款中"
-			WHEN  '3' then "打款失败"
-      WHEN  '4' then "关闭"
-      WHEN  '5' then ":已经打款/待还款"
+		WHEN '01' THEN (case businessOrderStatuts when '0' then '申请/未审核'
+		WHEN '1' then "已结清"
+		WHEN '2' then "打款中"
+		WHEN '3' then "打款失败"
+		WHEN '4' then "关闭"
+		WHEN '5' then ":已经打款/待还款"
 		end)
-		  WHEN '02'  THEN  (case  businessOrderStatuts when '0' 	then '新建状态'
-			WHEN  '1' then "还款成功"
-		  WHEN  '2' then ":处理中"
-			WHEN  '-1' then "还款成功"
+		WHEN '02' THEN (case businessOrderStatuts when '0' then '新建状态'
+		WHEN '1' then "还款成功"
+		WHEN '2' then ":处理中"
+		WHEN '-1' then "还款成功"
 		end)
-		END  as businessOrderStatuts,
+		END as businessOrderStatuts,
 		channelOrderCreateTime,
-		DATE_FORMAT(disposeTime,'%Y-%m-%d %H:%i:%s') as disposeTime,
+		DATE_FORMAT(disposeTime,'%Y-%m-%d %H:%i:%s') as
+		disposeTime,
 		CASE errorType
-		  WHEN '01' THEN '金额不一致'
-		  WHEN '02' THEN '渠道有业务没有'
-		  WHEN '03' THEN '业务有渠道没有'
-		  ELSE '其他' END  as errorType,
-	CASE flowStatus
-		  WHEN '01' THEN '待处理'
-		  WHEN '02' THEN '已预留'
-		  WHEN '03' THEN '已归档'
-			WHEN '04' THEN '已失效'
-		  ELSE '其他' END  as flowStatus,
-			updateUser
-		from ua_t_account_proofreadError
+		WHEN '01' THEN '金额不一致'
+		WHEN '02' THEN '渠道有业务没有'
+		WHEN '03' THEN '业务有渠道没有'
+		ELSE '其他' END as errorType,
+		CASE flowStatus
+		WHEN '01' THEN '待处理'
+		WHEN '02' THEN '已预留'
+		WHEN '03' THEN '已归档'
+		WHEN '04' THEN '已失效'
+		ELSE '其他' END as flowStatus,
+		updateUser
 	</sql>
 
 
@@ -138,7 +138,7 @@
 		</where>
 	</delete>
 
-	<select id="getPage" resultType="proofreadError"
+	<select id="getPage" resultType="ProofreadError"
 		parameterType="com.pgy.ups.account.facade.from.ProofreadErrorForm">
 		select
 		<include refid="proofreadErrorColumn" />
@@ -177,12 +177,16 @@
 		</where>
 	</select>
 
-	<select id="getExcelList" parameterType="com.pgy.ups.account.facade.from.ExcelForm" resultType="proofreadError">
+	<select id="getExcelList"
+		parameterType="com.pgy.ups.account.facade.from.ExcelForm"
+		resultType="ProofreadError">
 		SELECT
 		<include refid="proofreadErrorExcelColumn" />
 		FROM
 		ua_t_account_proofreadError
-		where  fromSystem=#{fromSystem} and  proofreadDate = #{proofreadDate} and channel = #{channel} and  proofreadType =#{proofreadType}
+		where fromSystem=#{fromSystem} and
+		proofreadDate = #{proofreadDate} and channel = #{channel} and
+		proofreadType =#{proofreadType}
 
 	</select>
 
