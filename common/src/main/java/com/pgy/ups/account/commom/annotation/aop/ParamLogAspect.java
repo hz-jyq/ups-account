@@ -1,5 +1,7 @@
 package com.pgy.ups.account.commom.annotation.aop;
 
+import java.util.Arrays;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -31,7 +33,7 @@ public class ParamLogAspect implements Ordered{
 		Object[] params=joinPoint.getArgs();
 		String methodName=joinPoint.getSignature().getName();
 		String className=joinPoint.getSignature().getDeclaringTypeName();
-		logger.info(className+"类"+methodName+"方法入参为：{}",params);
+		logger.info(className+"类"+methodName+"方法入参为：{}",Arrays.deepToString(params));
 		Object obj=joinPoint.proceed();
 		logger.info(className+"类"+methodName+"方法回参为：{}",obj);
 		return obj;

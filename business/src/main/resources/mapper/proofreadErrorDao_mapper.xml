@@ -184,9 +184,11 @@
 		<include refid="proofreadErrorExcelColumn" />
 		FROM
 		ua_t_account_proofreadError
-		where fromSystem=#{fromSystem} and
-		proofreadDate = #{proofreadDate} and channel = #{channel} and
-		proofreadType =#{proofreadType}
+		where  
+		proofreadDate = #{proofreadDate} 
+		and channel = #{channel} 		
+		and fromSystem=#{fromSystem}
+		and proofreadType =#{proofreadType} 
 
 	</select>
 
