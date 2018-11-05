@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.druid.util.StringUtils;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.pgy.ups.account.business.factory.proofread.BaofuProofreadHandlerFactory;
-import com.pgy.ups.account.business.factory.proofread.ProofreadHandlerFactory;
 import com.pgy.ups.account.business.handler.proofread.ProofreadHandler;
 import com.pgy.ups.account.commom.annotation.PrintExecuteTime;
 import com.pgy.ups.account.commom.annotation.SingleThreadQueue;
@@ -29,7 +28,7 @@ public class ProofreadAccountApiImpl implements ProofreadAccountApi {
 	private Logger logger = LoggerFactory.getLogger(ProofreadAccountApi.class);
 
 	@Resource(type = BaofuProofreadHandlerFactory.class)
-	private ProofreadHandlerFactory baofuProofreadHandlerFactory;
+	private BaofuProofreadHandlerFactory baofuProofreadHandlerFactory;
 
 	@Resource
 	private RedisUtils redisUtils;

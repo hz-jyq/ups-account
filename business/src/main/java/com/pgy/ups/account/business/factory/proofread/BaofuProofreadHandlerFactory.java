@@ -60,7 +60,7 @@ import com.pgy.ups.account.facade.model.proofread.ProofreadSum;
  *
  */
 @Component
-public class BaofuProofreadHandlerFactory implements ProofreadHandlerFactory {
+public class BaofuProofreadHandlerFactory implements ProofreadHandlerFactory<String, List<? extends BaoFuModel>> {
 
 	/**
 	 * 宝付对账处理器

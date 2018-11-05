@@ -1,11 +1,9 @@
 package com.pgy.ups.account.business.factory.proofread;
 
 import java.util.Date;
-import java.util.List;
 
 import com.pgy.ups.account.business.factory.BusinessFactory;
 import com.pgy.ups.account.business.handler.proofread.ProofreadHandler;
-import com.pgy.ups.account.facade.model.proofread.BaoFuModel;
 
 /**
  * 对账处理器工厂
@@ -15,8 +13,7 @@ import com.pgy.ups.account.facade.model.proofread.BaoFuModel;
  * @param <T>
  * @param <R>
  */
-public interface ProofreadHandlerFactory extends BusinessFactory<ProofreadHandler<String,List<? extends 
-		BaoFuModel>>> {
+public interface ProofreadHandlerFactory<T,E> extends BusinessFactory<ProofreadHandler<T,E>>{
 
     
 	/**
@@ -27,7 +24,7 @@ public interface ProofreadHandlerFactory extends BusinessFactory<ProofreadHandle
 	 * @param proofreadResultId
 	 * @return
 	 */
-	public ProofreadHandler<String, List<? extends BaoFuModel>> getProofreadHandler(String fromSystem, String proofreadAccountType,
+	public ProofreadHandler<T, E> getProofreadHandler(String fromSystem, String proofreadAccountType,
 			Date date);
 
 }
