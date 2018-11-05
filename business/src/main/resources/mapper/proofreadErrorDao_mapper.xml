@@ -54,7 +54,7 @@
 		WHEN '02' THEN (case businessOrderStatuts when '0' then '新建状态'
 		WHEN '1' then "还款成功"
 		WHEN '2' then ":处理中"
-		WHEN '-1' then "还款成功"
+		WHEN '-1' then "还款失败"
 		end)
 		END as businessOrderStatuts,
 		channelOrderCreateTime,
