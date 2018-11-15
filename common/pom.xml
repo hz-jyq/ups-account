@@ -10,6 +10,7 @@
 
 	<artifactId>ups-account-common</artifactId>
 	<packaging>jar</packaging>
+	<version>1.0.1</version>
 
 	<name>ups-account-common</name>
 
