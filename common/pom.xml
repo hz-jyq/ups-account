@@ -70,12 +70,29 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<version>2.8.1</version>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
+				<artifactId>maven-source-plugin</artifactId>
+				<!-- 绑定source插件到Maven的生命周期,并在生命周期后执行绑定的source的goal -->
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<!-- 绑定source插件到Maven的生命周期 -->
+						<phase>compile</phase>
+						<!--在生命周期后执行绑定的source插件的goals -->
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
+
+	<!-- 使用deploy -e 上传jar包到私仓 注意版本！！ -->
+	<distributionManagement>
+		<repository>
+			<id>pgy</id>
+			<name>nexus</name>
+			<url>http://116.62.143.57:8081/nexus/content/repositories/thirdparty/</url>
+		</repository>
+	</distributionManagement>
 </project>
