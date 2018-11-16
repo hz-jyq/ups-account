@@ -34,7 +34,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-logging</artifactId>
 		</dependency>
@@ -65,12 +65,7 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.pgy.upsAccount</groupId>
-			<artifactId>ups-account-facade</artifactId>
-			<version>1.0.1</version>
-			<scope>compile</scope>
-		</dependency>
+
 
 		<dependency>
 			<groupId>com.baomidou</groupId>
@@ -132,7 +127,7 @@
 			<version>1.2.16</version>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
@@ -141,6 +136,25 @@
 		<dependency>
 			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.pgy.upsAccount</groupId>
+			<artifactId>ups-account-facade</artifactId>
+			<version>1.0.1</version>
+			<scope>compile</scope>
+			<exclusions>
+			<exclusion>
+				<groupId>com.pgy.ups</groupId>
+				<artifactId>ups-common</artifactId>
+			</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.pgy.ups</groupId>
+			<artifactId>ups-common</artifactId>
+			<version>1.0.1</version>
 		</dependency>
 	</dependencies>
 	<build>

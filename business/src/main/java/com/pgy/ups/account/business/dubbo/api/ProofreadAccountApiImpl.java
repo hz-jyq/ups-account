@@ -13,14 +13,15 @@ import com.alibaba.druid.util.StringUtils;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.pgy.ups.account.business.factory.proofread.BaofuProofreadHandlerFactory;
 import com.pgy.ups.account.business.handler.proofread.ProofreadHandler;
-import com.pgy.ups.account.commom.annotation.PrintExecuteTime;
-import com.pgy.ups.account.commom.annotation.SingleThreadQueue;
-import com.pgy.ups.account.commom.utils.DateUtils;
-import com.pgy.ups.account.commom.utils.RedisUtils;
+
 import com.pgy.ups.account.facade.dubbo.api.ProofreadAccountApi;
 import com.pgy.ups.account.facade.model.proofread.BaoFuModel;
 import com.pgy.ups.account.facade.model.proofread.BusinessProofreadModel;
 import com.pgy.ups.account.facade.model.proofread.ProofreadResult;
+import com.pgy.ups.common.annotation.PrintExecuteTime;
+import com.pgy.ups.common.annotation.SingleThreadQueue;
+import com.pgy.ups.common.utils.DateUtils;
+import com.pgy.ups.common.utils.RedisUtils;
 
 @Service
 public class ProofreadAccountApiImpl implements ProofreadAccountApi {

@@ -40,9 +40,6 @@ import com.pgy.ups.account.business.dao.mapper.ProofreadSuccessDao;
 import com.pgy.ups.account.business.dao.mapper.ProofreadSumDao;
 import com.pgy.ups.account.business.handler.proofread.DocumentParserHandler;
 import com.pgy.ups.account.business.handler.proofread.ProofreadHandler;
-import com.pgy.ups.account.commom.utils.DateUtils;
-import com.pgy.ups.account.commom.utils.HttpClientUtils;
-import com.pgy.ups.account.commom.utils.SecurityUtil;
 import com.pgy.ups.account.facade.constant.ProofreadAccountType;
 import com.pgy.ups.account.facade.model.proofread.BaoFuModel;
 import com.pgy.ups.account.facade.model.proofread.BaoFuModelBorrow;
@@ -52,6 +49,9 @@ import com.pgy.ups.account.facade.model.proofread.ProofreadError;
 import com.pgy.ups.account.facade.model.proofread.ProofreadResult;
 import com.pgy.ups.account.facade.model.proofread.ProofreadSuccess;
 import com.pgy.ups.account.facade.model.proofread.ProofreadSum;
+import com.pgy.ups.common.utils.DateUtils;
+import com.pgy.ups.common.utils.HttpClientUtils;
+import com.pgy.ups.common.utils.SecurityUtil;
 
 /**
  * 宝付对账处理器工厂
