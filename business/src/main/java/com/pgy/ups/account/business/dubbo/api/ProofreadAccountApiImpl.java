@@ -21,7 +21,7 @@ import com.pgy.ups.account.facade.model.proofread.ProofreadResult;
 import com.pgy.ups.common.annotation.PrintExecuteTime;
 import com.pgy.ups.common.annotation.SingleThreadQueue;
 import com.pgy.ups.common.utils.DateUtils;
-import com.pgy.ups.common.utils.RedisUtils;
+
 
 @Service
 public class ProofreadAccountApiImpl implements ProofreadAccountApi {
@@ -31,8 +31,6 @@ public class ProofreadAccountApiImpl implements ProofreadAccountApi {
 	@Resource(type = BaofuProofreadHandlerFactory.class)
 	private BaofuProofreadHandlerFactory baofuProofreadHandlerFactory;
 
-	@Resource
-	private RedisUtils redisUtils;
 
 	/**
 	 * 对账方法 由外部系统调用
