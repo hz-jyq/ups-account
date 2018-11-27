@@ -175,6 +175,7 @@
 				businessOrderNum = #{businessOrderNum}
 			</if>
 		</where>
+		order by createTime desc
 	</select>
 
 	<select id="getExcelList"

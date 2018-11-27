@@ -285,5 +285,6 @@
 			and   proofreadType = #{proofreadType}
 		</if>
 	  </where>
+		order by createTime desc
 	</select>
 </mapper>
