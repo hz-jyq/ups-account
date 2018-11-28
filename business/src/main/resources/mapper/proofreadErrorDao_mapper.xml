@@ -13,7 +13,7 @@
 		borrowNum,
 		businessExchangeMoney,
 		businessOrderStatuts,
-		businessOrderCreateTime,
+		DATE_FORMAT(businessOrderCreateTime,'%Y-%m-%d %H:%i:%s') as businessOrderCreateTime,
 		channel,
 		channelExchangeMoney,
 		channelOrderStatus,
@@ -175,7 +175,7 @@
 				businessOrderNum = #{businessOrderNum}
 			</if>
 		</where>
-		order by createTime desc
+		order by proofreadDate desc
 	</select>
 
 	<select id="getExcelList"

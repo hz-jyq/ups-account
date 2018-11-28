@@ -241,7 +241,7 @@
 				and proofreadDate = #{proofreadDate}
 		     </if>
 		 </where>
-		order by createTime desc
+		order by proofreadDate desc
 	</select>
 
 </mapper>
