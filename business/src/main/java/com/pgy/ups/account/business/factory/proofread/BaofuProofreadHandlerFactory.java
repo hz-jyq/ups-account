@@ -54,6 +54,7 @@ import com.pgy.ups.account.facade.model.proofread.ProofreadSum;
 import com.pgy.ups.common.utils.DateUtils;
 import com.pgy.ups.common.utils.HttpClientUtils;
 import com.pgy.ups.common.utils.SecurityUtil;
+import com.pgy.ups.common.utils.SpringUtils;
 
 /**
  * 宝付对账处理器工厂
@@ -64,11 +65,6 @@ import com.pgy.ups.common.utils.SecurityUtil;
 @Component
 public class BaofuProofreadHandlerFactory implements ProofreadHandlerFactory<String, List<? extends BaoFuModel>> {
 
-	/**
-	 * 宝付对账处理器
-	 */
-	@Resource(type = BaoFuProofreadHandler.class)
-	private ProofreadHandler<String, List<? extends BaoFuModel>> baofuProofreadHandler;
 
 	public ProofreadHandler<String, List<? extends BaoFuModel>> getProofreadHandler(String fromSystem,
 			String proofreadAccountType, Date date) {
@@ -80,7 +76,8 @@ public class BaofuProofreadHandlerFactory implements ProofreadHandlerFactory<Str
 		baoFuDocumentParserHandler.setFromSystem(fromSystem);
 		// 设置对账日期
 		baoFuDocumentParserHandler.setProofreadDate(DateUtils.dateToString(date));
-
+		
+		ProofreadHandler<String, List<? extends BaoFuModel>> baofuProofreadHandler=SpringUtils.getBean(BaoFuProofreadHandler.class);
 		// 处理器设置下载文件解析器
 		baofuProofreadHandler.setDocumentParserHandler(baoFuDocumentParserHandler);
 		// 处理器设置要对账的系统
@@ -149,9 +146,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 	 */
 	@Override
 	public ProofreadResult handler(List<BusinessProofreadModel> list) {
-		List<BusinessProofreadModel> businessList = new ArrayList<>(list);
-		// 查询对账异常表中已预留的记录，参与本次对账
-		
+		List<BusinessProofreadModel> businessList = new ArrayList<>(list);		
 		// 初始化返回结果
 		ProofreadResult proofreadResult = ((BaoFuProofreadHandler) AopContext.currentProxy()).initProofreadResult();
 		// 如果对账成功 直接返回
@@ -241,7 +236,22 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 			return ArrayUtils.contains(IncludeOrderStatusEnum.getIncludeOrderStatusArray(e.getFromSystem()),
 					e.getBusinessOrderStatuts());
 		}).collect(Collectors.toList());
+		
 		/* 2018-11-27 对账系统1.1版本新需求 END */
+		/* 2018-11-27 查询对账异常表中已预留的记录，参与本次对账 Start */
+		List<ProofreadError> reseveredList=proofreadErrorDao.queryProofreadErrorByFlowStatus(ProofreadErrorFactory.FLOW_STATUS_RESERVED);
+		for(ProofreadError proofreadError:reseveredList) {
+			//渠道有，业务没有，则插入到businessList中
+			if(Objects.equals(ProofreadErrorFactory.ERROR_TYPE_NO_BUSINESS, proofreadError.getErrorType())) {
+				BaoFuModel baoFuModel=new BaoFuModel();
+			}
+			//业务有，渠道没有，则插入到baofuList中
+            if(Objects.equals(ProofreadErrorFactory.ERROR_TYPE_NO_CHANNEL, proofreadError.getErrorType())) {
+				
+			}
+			
+		}
+		/* 2018-11-27 查询对账异常表中已预留的记录，参与本次对账 End */
 
 		// 数据库删除当天差错账列表，防止对账数据重复
 		deleletProofreadErrorList(proofreadResult);

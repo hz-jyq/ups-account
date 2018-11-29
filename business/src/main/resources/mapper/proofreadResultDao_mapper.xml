@@ -104,7 +104,10 @@
 		<if test="proofreadDate!=null">
 			proofreadDate,
 		</if>
-		excuteTime
+		excuteTime,
+		updateTime,
+		craeteUser,
+		updateUser
 		)VALUES(
 		<if test="channel!=null">
 			#{channel},
@@ -134,7 +137,11 @@
 			#{proofreadDate},
 		</if>
 		NOW()
-		)
+		),
+		NOW()
+		),
+		'system',
+		'system'
 		<selectKey resultType="java.lang.Long" keyProperty="id"
 			order="AFTER">
 			SELECT LAST_INSERT_ID() as id
@@ -172,7 +179,10 @@
 		<if test="proofreadDate!=null">
 			proofreadDate=#{proofreadDate},
 		</if>
-		excuteTime=NOW()
+		<if test="updateUser!=null">
+			updateUser=#{updateUser},
+		</if>
+		updateTime=NOW()
 		WHERE
 		<choose>
 			<when test="id!=null">

@@ -25,10 +25,15 @@ public interface ProofreadErrorDao {
 	 * @param queryParam
 	 */
 	void deleteProofreadError(Map<String, Object> queryParam);
+	/**
+	  *  根据处理流水状态查询对账异常列表
+	 * @param flowStatusReserved
+	 * @return
+	 */
+	List<ProofreadError> queryProofreadErrorByFlowStatus(String flowStatusReserved);
 
     public List<ProofreadError> getPage(ProofreadErrorForm Form);
 
-    List<ProofreadError> queryProofreadErrorByFlowStatus(String flowStatusReserved);
     
 	List<ProofreadError> getExcelList(ExcelForm form);
 
