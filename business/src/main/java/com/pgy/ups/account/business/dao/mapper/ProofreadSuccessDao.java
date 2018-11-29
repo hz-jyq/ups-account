@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.pgy.ups.account.facade.from.ExcelForm;
+import com.pgy.ups.account.facade.from.ProofreadSuccessForm;
 import com.pgy.ups.account.facade.model.proofread.ProofreadSuccess;
 
 /**
@@ -26,5 +27,7 @@ public interface ProofreadSuccessDao {
 	void deleteProofreadSuccess(Map<String, Object> queryParam);
 
 	List<ProofreadSuccess> getExcelList(ExcelForm from);
+
+	List<ProofreadSuccess> getPage(ProofreadSuccessForm form);
 
 }
