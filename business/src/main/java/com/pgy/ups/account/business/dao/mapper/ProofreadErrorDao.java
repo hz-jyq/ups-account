@@ -28,5 +28,8 @@ public interface ProofreadErrorDao {
 
     public List<ProofreadError> getPage(ProofreadErrorForm Form);
 
+    List<ProofreadError> queryProofreadErrorByFlowStatus(String flowStatusReserved);
+    
 	List<ProofreadError> getExcelList(ExcelForm form);
+
 }

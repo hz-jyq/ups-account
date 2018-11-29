@@ -1,5 +1,6 @@
 package com.pgy.ups.account.business.factory.proofread;
 
+import com.baomidou.mybatisplus.toolkit.StringUtils;
 import com.pgy.ups.account.business.factory.BusinessFactory;
 import com.pgy.ups.account.facade.model.proofread.BaoFuModel;
 import com.pgy.ups.account.facade.model.proofread.BusinessProofreadModel;
@@ -50,6 +51,7 @@ public class ProofreadErrorFactory implements BusinessFactory<ProofreadError> {
 		pe.setProofreadType(proofreadResult.getProofreadType());
 		pe.setFlowStatus(FLOW_STATUS_READY);
 		pe.setChannel(BaoFuProofreadHandler.BAOFU_CHANNEL);
+		pe.setRemark(StringUtils.EMPTY);
 		if (businessModel != null) {
 			pe.setBusinessOrderNum(businessModel.getBusinessOrderNum());
 			pe.setBusinessOrderCreateTime(businessModel.getOrderCreateTime());
@@ -72,7 +74,7 @@ public class ProofreadErrorFactory implements BusinessFactory<ProofreadError> {
 	}
     
 	/**
-	 *   根据参数构建对账异常明细对象
+	 * 根据参数构建对账异常明细对象
 	 * @param businessModel
 	 * @return
 	 */

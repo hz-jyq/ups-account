@@ -54,6 +54,9 @@ public class ProofreadError extends Model{
 	//渠道订单创建时间
 	private String channelOrderCreateTime;
 	
+	//备注
+	private String remark;
+	
 	//处理时间
 	private String disposeTime;
 	
@@ -201,5 +204,14 @@ public class ProofreadError extends Model{
 	public void setChannel(String channel) {
 		this.channel = channel;
 	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	
 	
 }
