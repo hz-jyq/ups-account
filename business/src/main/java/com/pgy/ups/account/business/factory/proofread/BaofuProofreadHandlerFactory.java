@@ -63,10 +63,10 @@ import com.pgy.ups.common.utils.SpringUtils;
  *
  */
 @Component
-public class BaofuProofreadHandlerFactory implements ProofreadHandlerFactory<String, List<? extends BaoFuModel>> {
+public class BaofuProofreadHandlerFactory implements ProofreadHandlerFactory<String, List<BaoFuModel>> {
 
 
-	public ProofreadHandler<String, List<? extends BaoFuModel>> getProofreadHandler(String fromSystem,
+	public ProofreadHandler<String, List<BaoFuModel>>getProofreadHandler(String fromSystem,
 			String proofreadAccountType, Date date) {
 		// 设置下载文本解析器
 		BaoFuDocumentParserHandler baoFuDocumentParserHandler = new BaoFuDocumentParserHandler();
@@ -77,7 +77,7 @@ public class BaofuProofreadHandlerFactory implements ProofreadHandlerFactory<Str
 		// 设置对账日期
 		baoFuDocumentParserHandler.setProofreadDate(DateUtils.dateToString(date));
 		
-		ProofreadHandler<String, List<? extends BaoFuModel>> baofuProofreadHandler=SpringUtils.getBean(BaoFuProofreadHandler.class);
+		ProofreadHandler<String, List<BaoFuModel>> baofuProofreadHandler=SpringUtils.getBean(BaoFuProofreadHandler.class);
 		// 处理器设置下载文件解析器
 		baofuProofreadHandler.setDocumentParserHandler(baoFuDocumentParserHandler);
 		// 处理器设置要对账的系统
@@ -100,7 +100,7 @@ public class BaofuProofreadHandlerFactory implements ProofreadHandlerFactory<Str
  */
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends BaoFuModel>> {
+class BaoFuProofreadHandler implements ProofreadHandler<String, List<BaoFuModel>> {
 
 	public static final String BAOFU_CHANNEL = "01";
 
@@ -130,7 +130,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 	@Resource
 	private ProofreadSuccessDao proofreadSuccessDao;
 
-	private DocumentParserHandler<String, List<? extends BaoFuModel>> documentParserHandler;
+	private DocumentParserHandler<String, List<BaoFuModel>> documentParserHandler;
 
 	private String fromSystem;
 
@@ -160,7 +160,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 		baofuProofreadSum = ((BaoFuProofreadHandler) AopContext.currentProxy()).initProofreadSum(proofreadResult);
 
 		// baofuList用于存储解析文件后的数据
-		List<? extends BaoFuModel> baofuList = null;
+		List<BaoFuModel> baofuList = null;
 		// 若之前已经下载成功，则无需再次下载，从数据库中根据日期、来源系统、对账类型取出数据即可
 		if (proofreadResult.getDownloadSuccess()) {
 			try {
@@ -214,7 +214,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public ProofreadResult proofread(ProofreadResult proofreadResult, ProofreadSum baofuProofreadSum,
-			List<BusinessProofreadModel> businessList, List<? extends BaoFuModel> baofuList) {
+			List<BusinessProofreadModel> businessList, List<BaoFuModel> baofuList) {
 		// 添加基础信息
 		businessList = businessList.stream().map((e) -> {
 			e.setFromSystem(baofuProofreadSum.getFromSystem());
@@ -240,14 +240,29 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 		/* 2018-11-27 对账系统1.1版本新需求 END */
 		/* 2018-11-27 查询对账异常表中已预留的记录，参与本次对账 Start */
 		List<ProofreadError> reseveredList=proofreadErrorDao.queryProofreadErrorByFlowStatus(ProofreadErrorFactory.FLOW_STATUS_RESERVED);
-		for(ProofreadError proofreadError:reseveredList) {
+		for(ProofreadError e:reseveredList) {
 			//渠道有，业务没有，则插入到businessList中
-			if(Objects.equals(ProofreadErrorFactory.ERROR_TYPE_NO_BUSINESS, proofreadError.getErrorType())) {
+			if(Objects.equals(ProofreadErrorFactory.ERROR_TYPE_NO_BUSINESS, e.getErrorType())) {
 				BaoFuModel baoFuModel=new BaoFuModel();
+				baoFuModel.setBusinessOrderNum(e.getBusinessOrderCreateTime());
+				baoFuModel.setOrderCreateTime(e.getChannelOrderCreateTime());
+				baoFuModel.setExchangeAmount(e.getChannelExchangeMoney());
+				baoFuModel.setOrderStatus(e.getChannelOrderStatus());
+				baofuList.add(baoFuModel);
 			}
 			//业务有，渠道没有，则插入到baofuList中
-            if(Objects.equals(ProofreadErrorFactory.ERROR_TYPE_NO_CHANNEL, proofreadError.getErrorType())) {
-				
+            if(Objects.equals(ProofreadErrorFactory.ERROR_TYPE_NO_CHANNEL, e.getErrorType())) {
+            	BusinessProofreadModel bpm=new BusinessProofreadModel();
+            	bpm.setBorrowNum(e.getBorrowNum());
+            	bpm.setBusinessOrderNum(e.getBusinessOrderNum());
+            	bpm.setBusinessOrderStatuts(e.getBusinessOrderStatuts());
+            	bpm.setChannel(e.getChannel());
+            	bpm.setExchangeAmount(e.getBusinessExchangeMoney());
+            	bpm.setFromSystem(e.getFromSystem());
+            	bpm.setOrderCreateTime(e.getBusinessOrderCreateTime());
+            	bpm.setProofreadDate(e.getProofreadDate());
+            	bpm.setProofreadType(e.getProofreadType());
+            	businessList.add(bpm);
 			}
 			
 		}
@@ -434,16 +449,16 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 	}
 
 	// 从数据库查询宝付下载数据
-	private List<? extends BaoFuModel> queryDownloadDate(ProofreadResult proofreadResult) throws Exception {
+	private List<BaoFuModel> queryDownloadDate(ProofreadResult proofreadResult) throws Exception {
 		Map<String, Object> queryParam = Maps.newHashMap();
 		queryParam.put("proofreadDate", proofreadResult.getProofreadDate());
 		queryParam.put("fromSystem", proofreadResult.getFromSystem());
 		queryParam.put("proofreadType", proofreadResult.getProofreadType());
 		if (Objects.equals(proofreadResult.getProofreadType(), ProofreadAccountType.BORROW)) {
-			List<BaoFuModelBorrow> borrowList = baofuBorrowDataDao.queryBaoFuBorrowDataList(queryParam);
+			List<BaoFuModel> borrowList = baofuBorrowDataDao.queryBaoFuBorrowDataList(queryParam);
 			return borrowList == null ? Collections.emptyList() : borrowList;
 		} else if (Objects.equals(proofreadResult.getProofreadType(), ProofreadAccountType.RETURN)) {
-			List<BaoFuModelReturn> returnList = baofuReturnDataDao.queryBaoFuReturnDataList(queryParam);
+			List<BaoFuModel> returnList = baofuReturnDataDao.queryBaoFuReturnDataList(queryParam);
 			return returnList == null ? Collections.emptyList() : returnList;
 		} else {
 			throw new Exception("proofreadType类型不正确,proofreadType=" + proofreadResult.getProofreadType());
@@ -521,7 +536,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
 
 	@Override
 	public void setDocumentParserHandler(
-			DocumentParserHandler<String, List<? extends BaoFuModel>> documentParserHandler) {
+			DocumentParserHandler<String, List<BaoFuModel>> documentParserHandler) {
 		this.documentParserHandler = documentParserHandler;
 
 	}
@@ -533,7 +548,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<? extends B
  * @author 墨凉
  *
  */
-class BaoFuDocumentParserHandler implements DocumentParserHandler<String, List<? extends BaoFuModel>> {
+class BaoFuDocumentParserHandler implements DocumentParserHandler<String, List<BaoFuModel>> {
 
 	private Logger logger = LoggerFactory.getLogger(BaoFuDocumentParserHandler.class);
 
@@ -558,7 +573,7 @@ class BaoFuDocumentParserHandler implements DocumentParserHandler<String, List<?
 	}
 
 	@Override
-	public List<? extends BaoFuModel> handler(String responseStr) throws Exception {
+	public List<BaoFuModel> handler(String responseStr) throws Exception {
 		// resp_code=0000说明返回成功
 		int StrOf = responseStr.indexOf("resp_code=0000");
 		if (StrOf < 0) {
@@ -606,8 +621,8 @@ class BaoFuDocumentParserHandler implements DocumentParserHandler<String, List<?
 	 * @return
 	 * @throws Exception
 	 */
-	private List<? extends BaoFuModel> parseReturn(BufferedReader br) throws Exception {
-		List<BaoFuModelReturn> list = new ArrayList<>();
+	private List<BaoFuModel> parseReturn(BufferedReader br) throws Exception {
+		List<BaoFuModel> list = new ArrayList<>();
 		String line = "";
 		while ((line = br.readLine()) != null) {
 			BaoFuModelReturn model = new BaoFuModelReturn();
@@ -641,8 +656,8 @@ class BaoFuDocumentParserHandler implements DocumentParserHandler<String, List<?
 	 * @return
 	 * @throws Exception
 	 */
-	private List<? extends BaoFuModel> parseBorrow(BufferedReader br) throws Exception {
-		List<BaoFuModelBorrow> list = new ArrayList<>();
+	private List<BaoFuModel> parseBorrow(BufferedReader br) throws Exception {
+		List<BaoFuModel> list = new ArrayList<>();
 		String line = "";
 		while ((line = br.readLine()) != null) {
 			BaoFuModelBorrow model = new BaoFuModelBorrow();

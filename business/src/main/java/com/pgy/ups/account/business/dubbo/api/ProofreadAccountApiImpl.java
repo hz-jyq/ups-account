@@ -63,7 +63,7 @@ public class ProofreadAccountApiImpl implements ProofreadAccountApi {
 			date = DateUtils.getYesterday();
 		}
 		// 宝付对账处理工厂
-		ProofreadHandler<String, List<? extends BaoFuModel>> proofreadHandler = baofuProofreadHandlerFactory
+		ProofreadHandler<String, List<BaoFuModel>> proofreadHandler = baofuProofreadHandlerFactory
 				.getProofreadHandler(fromSystem, proofreadAccountType, date);
 		try {
 			ProofreadResult proofreadResult = proofreadHandler.handler(list);

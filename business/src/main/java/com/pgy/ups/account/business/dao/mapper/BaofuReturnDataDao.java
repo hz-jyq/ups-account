@@ -20,7 +20,7 @@ public interface BaofuReturnDataDao {
 	 * @param proofreadDate
 	 * @return
 	 */
-	List<BaoFuModelReturn> queryBaoFuReturnDataList(Map<String, Object> queryParam);
+	List<BaoFuModel> queryBaoFuReturnDataList(Map<String, Object> queryParam);
     
 	/**
 	 * 批量插入数据

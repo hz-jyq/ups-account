@@ -20,7 +20,7 @@ public interface BaofuBorrowDataDao {
 	 * @param proofreadDate
 	 * @return
 	 */
-	List<BaoFuModelBorrow> queryBaoFuBorrowDataList(Map<String,Object> queryMap);
+	List<BaoFuModel> queryBaoFuBorrowDataList(Map<String,Object> queryMap);
     
 	/**
 	 * 批量插入数据
