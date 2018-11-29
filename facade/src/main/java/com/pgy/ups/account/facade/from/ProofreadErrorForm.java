@@ -22,6 +22,31 @@ public class ProofreadErrorForm extends  AbstractPageForm<ProofreadErrorForm>{
 
     private String businessOrderNum;
 
+
+    private String  proofreadField;
+
+    //判断页面的类型
+    private String flowStatusType;
+
+    public String getProofreadField() {
+        return proofreadField;
+    }
+
+    public void setProofreadField(String proofreadField) {
+        this.proofreadField = proofreadField;
+    }
+
+    public String getFlowStatusType() {
+        return flowStatusType;
+    }
+
+    public void setFlowStatusType(String flowStatusType) {
+        this.flowStatusType = flowStatusType;
+    }
+
+
+
+
     public String getChannel() {
         return channel;
     }

@@ -143,7 +143,10 @@
 		select
 		<include refid="proofreadErrorColumn" />
 		from ua_t_account_proofreadError
-		<where>
+		  <where>
+			 <if test = "flowStatusType == '1'">
+				 flowStatus in('01','02')
+		  	</if>
 			<if test="errorType!=null and errorType!=''">
 				and errorType = #{errorType}
 			</if>
@@ -167,14 +170,13 @@
 				proofreadType = #{proofreadType}
 			</if>
 			<if test="flowStatus!=null and flowStatus!=''">
-				and flowStatus =
-				#{flowStatus}
+				and flowStatus = #{flowStatus}
 			</if>
 			<if test="businessOrderNum!=null and businessOrderNum!=''">
 				and
 				businessOrderNum = #{businessOrderNum}
 			</if>
-		</where>
+		  </where>
 		order by proofreadDate desc
 	</select>
 
@@ -185,12 +187,42 @@
 		<include refid="proofreadErrorExcelColumn" />
 		FROM
 		ua_t_account_proofreadError
-		where  
-		proofreadDate = #{proofreadDate} 
-		and channel = #{channel} 		
+		where
+		proofreadDate = #{proofreadDate}
+		and channel = #{channel}
 		and fromSystem=#{fromSystem}
-		and proofreadType =#{proofreadType} 
+		and proofreadType =#{proofreadType}
+	</select>
 
+	<select id="getProofreadErrorCount" parameterType="com.pgy.ups.account.facade.from.ProofreadErrorForm"  resultType="com.pgy.ups.account.facade.dto.proofread.ProofreadErrorCount">
+		SELECT COUNT(id) as  proofreadCount,SUM(${proofreadField}) as proofreadTotalMoney ,CONCAT(#{proofreadField},'')  as proofreadType FROM ua_t_account_proofreadError WHERE  ${proofreadField}  IS NOT NULL
+			<if test="errorType!=null and errorType!=''">
+				and errorType = #{errorType}
+			</if>
+			<if test="proofreadDateStart!=null and proofreadDateStart!=''">
+				and proofreadDate <![CDATA[>=]]> #{proofreadDateStart}
+			</if>
+			<if test="proofreadDateEnd!=null and proofreadDateEnd!=''">
+				and proofreadDate <![CDATA[<=]]>
+				#{proofreadDateEnd}
+			</if>
+			<if test="channel!=null and channel!=''">
+				and channel = #{channel}
+			</if>
+			<if test="fromSystem!=null and fromSystem!=''">
+				and fromSystem = #{fromSystem}
+			</if>
+			<if test="proofreadType!=null and proofreadType!=''">
+				and
+				proofreadType = #{proofreadType}
+			</if>
+			<if test="flowStatus!=null and flowStatus!=''">
+				and flowStatus = #{flowStatus}
+			</if>
+			<if test="businessOrderNum!=null and businessOrderNum!=''">
+				and
+				businessOrderNum = #{businessOrderNum}
+			</if>
 	</select>
 
 </mapper>

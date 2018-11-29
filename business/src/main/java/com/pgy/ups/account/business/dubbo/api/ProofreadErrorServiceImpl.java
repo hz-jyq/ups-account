@@ -4,6 +4,8 @@ import javax.annotation.Resource;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.pgy.ups.account.business.dao.mapper.ProofreadErrorDao;
+import com.pgy.ups.account.facade.dto.proofread.ProofreadErrorCount;
+import com.pgy.ups.account.facade.dto.proofread.ProofreadErrorCountDto;
 import com.pgy.ups.account.facade.dubbo.api.ProofreadErrorService;
 import com.pgy.ups.account.facade.from.ExcelForm;
 import com.pgy.ups.account.facade.from.PageInfo;
@@ -11,6 +13,7 @@ import com.pgy.ups.account.facade.from.ProofreadErrorForm;
 import com.pgy.ups.account.facade.model.proofread.ProofreadError;
 import com.pgy.ups.common.annotation.PrintExecuteTime;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -33,5 +36,18 @@ public class ProofreadErrorServiceImpl  implements ProofreadErrorService {
             proofreadError.setProofreadType(proofreadError.getFromSystem() + "-" +  proofreadError.getProofreadType());
         }
         return list;
+    }
+
+    @Override
+    public ProofreadErrorCountDto getProofreadErrorCount(ProofreadErrorForm form) {
+      ProofreadErrorCountDto  dto = new ProofreadErrorCountDto();
+      form.setProofreadField("businessExchangeMoney");
+      ProofreadErrorCount proofreadErrorCount =  proofreadErrorDao.getProofreadErrorCount(form);
+      dto.createDto(proofreadErrorCount);
+
+      form.setProofreadField("channelExchangeMoney");
+      proofreadErrorCount =  proofreadErrorDao.getProofreadErrorCount(form);
+       dto.createDto(proofreadErrorCount);
+      return dto;
     }
 }
