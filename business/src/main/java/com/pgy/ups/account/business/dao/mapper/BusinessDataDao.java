@@ -19,5 +19,10 @@ public interface BusinessDataDao {
 	 * @param map
 	 */
 	void deleteBusinessDate(Map<String,Object> map);
+	
+	/**
+	  * 根据条件查询业务对账原始数据
+	 */
+	List<BusinessProofreadModel> queryBusinessDateList(Map<String,Object> param);
 
 }

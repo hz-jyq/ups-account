@@ -22,17 +22,11 @@ import com.pgy.ups.common.utils.DateUtils;
 public class ProofreadAccountApiImplTest {
 
 	@Resource
-	private ProofreadAccountApiImpl ProofreadAccountApiImpl;
+	private BaofooProofreadAccountApiImpl ProofreadAccountApiImpl;
 
 	@Resource
 	private BaofuReturnDataDao baofuReturnDataDao;
 
-	@Test
-	public void TestSuccess() {
-		List<BusinessProofreadModel> list = baofuReturnDataDao.query();
-		ProofreadAccountApiImpl.ProofreadStart(list, FromSystem.MEI_QI, ProofreadAccountType.RETURN,
-				DateUtils.stringToDate("2018-10-30"));
-	}
 
 	@Test
 	public void TestFail() throws InterruptedException {

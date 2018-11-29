@@ -63,11 +63,11 @@ import com.pgy.ups.common.utils.SpringUtils;
  *
  */
 @Component
-public class BaofuProofreadHandlerFactory implements ProofreadHandlerFactory<String, List<BaoFuModel>> {
+public class BaofooProofreadHandlerFactory implements ProofreadHandlerFactory<String, List<BaoFuModel>> {
 
 
 	public ProofreadHandler<String, List<BaoFuModel>>getProofreadHandler(String fromSystem,
-			String proofreadAccountType, Date date) {
+			String proofreadAccountType, Date date,boolean reProofread) {
 		// 设置下载文本解析器
 		BaoFuDocumentParserHandler baoFuDocumentParserHandler = new BaoFuDocumentParserHandler();
 		// 设置借款或者还款解析方式
@@ -137,6 +137,8 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<BaoFuModel>
 	private String proofreadAccountType;
 
 	private Date date;
+	
+	private boolean reProofread=false;
 
 	public BaoFuProofreadHandler() {
 	}
@@ -149,8 +151,8 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<BaoFuModel>
 		List<BusinessProofreadModel> businessList = new ArrayList<>(list);		
 		// 初始化返回结果
 		ProofreadResult proofreadResult = ((BaoFuProofreadHandler) AopContext.currentProxy()).initProofreadResult();
-		// 如果对账成功 直接返回
-		if (proofreadResult.getSuccess()) {
+		// 如果对账成功,且不为重新对账请求 直接返回
+		if (proofreadResult.getSuccess()&&!reProofread) {
 			logger.error("该日期的对账已经完成！{}", proofreadResult);
 			proofreadResult.setFailReason("该日期的对账已经完成");
 			return proofreadResult;
@@ -533,12 +535,20 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<BaoFuModel>
 	public void setProofreadAccountType(String proofreadAccountType) {
 		this.proofreadAccountType = proofreadAccountType;
 	}
+	
+	
+	public boolean isReProofread() {
+		return reProofread;
+	}
+
+	public void setReProofread(boolean reProofread) {
+		this.reProofread = reProofread;
+	}
 
 	@Override
 	public void setDocumentParserHandler(
 			DocumentParserHandler<String, List<BaoFuModel>> documentParserHandler) {
 		this.documentParserHandler = documentParserHandler;
-
 	}
 }
 

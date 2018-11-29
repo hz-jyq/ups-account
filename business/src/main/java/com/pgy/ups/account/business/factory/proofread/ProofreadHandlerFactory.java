@@ -17,14 +17,14 @@ public interface ProofreadHandlerFactory<T,E> extends BusinessFactory<ProofreadH
 
     
 	/**
-	 * 根据 来源系统名称，借款还款类型，上一次对账结果id获取对账处理器
+	 * 
 	 * @param fromSystem
 	 * @param proofreadAccountType
 	 * @param date
-	 * @param proofreadResultId
+	 * @param reProofread
 	 * @return
 	 */
 	public ProofreadHandler<T, E> getProofreadHandler(String fromSystem, String proofreadAccountType,
-			Date date);
+			Date date,boolean reProofread);
 
 }

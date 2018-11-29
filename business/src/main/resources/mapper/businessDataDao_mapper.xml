@@ -75,6 +75,22 @@
 		</where>
 	</delete>
 
-
+    <select id="queryBusinessDateList" resultType="BusinessProofreadModel">
+	      SELECT
+	         <include refid="businessDataColumn"/>
+	      FROM 
+	          ua_t_account_bussiness_proofread
+	      <where>
+	          <if test="fromSystem!=null and fromSystem!=''">
+	               fromSystem=#{fromSystem}
+	          </if>
+	          <if test="proofreadType!=null and proofreadType!=''">
+	              AND fromSystem=#{proofreadType}
+	          </if>
+	          <if test="proofreadDate!=null and proofreadDate!=''">
+	              AND fromSystem=#{proofreadDate}
+	          </if>
+	      </where>         
+    </select>
 
 </mapper>
