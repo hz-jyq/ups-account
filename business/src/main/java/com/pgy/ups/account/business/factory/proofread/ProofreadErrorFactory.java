@@ -24,6 +24,8 @@ public class ProofreadErrorFactory implements BusinessFactory<ProofreadError> {
 	public static final String FLOW_STATUS_SUCCESS = "03";
 	// 失效
 	public static final String FLOW_STATUS_FAIL = "04";
+	// 预留处理完成
+	public static final String FLOW_STATUS_RESERVED_FINISH = "05";
 
 	// 错账：01 金额不一致
 	public static final String ERROR_TYPE_DEFFERENT = "01";

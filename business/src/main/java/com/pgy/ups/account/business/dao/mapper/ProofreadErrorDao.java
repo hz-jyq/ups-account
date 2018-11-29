@@ -1,11 +1,9 @@
 package com.pgy.ups.account.business.dao.mapper;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.pgy.ups.account.facade.dto.proofread.ProofreadErrorCount;
-import com.pgy.ups.account.facade.dto.proofread.ProofreadErrorCountDto;
 import com.pgy.ups.account.facade.from.ExcelForm;
 import com.pgy.ups.account.facade.from.ProofreadErrorForm;
 import com.pgy.ups.account.facade.model.proofread.ProofreadError;
@@ -40,5 +38,11 @@ public interface ProofreadErrorDao {
 	 * @param flowStatusReserved
 	 * @return
 	 */
-	List<ProofreadError> queryProofreadErrorByFlowStatus(String flowStatusReserved);
+	List<ProofreadError> queryProofreadErrorByFlowStatus(String flowStatus);
+    
+	/**
+	  *  修改流水状态为已预留异常明细的流水状态
+	 * @param flowStatusReservedFinish
+	 */
+	void updateReseveredProofreadErrorFlowStatus(String flowStatus);
 }

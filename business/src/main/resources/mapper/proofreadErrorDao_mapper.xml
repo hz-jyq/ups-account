@@ -19,6 +19,7 @@
 		channelOrderStatus,
 		channelOrderCreateTime,
 		DATE_FORMAT(disposeTime,'%Y-%m-%d %H:%i:%s') as disposeTime,
+		remark,
 		errorType,
 		flowStatus,
 		updateUser
@@ -60,6 +61,7 @@
 		channelOrderCreateTime,
 		DATE_FORMAT(disposeTime,'%Y-%m-%d %H:%i:%s') as
 		disposeTime,
+		remark,
 		CASE errorType
 		WHEN '01' THEN '金额不一致'
 		WHEN '02' THEN '渠道有业务没有'
@@ -93,6 +95,7 @@
 			#{item.channelOrderStatus},
 			#{item.channelOrderCreateTime},
 			#{item.disposeTime},
+			#{item.remark},
 			#{item.errorType},
 			#{item.flowStatus},
 			''
@@ -224,5 +227,31 @@
 				businessOrderNum = #{businessOrderNum}
 			</if>
 	</select>
+	
+	<select id="queryProofreadErrorByFlowStatus">
+	     SELECT 
+	         <include refid="proofreadErrorColumn" />
+	     FROM
+	        ua_t_account_proofreadError
+	     WHERE
+	      <choose>
+	        <when test="flowStatus!=null and flowStatus!=''">
+	           flowStatus=#{flowStatus}
+	        </when>
+	        <otherwise>
+	           1=2
+	        </otherwise>	      
+	      </choose>        
+	</select>
+	
+	<!-- 批量处理已预留状态的异常明细 -->
+	<update id="updateReseveredProofreadErrorFlowStatus">
+	     UPDATE 
+	         ua_t_account_proofreadError
+	     SET 
+	         flowStatus=#{flowStatus}
+	     WHERE
+	         flowStatus='02'
+	</update>
 
 </mapper>

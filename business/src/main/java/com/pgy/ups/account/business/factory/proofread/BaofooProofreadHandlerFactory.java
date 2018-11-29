@@ -244,6 +244,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<BaoFuModel>
 		List<ProofreadError> reseveredList=proofreadErrorDao.queryProofreadErrorByFlowStatus(ProofreadErrorFactory.FLOW_STATUS_RESERVED);
 		for(ProofreadError e:reseveredList) {
 			//渠道有，业务没有，则插入到businessList中
+			
 			if(Objects.equals(ProofreadErrorFactory.ERROR_TYPE_NO_BUSINESS, e.getErrorType())) {
 				BaoFuModel baoFuModel=new BaoFuModel();
 				baoFuModel.setBusinessOrderNum(e.getBusinessOrderCreateTime());
@@ -268,6 +269,8 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<BaoFuModel>
 			}
 			
 		}
+		//更新所有已预留状态为预留处理完成
+		proofreadErrorDao.updateReseveredProofreadErrorFlowStatus(ProofreadErrorFactory.FLOW_STATUS_RESERVED_FINISH);
 		/* 2018-11-27 查询对账异常表中已预留的记录，参与本次对账 End */
 
 		// 数据库删除当天差错账列表，防止对账数据重复
