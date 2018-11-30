@@ -132,7 +132,7 @@
 	</select>
 
 
-	<select id="getProofreadSuccessCount" resultType="com.pgy.ups.account.facade.from.ProofreadSuccessForm" parameterType="com.pgy.ups.account.facade.dto.proofread.ProofreadCount">
+	<select id="getProofreadSuccessCount"  parameterType="com.pgy.ups.account.facade.from.ProofreadSuccessForm" resultType="com.pgy.ups.account.facade.dto.proofread.ProofreadCount">
 		select  count(id) as proofreadCount,SUM(businessExchangeMoney) as proofreadTotalMoney  from  ua_t_account_proofreadSuccess
 	</select>
 
