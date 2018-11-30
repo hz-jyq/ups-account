@@ -2,6 +2,7 @@ package com.pgy.ups.account.business.dubbo.api;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.pgy.ups.account.business.dao.mapper.ProofreadSuccessDao;
+import com.pgy.ups.account.facade.dto.proofread.ProofreadCount;
 import com.pgy.ups.account.facade.dto.proofread.ProofreadSuccessCountDto;
 import com.pgy.ups.account.facade.dubbo.api.ProofreadSuccessService;
 import com.pgy.ups.account.facade.from.ExcelForm;
@@ -36,8 +37,11 @@ public class ProofreadSuccessServiceImpl implements ProofreadSuccessService {
 
     @Override
     public ProofreadSuccessCountDto getProofreadSuccessCount(ProofreadSuccessForm form) {
-        //proofreadSuccessDao.getProofreadSuccessCount(form);
-        return null;
+        ProofreadSuccessCountDto dto = new ProofreadSuccessCountDto();
+        ProofreadCount proofreadCount = proofreadSuccessDao.getProofreadSuccessCount(form);
+        dto.setProofreadCount(proofreadCount.getProofreadCount());
+        dto.setProofreadTotalMoney(proofreadCount.getProofreadTotalMoney());
+        return dto;
     }
 
 

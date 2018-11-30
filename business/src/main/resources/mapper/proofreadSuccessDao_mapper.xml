@@ -124,12 +124,16 @@
 		and proofreadType =#{proofreadType}
 	</select>
 
-	<select id="getExcelList" resultType="ProofreadSuccess" parameterType="com.pgy.ups.account.facade.from.ProofreadSuccessForm">
+	<select id="getPage" resultType="ProofreadSuccess" parameterType="com.pgy.ups.account.facade.from.ProofreadSuccessForm">
 		SELECT
 		<include refid="proofreadSuccessExcelColumn" />
 		FROM
 		ua_t_account_proofreadSuccess
 	</select>
 
+
+	<select id="getProofreadSuccessCount" resultType="com.pgy.ups.account.facade.from.ProofreadSuccessForm" parameterType="com.pgy.ups.account.facade.dto.proofread.ProofreadCount">
+		select  count(id) as proofreadCount,SUM(businessExchangeMoney) as proofreadTotalMoney  from  ua_t_account_proofreadSuccess
+	</select>
 
 </mapper>
