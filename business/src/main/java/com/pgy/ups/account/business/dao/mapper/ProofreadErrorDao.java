@@ -44,7 +44,7 @@ public interface ProofreadErrorDao {
 	  *  修改流水状态为已预留异常明细的流水状态
 	 * @param flowStatusReservedFinish
 	 */
-	void updateReseveredProofreadErrorFlowStatus(String flowStatus);
+	int updateReseveredProofreadErrorFlowStatus(String flowStatus);
 
-	 void updateByPrimaryKeySelective(ProofreadError record);
+	 int updateByPrimaryKeySelective(ProofreadError record);
 }

@@ -25,12 +25,12 @@ public interface ProofreadErrorService {
      * @param remark
      * @param updateUser
      */
-   void cancelProofread(Long id,String remark,String updateUser);
+   int cancelProofread(Long id,String remark,String updateUser);
 
     /**
      *
      * @param id
      * @param updateUser
      */
-    void  reservedProofread(Long id,String updateUser);
+    int  reservedProofread(Long id,String updateUser);
 }

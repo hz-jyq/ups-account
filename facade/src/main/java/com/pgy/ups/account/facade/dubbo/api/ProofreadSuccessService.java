@@ -13,4 +13,6 @@ public interface ProofreadSuccessService {
     List<ProofreadSuccess> getExcelList(ExcelForm form);
 
     public PageInfo<ProofreadSuccess> getPage(ProofreadSuccessForm form);
+
+  //  public getProofreadSuccess(ProofreadSuccessForm form);
 }
