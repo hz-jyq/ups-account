@@ -19,7 +19,18 @@ public interface ProofreadErrorService {
 
    public ProofreadErrorCountDto getProofreadErrorCount(ProofreadErrorForm form);
 
-   void cancelProofread(ProofreadError  error);
+    /**
+     *
+     * @param id
+     * @param remark
+     * @param updateUser
+     */
+   void cancelProofread(Long id,String remark,String updateUser);
 
-    void  reservedProofread(Long id);
+    /**
+     *
+     * @param id
+     * @param updateUser
+     */
+    void  reservedProofread(Long id,String updateUser);
 }

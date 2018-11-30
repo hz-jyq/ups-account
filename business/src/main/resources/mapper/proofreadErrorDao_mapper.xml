@@ -264,6 +264,9 @@
 		<if test="flowStatus != null and flowStatus != '' ">
 			flowStatus = #{flowStatus},
 		</if>
+		<if test="updateUser != null and updateUser != '' ">
+			updateUser = #{updateUser},
+		</if>
 	     WHERE
 	         id = #{id}
 	</update>

@@ -51,16 +51,20 @@ public class ProofreadErrorServiceImpl  implements ProofreadErrorService {
     }
 
     @Override
-    public void cancelProofread(ProofreadError  error) {
+    public void cancelProofread(Long id,String remark,String updateUser) {
+        ProofreadError error = new ProofreadError();
         error.setFlowStatus("04");
+        error.setUpdateUser(updateUser);
+        error.setRemark(remark);
         proofreadErrorDao.updateByPrimaryKeySelective(error);
     }
 
     @Override
-    public void reservedProofread(Long id) {
+    public void reservedProofread(Long id,String updateUser) {
         ProofreadError error = new ProofreadError();
         error.setId(id);
         error.setFlowStatus("02");
+        error.setUpdateUser(updateUser);
         proofreadErrorDao.updateByPrimaryKeySelective(error);
     }
 }
