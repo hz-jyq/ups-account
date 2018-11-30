@@ -28,6 +28,8 @@ public class ProofreadErrorForm extends  AbstractPageForm<ProofreadErrorForm>{
     //判断页面的类型
     private String flowStatusType;
 
+    private String borrowNum;
+
     public String getBorrowNum() {
         return borrowNum;
     }
@@ -36,7 +38,7 @@ public class ProofreadErrorForm extends  AbstractPageForm<ProofreadErrorForm>{
         this.borrowNum = borrowNum;
     }
 
-    private String borrowNum;
+
 
     public String getProofreadField() {
         return proofreadField;

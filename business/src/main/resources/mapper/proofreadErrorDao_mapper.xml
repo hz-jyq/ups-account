@@ -179,6 +179,9 @@
 				and
 				businessOrderNum = #{businessOrderNum}
 			</if>
+			<if test="borrowNum!=null and borrowNum!=''">
+				and 	borrowNum = #{borrowNum}
+			</if>
 		  </where>
 		order by proofreadDate desc
 	</select>
@@ -226,6 +229,9 @@
 				and
 				businessOrderNum = #{businessOrderNum}
 			</if>
+		<if test="borrowNum!=null and borrowNum!=''">
+			and 	borrowNum = #{borrowNum}
+		</if>
 	</select>
 	
 	<select id="queryProofreadErrorByFlowStatus">
