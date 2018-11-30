@@ -1,8 +1,8 @@
 package com.pgy.ups.account.facade.dto.proofread;
 
-import com.pgy.ups.account.facade.model.Model;
-
 import java.math.BigDecimal;
+
+import com.pgy.ups.account.facade.model.Model;
 
 /**
  *
