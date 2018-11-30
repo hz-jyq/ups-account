@@ -4,7 +4,7 @@ import com.pgy.ups.account.facade.model.Model;
 
 import java.math.BigDecimal;
 
-public class ProofreadErrorCount extends Model {
+public class ProofreadCount extends Model {
 
     private BigDecimal proofreadTotalMoney;
 

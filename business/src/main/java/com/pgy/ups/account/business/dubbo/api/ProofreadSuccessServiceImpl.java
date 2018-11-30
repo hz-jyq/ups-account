@@ -36,4 +36,6 @@ public class ProofreadSuccessServiceImpl implements ProofreadSuccessService {
         PageInfo<ProofreadSuccess> page =  new PageInfo<ProofreadSuccess>(proofreadSuccessDao.getPage(form.enablePaging()));
         return page;
     }
+
+
 }

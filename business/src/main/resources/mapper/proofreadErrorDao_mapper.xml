@@ -197,7 +197,7 @@
 		and proofreadType =#{proofreadType}
 	</select>
 
-	<select id="getProofreadErrorCount" parameterType="com.pgy.ups.account.facade.from.ProofreadErrorForm"  resultType="com.pgy.ups.account.facade.dto.proofread.ProofreadErrorCount">
+	<select id="getProofreadErrorCount" parameterType="com.pgy.ups.account.facade.from.ProofreadErrorForm"  resultType="com.pgy.ups.account.facade.dto.proofread.ProofreadCount">
 		SELECT COUNT(id) as  proofreadCount,SUM(${proofreadField}) as proofreadTotalMoney ,CONCAT(#{proofreadField},'')  as proofreadType FROM ua_t_account_proofreadError WHERE  ${proofreadField}  IS NOT NULL
 			<if test="errorType!=null and errorType!=''">
 				and errorType = #{errorType}

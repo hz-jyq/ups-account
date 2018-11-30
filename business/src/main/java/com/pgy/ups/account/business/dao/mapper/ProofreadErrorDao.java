@@ -3,7 +3,7 @@ package com.pgy.ups.account.business.dao.mapper;
 import java.util.List;
 import java.util.Map;
 
-import com.pgy.ups.account.facade.dto.proofread.ProofreadErrorCount;
+import com.pgy.ups.account.facade.dto.proofread.ProofreadCount;
 import com.pgy.ups.account.facade.from.ExcelForm;
 import com.pgy.ups.account.facade.from.ProofreadErrorForm;
 import com.pgy.ups.account.facade.model.proofread.ProofreadError;
@@ -31,7 +31,7 @@ public interface ProofreadErrorDao {
 
 	List<ProofreadError> getExcelList(ExcelForm form);
 
-	ProofreadErrorCount getProofreadErrorCount(ProofreadErrorForm Form);
+	ProofreadCount getProofreadErrorCount(ProofreadErrorForm Form);
 
 	/**
 	 *  根据处理流水状态查询对账异常列表

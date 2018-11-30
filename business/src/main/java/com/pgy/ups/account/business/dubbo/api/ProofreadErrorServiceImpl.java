@@ -4,7 +4,7 @@ import javax.annotation.Resource;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.pgy.ups.account.business.dao.mapper.ProofreadErrorDao;
-import com.pgy.ups.account.facade.dto.proofread.ProofreadErrorCount;
+import com.pgy.ups.account.facade.dto.proofread.ProofreadCount;
 import com.pgy.ups.account.facade.dto.proofread.ProofreadErrorCountDto;
 import com.pgy.ups.account.facade.dubbo.api.ProofreadErrorService;
 import com.pgy.ups.account.facade.from.ExcelForm;
@@ -41,12 +41,12 @@ public class ProofreadErrorServiceImpl  implements ProofreadErrorService {
     public ProofreadErrorCountDto getProofreadErrorCount(ProofreadErrorForm form) {
       ProofreadErrorCountDto  dto = new ProofreadErrorCountDto();
       form.setProofreadField("businessExchangeMoney");
-      ProofreadErrorCount proofreadErrorCount =  proofreadErrorDao.getProofreadErrorCount(form);
+      ProofreadCount proofreadErrorCount =  proofreadErrorDao.getProofreadErrorCount(form);
       dto.createDto(proofreadErrorCount);
 
       form.setProofreadField("channelExchangeMoney");
-      proofreadErrorCount =  proofreadErrorDao.getProofreadErrorCount(form);
-       dto.createDto(proofreadErrorCount);
+      proofreadErrorCount  =  proofreadErrorDao.getProofreadErrorCount(form);
+      dto.createDto(proofreadErrorCount);
       return dto;
     }
 

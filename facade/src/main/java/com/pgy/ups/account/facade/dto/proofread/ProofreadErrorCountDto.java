@@ -17,7 +17,7 @@ public class ProofreadErrorCountDto extends Model {
 
     private int  channelExchangeTotalCount;
 
-    public  void  createDto( ProofreadErrorCount dto){
+    public  void  createDto( ProofreadCount dto){
         if("businessExchangeMoney".equals(dto.getProofreadType())){
             this.businessExchangeTotalMoney = dto.getProofreadTotalMoney();
             this.businessExchangeCount = dto.getProofreadCount();
