@@ -6,9 +6,9 @@ import java.math.BigDecimal;
 
 public class ProofreadCount extends Model {
 
+    private static final long serialVersionUID = -8749159365099279372L;
+
     private BigDecimal proofreadTotalMoney;
-
-
 
     private int  proofreadCount;
 
