@@ -13,7 +13,6 @@ import com.pgy.ups.account.facade.from.ProofreadErrorForm;
 import com.pgy.ups.account.facade.model.proofread.ProofreadError;
 import com.pgy.ups.common.annotation.PrintExecuteTime;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -49,5 +48,19 @@ public class ProofreadErrorServiceImpl  implements ProofreadErrorService {
       proofreadErrorCount =  proofreadErrorDao.getProofreadErrorCount(form);
        dto.createDto(proofreadErrorCount);
       return dto;
+    }
+
+    @Override
+    public void cancelProofread(ProofreadError  error) {
+        error.setFlowStatus("04");
+        proofreadErrorDao.updateByPrimaryKeySelective(error);
+    }
+
+    @Override
+    public void reservedProofread(Long id) {
+        ProofreadError error = new ProofreadError();
+        error.setId(id);
+        error.setFlowStatus("02");
+        proofreadErrorDao.updateByPrimaryKeySelective(error);
     }
 }

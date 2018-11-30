@@ -45,4 +45,6 @@ public interface ProofreadErrorDao {
 	 * @param flowStatusReservedFinish
 	 */
 	void updateReseveredProofreadErrorFlowStatus(String flowStatus);
+
+	 void updateByPrimaryKeySelective(ProofreadError record);
 }

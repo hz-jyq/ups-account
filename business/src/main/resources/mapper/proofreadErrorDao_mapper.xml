@@ -254,4 +254,19 @@
 	         flowStatus='02'
 	</update>
 
+	<update id="updateByPrimaryKeySelective" parameterType="ProofreadError">
+ 		  UPDATE
+	         ua_t_account_proofreadError
+	     SET
+		<if test="remark != null and remark != '' ">
+			remark = #{remark},
+		</if>
+		<if test="flowStatus != null and flowStatus != '' ">
+			flowStatus = #{flowStatus},
+		</if>
+	     WHERE
+	         id = #{id}
+	</update>
+
+
 </mapper>

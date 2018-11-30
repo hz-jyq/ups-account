@@ -18,4 +18,8 @@ public interface ProofreadErrorService {
 
 
    public ProofreadErrorCountDto getProofreadErrorCount(ProofreadErrorForm form);
+
+   void cancelProofread(ProofreadError  error);
+
+    void  reservedProofread(Long id);
 }
