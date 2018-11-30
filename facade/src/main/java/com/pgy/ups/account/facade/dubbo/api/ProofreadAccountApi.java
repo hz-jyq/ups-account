@@ -2,7 +2,6 @@ package com.pgy.ups.account.facade.dubbo.api;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import com.pgy.ups.account.facade.model.proofread.BusinessProofreadModel;
 import com.pgy.ups.account.facade.model.proofread.ProofreadResult;

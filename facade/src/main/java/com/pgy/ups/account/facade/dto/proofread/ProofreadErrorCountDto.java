@@ -9,7 +9,12 @@ import java.math.BigDecimal;
  */
 public class ProofreadErrorCountDto extends Model {
 
-    private BigDecimal businessExchangeTotalMoney;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4876989845161238772L;
+
+	private BigDecimal businessExchangeTotalMoney;
 
     private int  businessExchangeCount;
 

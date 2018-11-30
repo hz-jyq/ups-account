@@ -4,7 +4,12 @@ public class ProofreadSuccessForm extends AbstractPageForm<ProofreadSuccessForm>
 
 
 
-    private String proofreadStatus;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1230545867667178843L;
+
+	private String proofreadStatus;
 
     private String  channel;
 

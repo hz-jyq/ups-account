@@ -269,7 +269,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<BaoFuModel>
 			}
 			
 		}
-		//更新所有已预留状态为预留处理完成
+		//更新所有的‘已预留’状态为 ‘预留处理完成’
 		proofreadErrorDao.updateReseveredProofreadErrorFlowStatus(ProofreadErrorFactory.FLOW_STATUS_RESERVED_FINISH);
 		/* 2018-11-27 查询对账异常表中已预留的记录，参与本次对账 End */
 
