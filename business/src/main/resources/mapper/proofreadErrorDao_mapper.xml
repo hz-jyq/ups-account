@@ -257,7 +257,7 @@
 	<update id="updateByPrimaryKeySelective" parameterType="ProofreadError">
  		  UPDATE
 	         ua_t_account_proofreadError
-	     SET
+		<set>
 		<if test="remark != null and remark != '' ">
 			remark = #{remark},
 		</if>
@@ -267,6 +267,7 @@
 		<if test="updateUser != null and updateUser != '' ">
 			updateUser = #{updateUser}
 		</if>
+		</set>
 	     WHERE
 	         id = #{id}
 	</update>
