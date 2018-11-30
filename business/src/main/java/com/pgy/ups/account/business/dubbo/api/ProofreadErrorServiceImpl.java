@@ -56,6 +56,7 @@ public class ProofreadErrorServiceImpl  implements ProofreadErrorService {
         error.setFlowStatus("04");
         error.setUpdateUser(updateUser);
         error.setRemark(remark);
+        error.setId(id);
         return proofreadErrorDao.updateByPrimaryKeySelective(error);
     }
 
