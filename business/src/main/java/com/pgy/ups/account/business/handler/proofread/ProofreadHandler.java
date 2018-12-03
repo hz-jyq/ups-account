@@ -39,5 +39,10 @@ public interface ProofreadHandler<T, E> extends Handler<List<BusinessProofreadMo
 	 */
 	public void setDate(Date date) ;
 	
+	/**
+	 * 设置是否为重新对账
+	 */
+	public void setReProofread(boolean reProofread) ;
+	
 		
 }

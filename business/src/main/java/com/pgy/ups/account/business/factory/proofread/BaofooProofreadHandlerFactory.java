@@ -76,6 +76,7 @@ public class BaofooProofreadHandlerFactory implements ProofreadHandlerFactory<St
 		baoFuDocumentParserHandler.setFromSystem(fromSystem);
 		// 设置对账日期
 		baoFuDocumentParserHandler.setProofreadDate(DateUtils.dateToString(date));
+	
 		
 		ProofreadHandler<String, List<BaoFuModel>> baofuProofreadHandler=SpringUtils.getBean(BaoFuProofreadHandler.class);
 		// 处理器设置下载文件解析器
@@ -86,7 +87,9 @@ public class BaofooProofreadHandlerFactory implements ProofreadHandlerFactory<St
 		baofuProofreadHandler.setProofreadAccountType(proofreadAccountType);
 		// 处理器设置对账日期
 		baofuProofreadHandler.setDate(date);
-
+		// 设置是否为重新对账
+		baofuProofreadHandler.setReProofread(reProofread);
+		
 		return baofuProofreadHandler;
 	}
 
@@ -540,11 +543,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<BaoFuModel>
 		this.proofreadAccountType = proofreadAccountType;
 	}
 	
-	
-	public boolean isReProofread() {
-		return reProofread;
-	}
-
+	@Override
 	public void setReProofread(boolean reProofread) {
 		this.reProofread = reProofread;
 	}
