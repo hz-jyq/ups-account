@@ -427,8 +427,27 @@
 			</dependency>
 
 		</dependencies>
-		
+
 	</dependencyManagement>
+
+
+	<!--maven仓库-->
+	<repositories>
+		<repository>
+			<id>thirdparty</id>
+			<name>thirdparty</name>
+			<url>http://116.62.143.57:8081/nexus/content/repositories/thirdparty/</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
+
+
 
 	<build>
 		<plugins>
