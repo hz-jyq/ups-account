@@ -201,16 +201,11 @@
 	</select>
 
 	<select id="getProofreadErrorCount" parameterType="com.pgy.ups.account.facade.from.ProofreadErrorForm"  resultType="com.pgy.ups.account.facade.dto.proofread.ProofreadCount">
-		SELECT COUNT(id) as  proofreadCount,SUM(${proofreadField}) as proofreadTotalMoney ,CONCAT(#{proofreadField},'')  as proofreadType FROM ua_t_account_proofreadError WHERE  ${proofreadField}  IS NOT NULL
+		SELECT COUNT(id) as  proofreadCount,SUM(${proofreadField}) as proofreadTotalMoney ,CONCAT(#{proofreadField},'')  as proofreadType FROM ua_t_account_proofreadError WHERE  ${proofreadField} <![CDATA[<>]]> 0
 			<if test="errorType!=null and errorType!=''">
 				and errorType = #{errorType}
 			</if>
-			<if test="proofreadDateStart!=null and proofreadDateStart!=''">
-				and proofreadDate <![CDATA[>=]]> #{proofreadDateStart}
-			</if>
-			<if test="proofreadDateEnd!=null and proofreadDateEnd!=''">
-				and proofreadDate <![CDATA[<=]]>
-				#{proofreadDateEnd}
+			<if test="proofreadDateStart!=null and proofreadDateStart!=''"><![CDATA[>=]]>
 			</if>
 			<if test="channel!=null and channel!=''">
 				and channel = #{channel}
