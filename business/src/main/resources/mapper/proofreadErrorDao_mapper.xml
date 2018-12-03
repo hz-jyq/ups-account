@@ -229,7 +229,7 @@
 		    </if>
 	</select>
 	
-	<select id="queryProofreadErrorByFlowStatus">
+	<select id="queryProofreadErrorByFlowStatus" parameterType="java.lang.String" resultType="ProofreadError">
 	     SELECT 
 	         <include refid="proofreadErrorColumn" />
 	     FROM
@@ -246,7 +246,7 @@
 	</select>
 	
 	<!-- 批量处理已预留状态的异常明细 -->
-	<update id="updateReseveredProofreadErrorFlowStatus">
+	<update id="updateReseveredProofreadErrorFlowStatus" parameterType="java.lang.String">
 	     UPDATE 
 	         ua_t_account_proofreadError
 	     SET 

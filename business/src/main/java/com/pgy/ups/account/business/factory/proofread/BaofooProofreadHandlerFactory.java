@@ -492,6 +492,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<BaoFuModel>
 			proofreadResult.setFailCount(0);
 			proofreadResult.setSuccess(false);
 			proofreadResult.setChannel(BaoFuProofreadHandler.BAOFU_CHANNEL);
+			
 			// 设置商户号
 			if (Objects.equals(proofreadResult.getProofreadType(), ProofreadAccountType.BORROW)) {
 				proofreadResult.setBusinessNum(baoFuProofreadProperties.getBusinessBorrowNum());
