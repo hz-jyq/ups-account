@@ -205,8 +205,12 @@
 			<if test="errorType!=null and errorType!=''">
 				and errorType = #{errorType}
 			</if>
-			<if test="proofreadDateStart!=null and proofreadDateStart!=''"><![CDATA[>=]]>
-			</if>
+		    <if test="proofreadDateStart!=null and proofreadDateStart!=''">
+		        and proofreadDate <![CDATA[>=]]>  #{proofreadDateStart}
+	        </if>
+	        <if test="proofreadDateEnd!=null and proofreadDateEnd!=''">
+		        and proofreadDate <![CDATA[<=]]>  #{proofreadDateEnd}
+	         </if>
 			<if test="channel!=null and channel!=''">
 				and channel = #{channel}
 			</if>

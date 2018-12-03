@@ -8,7 +8,7 @@ public class ProofreadCount extends Model {
 
     private static final long serialVersionUID = -8749159365099279372L;
 
-    private BigDecimal proofreadTotalMoney;
+    private BigDecimal proofreadTotalMoney = new BigDecimal(0.00);
 
     private int  proofreadCount;
 
