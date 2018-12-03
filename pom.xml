@@ -425,12 +425,7 @@
 				<artifactId>spring-boot-starter-dubbo</artifactId>
 				<version>1.0.0</version>
 			</dependency>
-			
-			<!-- hession序列化 -->
-			<dependency>
-				<groupId>com.caucho</groupId>
-				<artifactId>hessian</artifactId>
-			</dependency>
+
 		</dependencies>
 		
 	</dependencyManagement>
