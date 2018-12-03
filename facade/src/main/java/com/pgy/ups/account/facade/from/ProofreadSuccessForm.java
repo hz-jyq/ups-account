@@ -2,8 +2,6 @@ package com.pgy.ups.account.facade.from;
 
 public class ProofreadSuccessForm extends AbstractPageForm<ProofreadSuccessForm> {
 
-
-
     /**
 	 * 
 	 */
@@ -13,17 +11,65 @@ public class ProofreadSuccessForm extends AbstractPageForm<ProofreadSuccessForm>
 
     private String  channel;
 
-    private String proofreadDate;
+    private String proofreadDateStart;
 
     private String updateUser;
 
-    private String createTimeStart;
-
-    private String createTimeEnd;
+    private String proofreadDateEnd;
 
     private String fromSystem;
 
+
     private String proofreadType;
+
+    private String businessOrderNum;
+
+    private String businessNum;
+
+
+    private String borrowNum;
+
+
+    public String getProofreadDateStart() {
+        return proofreadDateStart;
+    }
+
+    public void setProofreadDateStart(String proofreadDateStart) {
+        this.proofreadDateStart = proofreadDateStart;
+    }
+
+    public String getProofreadDateEnd() {
+        return proofreadDateEnd;
+    }
+
+    public void setProofreadDateEnd(String proofreadDateEnd) {
+        this.proofreadDateEnd = proofreadDateEnd;
+    }
+
+    public String getBusinessOrderNum() {
+        return businessOrderNum;
+    }
+
+    public void setBusinessOrderNum(String businessOrderNum) {
+        this.businessOrderNum = businessOrderNum;
+    }
+
+    public String getBusinessNum() {
+        return businessNum;
+    }
+
+    public void setBusinessNum(String businessNum) {
+        this.businessNum = businessNum;
+    }
+
+    public String getBorrowNum() {
+        return borrowNum;
+    }
+
+    public void setBorrowNum(String borrowNum) {
+        this.borrowNum = borrowNum;
+    }
+
 
 
     public String getProofreadStatus() {
@@ -42,14 +88,6 @@ public class ProofreadSuccessForm extends AbstractPageForm<ProofreadSuccessForm>
         this.channel = channel;
     }
 
-    public String getProofreadDate() {
-        return proofreadDate;
-    }
-
-    public void setProofreadDate(String proofreadDate) {
-        this.proofreadDate = proofreadDate;
-    }
-
     public String getUpdateUser() {
         return updateUser;
     }
@@ -58,21 +96,7 @@ public class ProofreadSuccessForm extends AbstractPageForm<ProofreadSuccessForm>
         this.updateUser = updateUser;
     }
 
-    public String getCreateTimeStart() {
-        return createTimeStart;
-    }
 
-    public void setCreateTimeStart(String createTimeStart) {
-        this.createTimeStart = createTimeStart;
-    }
-
-    public String getCreateTimeEnd() {
-        return createTimeEnd;
-    }
-
-    public void setCreateTimeEnd(String createTimeEnd) {
-        this.createTimeEnd = createTimeEnd;
-    }
 
     public String getFromSystem() {
         return fromSystem;
