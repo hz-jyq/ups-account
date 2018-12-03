@@ -259,6 +259,7 @@
  		  UPDATE
 	         ua_t_account_proofreadError
 		<set>
+		    disposeTime=NOW(),
 		<if test="remark != null and remark != '' ">
 			remark = #{remark},
 		</if>
@@ -267,7 +268,7 @@
 		</if>
 		<if test="updateUser != null and updateUser != '' ">
 			updateUser = #{updateUser}
-		</if>
+		</if>		    
 		</set>
 	     WHERE
 	         id = #{id}

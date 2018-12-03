@@ -250,7 +250,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<BaoFuModel>
 			
 			if(Objects.equals(ProofreadErrorFactory.ERROR_TYPE_NO_BUSINESS, e.getErrorType())) {
 				BaoFuModel baoFuModel=new BaoFuModel();
-				baoFuModel.setBusinessOrderNum(e.getBusinessOrderCreateTime());
+				baoFuModel.setBusinessOrderNum(e.getBusinessOrderNum());
 				baoFuModel.setOrderCreateTime(e.getChannelOrderCreateTime());
 				baoFuModel.setExchangeAmount(e.getChannelExchangeMoney());
 				baoFuModel.setOrderStatus(e.getChannelOrderStatus());
