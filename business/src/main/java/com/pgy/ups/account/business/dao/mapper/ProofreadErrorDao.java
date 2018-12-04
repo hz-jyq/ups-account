@@ -44,14 +44,16 @@ public interface ProofreadErrorDao {
 	 * @param flowStatusReserved
 	 * @return
 	 */
-	List<ProofreadError> queryProofreadErrorByFlowStatus(@Param(value = "flowStatus") String flowStatus);
+	List<ProofreadError> queryProofreadErrorByFlowStatus(@Param(value = "flowStatus") String flowStatus, @Param(value = "channel")String channel,
+			@Param(value = "fromSystem")String fromSystem, @Param(value = "proofreadType")String proofreadType);
 
 	/**
 	 * 修改流水状态为已预留异常明细的流水状态
 	 * 
 	 * @param flowStatusReservedFinish
 	 */
-	int updateReseveredProofreadErrorFlowStatus(@Param(value = "flowStatus") String flowStatus);
+	int updateReseveredProofreadErrorFlowStatus(@Param(value = "flowStatus") String flowStatus, @Param(value = "channel")String channel,
+			@Param(value = "fromSystem") String fromSystem, @Param(value = "proofreadType") String proofreadType);
 
 	int updateByPrimaryKeySelective(ProofreadError record);
 }

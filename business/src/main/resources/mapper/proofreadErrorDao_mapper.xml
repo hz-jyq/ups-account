@@ -13,7 +13,8 @@
 		borrowNum,
 		businessExchangeMoney,
 		businessOrderStatuts,
-		DATE_FORMAT(businessOrderCreateTime,'%Y-%m-%d %H:%i:%s') as businessOrderCreateTime,
+		DATE_FORMAT(businessOrderCreateTime,'%Y-%m-%d
+		%H:%i:%s') as businessOrderCreateTime,
 		channel,
 		channelExchangeMoney,
 		channelOrderStatus,
@@ -33,7 +34,8 @@
 		WHEN '03' THEN '秒呗'
 		ELSE '其他' END as fromSystem,
 		CASE proofreadType
-		WHEN '01' THEN '借款'
+		WHEN
+		'01' THEN '借款'
 		WHEN '02' THEN '还款'
 		ELSE '其他' END as proofreadType,
 		DATE_FORMAT(proofreadDate,'%Y-%m-%d') as proofreadDate,
@@ -45,14 +47,18 @@
 		channelExchangeMoney,
 		channelOrderStatus,
 		CASE proofreadType
-		WHEN '01' THEN (case businessOrderStatuts when '0' then '申请/未审核'
+		WHEN '01' THEN (case
+		businessOrderStatuts when '0' then '申请/未审核'
 		WHEN '1' then "已结清"
-		WHEN '2' then "打款中"
+		WHEN '2'
+		then "打款中"
 		WHEN '3' then "打款失败"
 		WHEN '4' then "关闭"
-		WHEN '5' then ":已经打款/待还款"
+		WHEN '5' then
+		":已经打款/待还款"
 		end)
-		WHEN '02' THEN (case businessOrderStatuts when '0' then '新建状态'
+		WHEN '02' THEN (case businessOrderStatuts when '0' then
+		'新建状态'
 		WHEN '1' then "还款成功"
 		WHEN '2' then ":处理中"
 		WHEN '-1' then "还款失败"
@@ -65,14 +71,17 @@
 		CASE errorType
 		WHEN '01' THEN '金额不一致'
 		WHEN '02' THEN '渠道有业务没有'
-		WHEN '03' THEN '业务有渠道没有'
+		WHEN '03'
+		THEN '业务有渠道没有'
 		ELSE '其他' END as errorType,
 		CASE flowStatus
-		WHEN '01' THEN '待处理'
+		WHEN '01' THEN
+		'待处理'
 		WHEN '02' THEN '已预留'
 		WHEN '03' THEN '已归档'
 		WHEN '04' THEN '已失效'
-		ELSE '其他' END as flowStatus,
+		ELSE
+		'其他' END as flowStatus,
 		updateUser
 	</sql>
 
@@ -146,10 +155,10 @@
 		select
 		<include refid="proofreadErrorColumn" />
 		from ua_t_account_proofreadError
-		  <where>
-			 <if test = "flowStatusType == '1'">
-				 flowStatus in('01','02')
-		  	</if>
+		<where>
+			<if test="flowStatusType == '1'">
+				flowStatus in('01','02')
+			</if>
 			<if test="errorType!=null and errorType!=''">
 				and errorType = #{errorType}
 			</if>
@@ -180,9 +189,9 @@
 				businessOrderNum = #{businessOrderNum}
 			</if>
 			<if test="borrowNum!=null and borrowNum!=''">
-				and 	borrowNum = #{borrowNum}
+				and borrowNum = #{borrowNum}
 			</if>
-		  </where>
+		</where>
 		order by proofreadDate desc
 	</select>
 
@@ -197,85 +206,144 @@
 		proofreadDate = #{proofreadDate}
 		and channel = #{channel}
 		and fromSystem=#{fromSystem}
-		and proofreadType =#{proofreadType}
+		and proofreadType
+		=#{proofreadType}
 	</select>
 
-	<select id="getProofreadErrorCount" parameterType="com.pgy.ups.account.facade.from.ProofreadErrorForm"  resultType="com.pgy.ups.account.facade.dto.proofread.ProofreadCount">
-		SELECT COUNT(id) as  proofreadCount,SUM(${proofreadField}) as proofreadTotalMoney ,CONCAT(#{proofreadField},'')  as proofreadType FROM ua_t_account_proofreadError WHERE  ${proofreadField} <![CDATA[<>]]> 0
-			<if test="errorType!=null and errorType!=''">
-				and errorType = #{errorType}
-			</if>
-		    <if test="proofreadDateStart!=null and proofreadDateStart!=''">
-		        and proofreadDate <![CDATA[>=]]>  #{proofreadDateStart}
-	        </if>
-	        <if test="proofreadDateEnd!=null and proofreadDateEnd!=''">
-		        and proofreadDate <![CDATA[<=]]>  #{proofreadDateEnd}
-	         </if>
-			<if test="channel!=null and channel!=''">
-				and channel = #{channel}
-			</if>
-			<if test="fromSystem!=null and fromSystem!=''">
-				and fromSystem = #{fromSystem}
-			</if>
-			<if test="proofreadType!=null and proofreadType!=''">
-				and
-				proofreadType = #{proofreadType}
-			</if>
-			<if test="flowStatus!=null and flowStatus!=''">
-				and flowStatus = #{flowStatus}
-			</if>
-			<if test="businessOrderNum!=null and businessOrderNum!=''">
-				and
-				businessOrderNum = #{businessOrderNum}
-			</if>
-		    <if test="borrowNum!=null and borrowNum!=''">
-			   and 	borrowNum = #{borrowNum}
-		    </if>
+	<select id="getProofreadErrorCount"
+		parameterType="com.pgy.ups.account.facade.from.ProofreadErrorForm"
+		resultType="com.pgy.ups.account.facade.dto.proofread.ProofreadCount">
+		SELECT COUNT(id) as proofreadCount,SUM(${proofreadField}) as
+		proofreadTotalMoney ,CONCAT(#{proofreadField},'') as proofreadType
+		FROM ua_t_account_proofreadError WHERE ${proofreadField} <![CDATA[<>]]>
+		0
+		<if test="errorType!=null and errorType!=''">
+			and errorType = #{errorType}
+		</if>
+		<if test="proofreadDateStart!=null and proofreadDateStart!=''">
+			and proofreadDate <![CDATA[>=]]>
+			#{proofreadDateStart}
+		</if>
+		<if test="proofreadDateEnd!=null and proofreadDateEnd!=''">
+			and proofreadDate <![CDATA[<=]]>
+			#{proofreadDateEnd}
+		</if>
+		<if test="channel!=null and channel!=''">
+			and channel = #{channel}
+		</if>
+		<if test="fromSystem!=null and fromSystem!=''">
+			and fromSystem = #{fromSystem}
+		</if>
+		<if test="proofreadType!=null and proofreadType!=''">
+			and
+			proofreadType = #{proofreadType}
+		</if>
+		<if test="flowStatus!=null and flowStatus!=''">
+			and flowStatus = #{flowStatus}
+		</if>
+		<if test="businessOrderNum!=null and businessOrderNum!=''">
+			and
+			businessOrderNum = #{businessOrderNum}
+		</if>
+		<if test="borrowNum!=null and borrowNum!=''">
+			and borrowNum = #{borrowNum}
+		</if>
 	</select>
-	
-	<select id="queryProofreadErrorByFlowStatus" parameterType="java.lang.String" resultType="ProofreadError">
-	     SELECT 
-	         <include refid="proofreadErrorColumn" />
-	     FROM
-	        ua_t_account_proofreadError
-	     WHERE
-	      <choose>
-	        <when test="flowStatus!=null and flowStatus!=''">
-	           flowStatus=#{flowStatus}
-	        </when>
-	        <otherwise>
-	           1=2
-	        </otherwise>	      
-	      </choose>        
+
+	<select id="queryProofreadErrorByFlowStatus"
+		parameterType="java.lang.String" resultType="ProofreadError">
+		SELECT
+		<include refid="proofreadErrorColumn" />
+		FROM
+		ua_t_account_proofreadError
+		WHERE
+		<choose>
+			<when test="flowStatus!=null and flowStatus!=''">
+				flowStatus=#{flowStatus}
+			</when>
+			<otherwise>
+				1=2
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="channel!=null and channel!=''">
+				AND channel=#{channel}
+			</when>
+			<otherwise>
+				AND 1=2
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="fromSystem!=null and fromSystem!=''">
+				AND fromSystem=#{fromSystem}
+			</when>
+			<otherwise>
+				AND 1=2
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="proofreadType!=null and proofreadType!=''">
+				AND proofreadType=#{proofreadType}
+			</when>
+			<otherwise>
+				AND 1=2
+			</otherwise>
+		</choose>
 	</select>
-	
+
 	<!-- 批量处理已预留状态的异常明细 -->
-	<update id="updateReseveredProofreadErrorFlowStatus" parameterType="java.lang.String">
-	     UPDATE 
-	         ua_t_account_proofreadError
-	     SET 
-	         flowStatus=#{flowStatus}
-	     WHERE
-	         flowStatus='02'
+	<update id="updateReseveredProofreadErrorFlowStatus"
+		parameterType="java.lang.String">
+		UPDATE
+		ua_t_account_proofreadError
+		SET
+		flowStatus=#{flowStatus}
+		WHERE
+		flowStatus='02'
+		<choose>
+			<when test="channel!=null and channel!=''">
+				AND channel=#{channel}
+			</when>
+			<otherwise>
+				AND 1=2
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="fromSystem!=null and fromSystem!=''">
+				AND fromSystem=#{fromSystem}
+			</when>
+			<otherwise>
+				AND 1=2
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="proofreadType!=null and proofreadType!=''">
+				AND proofreadType=#{proofreadType}
+			</when>
+			<otherwise>
+				AND 1=2
+			</otherwise>
+		</choose>
 	</update>
 
-	<update id="updateByPrimaryKeySelective" parameterType="ProofreadError">
- 		  UPDATE
-	         ua_t_account_proofreadError
+	<update id="updateByPrimaryKeySelective"
+		parameterType="ProofreadError">
+		UPDATE
+		ua_t_account_proofreadError
 		<set>
-		    disposeTime=NOW(),
-		<if test="remark != null and remark != '' ">
-			remark = #{remark},
-		</if>
-		<if test="flowStatus != null and flowStatus != '' ">
-			flowStatus = #{flowStatus},
-		</if>
-		<if test="updateUser != null and updateUser != '' ">
-			updateUser = #{updateUser}
-		</if>		    
+			disposeTime=NOW(),
+			<if test="remark != null and remark != '' ">
+				remark = #{remark},
+			</if>
+			<if test="flowStatus != null and flowStatus != '' ">
+				flowStatus = #{flowStatus},
+			</if>
+			<if test="updateUser != null and updateUser != '' ">
+				updateUser = #{updateUser}
+			</if>
 		</set>
-	     WHERE
-	         id = #{id}
+		WHERE
+		id = #{id}
 	</update>
 
 

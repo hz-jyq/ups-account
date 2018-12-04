@@ -65,9 +65,8 @@ import com.pgy.ups.common.utils.SpringUtils;
 @Component
 public class BaofooProofreadHandlerFactory implements ProofreadHandlerFactory<String, List<BaoFuModel>> {
 
-
-	public ProofreadHandler<String, List<BaoFuModel>>getProofreadHandler(String fromSystem,
-			String proofreadAccountType, Date date,boolean reProofread) {
+	public ProofreadHandler<String, List<BaoFuModel>> getProofreadHandler(String fromSystem,
+			String proofreadAccountType, Date date, boolean reProofread) {
 		// 设置下载文本解析器
 		BaoFuDocumentParserHandler baoFuDocumentParserHandler = new BaoFuDocumentParserHandler();
 		// 设置借款或者还款解析方式
@@ -76,9 +75,9 @@ public class BaofooProofreadHandlerFactory implements ProofreadHandlerFactory<St
 		baoFuDocumentParserHandler.setFromSystem(fromSystem);
 		// 设置对账日期
 		baoFuDocumentParserHandler.setProofreadDate(DateUtils.dateToString(date));
-	
-		
-		ProofreadHandler<String, List<BaoFuModel>> baofuProofreadHandler=SpringUtils.getBean(BaoFuProofreadHandler.class);
+
+		ProofreadHandler<String, List<BaoFuModel>> baofuProofreadHandler = SpringUtils
+				.getBean(BaoFuProofreadHandler.class);
 		// 处理器设置下载文件解析器
 		baofuProofreadHandler.setDocumentParserHandler(baoFuDocumentParserHandler);
 		// 处理器设置要对账的系统
@@ -89,7 +88,7 @@ public class BaofooProofreadHandlerFactory implements ProofreadHandlerFactory<St
 		baofuProofreadHandler.setDate(date);
 		// 设置是否为重新对账
 		baofuProofreadHandler.setReProofread(reProofread);
-		
+
 		return baofuProofreadHandler;
 	}
 
@@ -140,8 +139,8 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<BaoFuModel>
 	private String proofreadAccountType;
 
 	private Date date;
-	
-	private boolean reProofread=false;
+
+	private boolean reProofread = false;
 
 	public BaoFuProofreadHandler() {
 	}
@@ -151,11 +150,11 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<BaoFuModel>
 	 */
 	@Override
 	public ProofreadResult handler(List<BusinessProofreadModel> list) {
-		List<BusinessProofreadModel> businessList = new ArrayList<>(list);		
+		List<BusinessProofreadModel> businessList = new ArrayList<>(list);
 		// 初始化返回结果
 		ProofreadResult proofreadResult = ((BaoFuProofreadHandler) AopContext.currentProxy()).initProofreadResult();
 		// 如果对账成功,且不为重新对账请求 直接返回
-		if (proofreadResult.getSuccess()&&!reProofread) {
+		if (proofreadResult.getSuccess() && !reProofread) {
 			logger.error("该日期的对账已经完成！{}", proofreadResult);
 			proofreadResult.setFailReason("该日期的对账已经完成");
 			return proofreadResult;
@@ -241,39 +240,43 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<BaoFuModel>
 			return ArrayUtils.contains(IncludeOrderStatusEnum.getIncludeOrderStatusArray(e.getFromSystem()),
 					e.getBusinessOrderStatuts());
 		}).collect(Collectors.toList());
-		
+
 		/* 2018-11-27 对账系统1.1版本新需求 END */
 		/* 2018-11-27 查询对账异常表中已预留的记录，参与本次对账 Start */
-		List<ProofreadError> reseveredList=proofreadErrorDao.queryProofreadErrorByFlowStatus(ProofreadErrorFactory.FLOW_STATUS_RESERVED);
-		for(ProofreadError e:reseveredList) {
-			//渠道有，业务没有，则插入到businessList中
-			
-			if(Objects.equals(ProofreadErrorFactory.ERROR_TYPE_NO_BUSINESS, e.getErrorType())) {
-				BaoFuModel baoFuModel=new BaoFuModel();
+		List<ProofreadError> reseveredList = proofreadErrorDao.queryProofreadErrorByFlowStatus(
+				ProofreadErrorFactory.FLOW_STATUS_RESERVED, proofreadResult.getChannel(),
+				proofreadResult.getFromSystem(), proofreadResult.getProofreadType());
+		
+		for (ProofreadError e : reseveredList) {
+			// 渠道有，业务没有，则插入到businessList中
+
+			if (Objects.equals(ProofreadErrorFactory.ERROR_TYPE_NO_BUSINESS, e.getErrorType())) {
+				BaoFuModel baoFuModel = new BaoFuModel();
 				baoFuModel.setBusinessOrderNum(e.getBusinessOrderNum());
 				baoFuModel.setOrderCreateTime(e.getChannelOrderCreateTime());
 				baoFuModel.setExchangeAmount(e.getChannelExchangeMoney());
 				baoFuModel.setOrderStatus(e.getChannelOrderStatus());
 				baofuList.add(baoFuModel);
 			}
-			//业务有，渠道没有，则插入到baofuList中
-            if(Objects.equals(ProofreadErrorFactory.ERROR_TYPE_NO_CHANNEL, e.getErrorType())) {
-            	BusinessProofreadModel bpm=new BusinessProofreadModel();
-            	bpm.setBorrowNum(e.getBorrowNum());
-            	bpm.setBusinessOrderNum(e.getBusinessOrderNum());
-            	bpm.setBusinessOrderStatuts(e.getBusinessOrderStatuts());
-            	bpm.setChannel(e.getChannel());
-            	bpm.setExchangeAmount(e.getBusinessExchangeMoney());
-            	bpm.setFromSystem(e.getFromSystem());
-            	bpm.setOrderCreateTime(e.getBusinessOrderCreateTime());
-            	bpm.setProofreadDate(e.getProofreadDate());
-            	bpm.setProofreadType(e.getProofreadType());
-            	businessList.add(bpm);
+			// 业务有，渠道没有，则插入到baofuList中
+			if (Objects.equals(ProofreadErrorFactory.ERROR_TYPE_NO_CHANNEL, e.getErrorType())) {
+				BusinessProofreadModel bpm = new BusinessProofreadModel();
+				bpm.setBorrowNum(e.getBorrowNum());
+				bpm.setBusinessOrderNum(e.getBusinessOrderNum());
+				bpm.setBusinessOrderStatuts(e.getBusinessOrderStatuts());
+				bpm.setChannel(e.getChannel());
+				bpm.setExchangeAmount(e.getBusinessExchangeMoney());
+				bpm.setFromSystem(e.getFromSystem());
+				bpm.setOrderCreateTime(e.getBusinessOrderCreateTime());
+				bpm.setProofreadDate(e.getProofreadDate());
+				bpm.setProofreadType(e.getProofreadType());
+				businessList.add(bpm);
 			}
-			
+
 		}
-		//更新所有的‘已预留’状态为 ‘预留处理完成’
-		proofreadErrorDao.updateReseveredProofreadErrorFlowStatus(ProofreadErrorFactory.FLOW_STATUS_RESERVED_FINISH);
+		// 更新所有的‘已预留’状态为 ‘预留处理完成’
+		proofreadErrorDao.updateReseveredProofreadErrorFlowStatus(ProofreadErrorFactory.FLOW_STATUS_RESERVED_FINISH, proofreadResult.getChannel(),
+				proofreadResult.getFromSystem(), proofreadResult.getProofreadType());
 		/* 2018-11-27 查询对账异常表中已预留的记录，参与本次对账 End */
 
 		// 数据库删除当天差错账列表，防止对账数据重复
@@ -495,7 +498,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<BaoFuModel>
 			proofreadResult.setFailCount(0);
 			proofreadResult.setSuccess(false);
 			proofreadResult.setChannel(BaoFuProofreadHandler.BAOFU_CHANNEL);
-			
+
 			// 设置商户号
 			if (Objects.equals(proofreadResult.getProofreadType(), ProofreadAccountType.BORROW)) {
 				proofreadResult.setBusinessNum(baoFuProofreadProperties.getBusinessBorrowNum());
@@ -542,15 +545,14 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<BaoFuModel>
 	public void setProofreadAccountType(String proofreadAccountType) {
 		this.proofreadAccountType = proofreadAccountType;
 	}
-	
+
 	@Override
 	public void setReProofread(boolean reProofread) {
 		this.reProofread = reProofread;
 	}
 
 	@Override
-	public void setDocumentParserHandler(
-			DocumentParserHandler<String, List<BaoFuModel>> documentParserHandler) {
+	public void setDocumentParserHandler(DocumentParserHandler<String, List<BaoFuModel>> documentParserHandler) {
 		this.documentParserHandler = documentParserHandler;
 	}
 }
