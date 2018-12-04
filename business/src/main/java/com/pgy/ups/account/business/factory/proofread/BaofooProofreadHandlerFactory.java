@@ -250,7 +250,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<BaoFuModel>
 		for (ProofreadError e : reseveredList) {
 			
 			// 业务有，渠道没有，则插入到baofuList中
-			if (Objects.equals(ProofreadErrorFactory.ERROR_TYPE_NO_CHANNEL, e.getErrorType())) {
+			if (Objects.equals(ProofreadErrorFactory.ERROR_TYPE_NO_BUSINESS, e.getErrorType())) {
 				BaoFuModel baoFuModel = new BaoFuModel();
 				baoFuModel.setBusinessOrderNum(e.getBusinessOrderNum());
 				baoFuModel.setOrderCreateTime(e.getChannelOrderCreateTime());
@@ -259,7 +259,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<BaoFuModel>
 				baofuList.add(baoFuModel);
 			}
 			// 渠道有，业务没有，则插入到businessList中
-			if (Objects.equals(ProofreadErrorFactory.ERROR_TYPE_NO_BUSINESS, e.getErrorType())) {
+			if (Objects.equals(ProofreadErrorFactory.ERROR_TYPE_NO_CHANNEL, e.getErrorType())) {
 				BusinessProofreadModel bpm = new BusinessProofreadModel();
 				bpm.setBorrowNum(e.getBorrowNum());
 				bpm.setBusinessOrderNum(e.getBusinessOrderNum());

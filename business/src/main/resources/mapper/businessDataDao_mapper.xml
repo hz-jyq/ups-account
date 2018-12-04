@@ -81,14 +81,17 @@
 	      FROM 
 	          ua_t_account_bussiness_proofread
 	      <where>
+	          <if test="channel!=null and channel!=''">
+	               channel=#{channel}
+	          </if>
 	          <if test="fromSystem!=null and fromSystem!=''">
-	               fromSystem=#{fromSystem}
+	              AND fromSystem=#{fromSystem}
 	          </if>
 	          <if test="proofreadType!=null and proofreadType!=''">
-	              AND fromSystem=#{proofreadType}
+	              AND proofreadType=#{proofreadType}
 	          </if>
 	          <if test="proofreadDate!=null and proofreadDate!=''">
-	              AND fromSystem=#{proofreadDate}
+	              AND proofreadDate=#{proofreadDate}
 	          </if>
 	      </where>         
     </select>

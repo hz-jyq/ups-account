@@ -95,6 +95,7 @@ public class BaofooProofreadAccountApiImpl implements ProofreadAccountApi {
 				.getProofreadHandler(fromSystem, proofreadAccountType, date, true);
 		Map<String,Object> params=new HashMap<>();
 		params.put("fromSystem", fromSystem);
+		params.put("channel", "01");
 		params.put("proofreadType", proofreadAccountType);
 		params.put("proofreadDate", DateUtils.dateToString(date));
 		try {
