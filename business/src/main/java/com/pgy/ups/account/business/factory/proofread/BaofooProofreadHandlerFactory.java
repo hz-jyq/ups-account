@@ -247,8 +247,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<BaoFuModel>
 				ProofreadErrorFactory.FLOW_STATUS_RESERVED, proofreadResult.getChannel(),
 				proofreadResult.getFromSystem(), proofreadResult.getProofreadType());
 		
-		for (ProofreadError e : reseveredList) {
-			
+		for (ProofreadError e : reseveredList) {			
 			// 业务有，渠道没有，则插入到baofuList中
 			if (Objects.equals(ProofreadErrorFactory.ERROR_TYPE_NO_BUSINESS, e.getErrorType())) {
 				BaoFuModel baoFuModel = new BaoFuModel();
