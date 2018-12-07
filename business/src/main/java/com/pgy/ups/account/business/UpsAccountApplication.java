@@ -20,5 +20,6 @@ public class UpsAccountApplication {
 		SpringApplication.run(UpsAccountApplication.class, args);
 		logger.info("start-up [ups-account] success !!!");
 	}
+	
 
 }
