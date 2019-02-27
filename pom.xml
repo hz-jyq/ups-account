@@ -6,7 +6,7 @@
 
 	<groupId>com.pgy.upsAccount</groupId>
 	<artifactId>ups-account</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 
 	<modules>
 		<module>facade</module>
@@ -17,19 +17,6 @@
 
 	<name>ups-account</name>
 	<description>service of ups account</description>
-
-	<distributionManagement>
-		<snapshotRepository>
-			<id>yylc-dev</id>
-			<name>yylc-dev</name>
-			<url>http://10.100.5.132:8081/content/repositories/Snapshots/</url>
-		</snapshotRepository>
-		<repository>
-			<id>yylc-prod</id>
-			<name>yylc-prod</name>
-			<url>http://10.100.5.132:8081/content/repositories/yylc-prod/</url>
-		</repository>
-	</distributionManagement>
 
 	<properties>
 		<manage.env>dev</manage.env>
