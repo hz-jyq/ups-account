@@ -17,6 +17,7 @@ import java.util.zip.ZipInputStream;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -590,12 +591,12 @@ class BaoFuDocumentParserHandler implements DocumentParserHandler<String, List<B
 		// resp_code=0000说明返回成功
 		int StrOf = responseStr.indexOf("resp_code=0000");
 		if (StrOf < 0) {
-			logger.error("下载失败！返回结果为：" + responseStr);
+			logger.error("下载失败！返回结果为：{}" , responseStr);
 			throw new Exception("下载失败!下载返回报文不正确");
 		}
 		String[] responeseContent = responseStr.split("=");
 		// base64解密
-		byte[] bytes = SecurityUtil.Base64Decode(responeseContent[3]);
+		byte[] bytes = Base64.decodeBase64(responeseContent[3]);
 		// 获取压缩文件流
 		ZipInputStream zipInputStream = new ZipInputStream(new ByteArrayInputStream(bytes));
 		// 必须先调用getNextEntry方法，否则无法解读文件
