@@ -141,14 +141,7 @@
 		<dependency>
 			<groupId>com.pgy.upsAccount</groupId>
 			<artifactId>ups-account-facade</artifactId>
-			<version>1.0.1</version>
-			<scope>compile</scope>
-			<exclusions>
-			<exclusion>
-				<groupId>com.pgy.ups</groupId>
-				<artifactId>ups-common</artifactId>
-			</exclusion>
-			</exclusions>
+			<version>1.0.2</version>
 		</dependency>
 
 		<dependency>

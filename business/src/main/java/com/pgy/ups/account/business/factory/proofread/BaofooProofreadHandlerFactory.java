@@ -176,7 +176,7 @@ class BaoFuProofreadHandler implements ProofreadHandler<String, List<BaoFuModel>
 		} else {
 			// 下载文件
 			Map<String, Object> param = generateDownLoadParam(proofreadResult.getProofreadDate());
-			String responseStr = HttpClientUtils.sentRequest(baoFuProofreadProperties.getRequestUrl(), param);
+			String responseStr = HttpClientUtils.getRequest(baoFuProofreadProperties.getRequestUrl(), param,10000);
 			// 对下载结果进行判断
 			if (StringUtils.isEmpty(responseStr)) {
 				logger.error("对账任务执行失败，文件下载失败！");

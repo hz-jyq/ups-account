@@ -23,7 +23,7 @@ public class ProofreadErrorServiceImpl  implements ProofreadErrorService {
 
     @Override
     public PageInfo<ProofreadError> getPage(ProofreadErrorForm form) {
-        PageInfo<ProofreadError> page =  new PageInfo<ProofreadError>(proofreadErrorDao.getPage(form.enablePaging()));
+        PageInfo<ProofreadError> page =  new PageInfo<>(proofreadErrorDao.getPage(form.enablePaging()));
         return page;
     }
 
