@@ -36,6 +36,7 @@ public class PageInfo<T> extends Model {
         this.pageSize = new Long(pagination.getSize());
         PageHelper.remove();
 	}
+	
 
 	public String getHtml() {
 		return html;
