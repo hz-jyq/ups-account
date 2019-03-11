@@ -1,6 +1,8 @@
 package com.pgy.ups.account.facade.from;
 
-public class ProofreadSumForm extends  AbstractPageForm<ProofreadSumForm>{
+import com.pgy.ups.common.page.AbstractPageForm;
+
+public class ProofreadSumForm extends AbstractPageForm<ProofreadSumForm> {
 
     /**
 	 * 

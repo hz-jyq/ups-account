@@ -53,7 +53,6 @@ import com.pgy.ups.account.facade.model.proofread.ProofreadSuccess;
 import com.pgy.ups.account.facade.model.proofread.ProofreadSum;
 import com.pgy.ups.common.utils.DateUtils;
 import com.pgy.ups.common.utils.HttpClientUtils;
-import com.pgy.ups.common.utils.SecurityUtil;
 import com.pgy.ups.common.utils.SpringUtils;
 
 /**

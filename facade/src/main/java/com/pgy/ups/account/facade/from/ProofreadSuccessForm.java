@@ -1,5 +1,7 @@
 package com.pgy.ups.account.facade.from;
 
+import com.pgy.ups.common.page.AbstractPageForm;
+
 public class ProofreadSuccessForm extends AbstractPageForm<ProofreadSuccessForm> {
 
     /**

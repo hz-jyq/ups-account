@@ -8,10 +8,10 @@ import com.pgy.ups.account.facade.dto.proofread.ProofreadCount;
 import com.pgy.ups.account.facade.dto.proofread.ProofreadErrorCountDto;
 import com.pgy.ups.account.facade.dubbo.api.ProofreadErrorService;
 import com.pgy.ups.account.facade.from.ExcelForm;
-import com.pgy.ups.account.facade.from.PageInfo;
 import com.pgy.ups.account.facade.from.ProofreadErrorForm;
 import com.pgy.ups.account.facade.model.proofread.ProofreadError;
 import com.pgy.ups.common.annotation.PrintExecuteTime;
+import com.pgy.ups.common.page.PageInfo;
 
 import java.util.List;
 

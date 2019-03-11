@@ -10,7 +10,7 @@
 
 	<artifactId>ups-account-facade</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 
 	<name>ups-account-facade</name>
 	<dependencies>
@@ -41,7 +41,7 @@
 		<dependency>
 			<groupId>com.pgy.ups</groupId>
 			<artifactId>ups-common</artifactId>
-			<version>1.0.1</version>
+			<version>1.0.2</version>
 		</dependency>
 	</dependencies>
 

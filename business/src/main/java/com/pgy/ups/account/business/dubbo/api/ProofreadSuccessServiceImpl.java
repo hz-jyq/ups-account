@@ -6,10 +6,10 @@ import com.pgy.ups.account.facade.dto.proofread.ProofreadCount;
 import com.pgy.ups.account.facade.dto.proofread.ProofreadSuccessCountDto;
 import com.pgy.ups.account.facade.dubbo.api.ProofreadSuccessService;
 import com.pgy.ups.account.facade.from.ExcelForm;
-import com.pgy.ups.account.facade.from.PageInfo;
 import com.pgy.ups.account.facade.from.ProofreadSuccessForm;
 import com.pgy.ups.account.facade.model.proofread.ProofreadSuccess;
 import com.pgy.ups.common.annotation.PrintExecuteTime;
+import com.pgy.ups.common.page.PageInfo;
 
 import javax.annotation.Resource;
 import java.util.List;
