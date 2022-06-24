@@ -63,7 +63,7 @@
 		<logstash.version>4.11</logstash.version>
 		<pmml.version>1.3.10</pmml.version>
 		<logstash.version>4.11</logstash.version>
-		<jboss-resteasy.version>3.0.7.Final</jboss-resteasy.version>
+		<jboss-resteasy.version>3.14.0.Final</jboss-resteasy.version>
 		<httpmime-version>4.5.1</httpmime-version>
 		<yinghuo-component.version>1.0.2</yinghuo-component.version>
 		<risk-ware.version>1.1.3</risk-ware.version>
