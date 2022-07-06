@@ -48,7 +48,7 @@
 		<aspectj.version>1.8.6</aspectj.version>
 		<spring-boot.version>2.0.5.RELEASE</spring-boot.version>
 		<hessian.version>4.0.51.3</hessian.version>
-		<groovy.version>2.4.0</groovy.version>
+		<groovy.version>2.4.21</groovy.version>
 		<joda-time.version>2.7</joda-time.version>
 		<jexl.version>2.1.1</jexl.version>
 		<commons-collections.version>3.2.2</commons-collections.version>
